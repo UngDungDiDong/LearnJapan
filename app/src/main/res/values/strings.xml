@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">LearnJapan</string>
+
+
+    <!--TEST ____________KHANG ____ DUC______________________-->
+    <string name="main">Main</string>
+    <string name="retry">Retry</string>
+    <string name="notification">Do you want to retry?</string>
+    <string name="answer_a">Answer A</string>
+    <string name="answer_b">Answer B</string>
+    <string name="answer_c">Answer C</string>
+    <string name="answer_d">Answer D</string>
+
+    <!-- Complete profile BANG-->
+    <string name="name">Full name</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="contact_info">Contact Info</string>
+
+    <!-- Profile tungtu -->
+    <string name="username">Username</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="number_set">Number Of Sets: </string>
+    <string name="total_words">Total of Words</string>
+
+    <!--Login diem nguyen-->
+    <string name="btn_login">Go</string>
+    <string name="login_with">Sign in with</string>
+    <string name="create_an_account"><u>Create an account?</u></string>
+    <string name="forgot_passowrd"><u>Forgot password?</u></string>
+    <string name="login">SIGN IN</string>
+    <string name="password">Password</string>
+
+
+    <!--add-vocab Trung-->
+    <string name="marugoto_title">まるごと A2.1</string>
+</resources>

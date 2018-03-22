@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1039713984153",
+    "firebase_url": "https://learnjapan-4b5b5.firebaseio.com",
+    "project_id": "learnjapan-4b5b5",
+    "storage_bucket": "learnjapan-4b5b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039713984153:android:5f27108f0abd698e",
+        "android_client_info": {
+          "package_name": "com.japan.jav.learnjapan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039713984153-6ujcic9lqb5jr2jucefns3s3h1jpp2i1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.japan.jav.learnjapan",
+            "certificate_hash": "09c6940c16623dcdf3f498fcce10b78e0a9d7563"
+          }
+        },
+        {
+          "client_id": "1039713984153-rtk574dh5k2ld86oifnn6t7uiuqfvind.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrqg0QiVJ6uHR-s_-AZPsH6UT90Ppd1i8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039713984153-rtk574dh5k2ld86oifnn6t7uiuqfvind.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

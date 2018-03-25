@@ -25,13 +25,15 @@
     <string name="number_set">Number Of Sets: </string>
     <string name="total_words">Total of Words</string>
 
-    <!--Login diem nguyen-->
+    <!--Login Diem + Nguyen-->
     <string name="btn_login">Go</string>
     <string name="login_with">Sign in with</string>
     <string name="create_an_account"><u>Create an account?</u></string>
     <string name="forgot_passowrd"><u>Forgot password?</u></string>
     <string name="login">SIGN IN</string>
     <string name="password">Password</string>
+
+    <string name="facebook_app_id">701216760267573</string>
 
 
     <!--add-vocab Trung-->

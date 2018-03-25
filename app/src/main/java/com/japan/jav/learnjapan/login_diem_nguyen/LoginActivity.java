@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -23,6 +24,11 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.japan.jav.learnjapan.R;
 import org.json.JSONObject;
 
@@ -34,17 +40,18 @@ import java.util.Arrays;
  * Created by matas on 3/17/18.
  */
 
-public class LoginActivity  extends AppCompatActivity {
+public class LoginActivity  extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private EditText edtUsername;
     private EditText edtPassword;
     private Button btnLogin;
     private LoginButton imgFacebook;
-    private ImageView imgGoogle;
+    private SignInButton imgGoogle;
     private TextView txtCreateAcount;
     private TextView txtForgotPass;
-
+    private GoogleApiClient mGoogleSignInClient;
     CallbackManager callbackManager;
+    int RC_SIGN_IN =001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,21 @@ public class LoginActivity  extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_login_nguyen_diem);
+
+        //yeu cau nguoi dung cung cap thong tin co ban
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
+        SignInButton imgGoogle =(SignInButton) findViewById(R.id.img_google);
+        imgGoogle.setSize(SignInButton.SIZE_STANDARD);
+
+        findViewById(R.id.img_google).setOnClickListener(this);
 
         getControls();
         setEvens();
@@ -102,7 +124,7 @@ public class LoginActivity  extends AppCompatActivity {
         edtPassword = (EditText) findViewById(R.id.edt_password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         imgFacebook = (LoginButton) findViewById(R.id.img_facebook);
-        imgGoogle = (ImageView) findViewById(R.id.img_google);
+        imgGoogle =(SignInButton) findViewById(R.id.img_google);
         txtCreateAcount = (TextView) findViewById(R.id.tv_create_an_account);
         txtForgotPass = (TextView) findViewById(R.id.tv_forgot_password);
     }
@@ -168,5 +190,25 @@ public class LoginActivity  extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d("Failed",connectionResult+ "");
+    }
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleSignInClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.d("Success",mGoogleSignInClient.isConnected()+ "");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.img_google:
+                signIn();
+                break;
+        }
     }
 }

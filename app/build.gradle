@@ -41,5 +41,7 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    compile 'com.google.android.gms:play-services:11.8.0'
 }
 apply plugin: 'com.google.gms.google-services'

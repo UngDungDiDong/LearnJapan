@@ -14,7 +14,6 @@
     <!-- Complete profile BANG-->
     <string name="name">Full name</string>
     <string name="phone">Phone</string>
-    <string name="email">Email</string>
     <string name="address">Address</string>
     <string name="contact_info">Contact Info</string>
 
@@ -31,11 +30,15 @@
     <string name="create_an_account"><u>Create an account?</u></string>
     <string name="forgot_passowrd"><u>Forgot password?</u></string>
     <string name="login">SIGN IN</string>
-    <string name="password">Password</string>
 
     <string name="facebook_app_id">701216760267573</string>
 
 
     <!--add-vocab Trung-->
     <string name="marugoto_title">まるごと A2.1</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="go">GO</string>
+    <string name="sign_in_with">Sign in with</string>
 </resources>

@@ -41,4 +41,8 @@
     <string name="password">Password</string>
     <string name="go">GO</string>
     <string name="sign_in_with">Sign in with</string>
+
+    <!--  reset pass   Hao-->
+    <string name="lbl_forgot_password">Forgot Password?</string>
+    <string name="forgot_password_msg">Please fill in your email address to receive your password reset instruction.</string>
 </resources>

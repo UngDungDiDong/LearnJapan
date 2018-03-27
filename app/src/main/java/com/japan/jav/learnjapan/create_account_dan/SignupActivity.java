@@ -1,24 +1,11 @@
 package com.japan.jav.learnjapan.create_account_dan;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -31,32 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.auth.api.signin.internal.SignInHubActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.japan.jav.learnjapan.R;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.UUID;
 import java.util.regex.Pattern;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignupActivity extends AppCompatActivity {
     public static String TAG = SignupActivity.class.getSimpleName();
@@ -107,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
                     registerAccount(email, password, username);
                 }
                 if (!isConnected()) {
-                    Toast.makeText(SignupActivity.this, "", );//////////////////
+                    Toast.makeText(SignupActivity.this, "Failed to connected account!", Toast.LENGTH_SHORT).show() ;
                     Log.d(TAG, "faill");
                 }
 

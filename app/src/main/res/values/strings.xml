@@ -31,7 +31,8 @@
     <string name="forgot_passowrd"><u>Forgot password?</u></string>
     <string name="login">SIGN IN</string>
 
-    <string name="facebook_app_id">701216760267573</string>
+    <string name="facebook_app_id">929227390576555</string>
+    <string name="fb_login_protocol_scheme">fb929227390576555</string>
 
 
     <!--add-vocab Trung-->

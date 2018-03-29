@@ -1,6 +1,7 @@
 package com.japan.jav.learnjapan.login_diem_nguyen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -52,6 +53,17 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
     private GoogleApiClient mGoogleSignInClient;
     CallbackManager callbackManager;
     int RC_SIGN_IN =001;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    /*
+    sharedPreferences:
+    name: user_infor
+    userName: name of user
+    passWord: pass of user
+
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +121,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
         GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
-                Log.d("aaa",response.getJSONObject().toString());
+                Log.d("status",response.getJSONObject().toString());
             }
         });
         Bundle parameters = new Bundle();
@@ -133,21 +145,19 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sharedPreferences = getSharedPreferences("user_infor",MODE_PRIVATE);
                 String username = edtUsername.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
 
                 if(!username.isEmpty() && !password.isEmpty()){
-                    // Input data login
+                    editor = sharedPreferences.edit();
+                    editor.putString("userName",username);
+                    editor.putString("passWord",password);
+                    editor.commit();
                 }else{
                     // no data input
                     Toast.makeText(LoginActivity.this, "Please fill in username and password", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        imgFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
             }
         });
 

@@ -20,4 +20,7 @@
     <color name="light_gray">#616161</color>
 
     <color name="grey_divider">#CFCFCF</color>
+
+    <!--Trung-->
+    <color name="colorDisable">#E0E0E0</color>
 </resources>

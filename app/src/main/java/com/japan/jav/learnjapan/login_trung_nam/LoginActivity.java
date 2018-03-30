@@ -1,0 +1,171 @@
+package com.japan.jav.learnjapan.login_trung_nam;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.create_account_dan.SignupActivity;
+import com.japan.jav.learnjapan.home_navigation_nhi_tam.HomeActivity;
+import com.japan.jav.learnjapan.reset_pass_hao.ResetPasswordActivity;
+import com.japan.jav.learnjapan.utilities_trung.Constants;
+import com.japan.jav.learnjapan.utilities_trung.DatabaseService;
+
+/**
+ * Created by matas on 3/17/18.
+ */
+
+public class LoginActivity  extends AppCompatActivity{
+
+    private EditText edtUsername;
+    private EditText edtPassword;
+    private Button btnLogin;
+    private ImageView imgFacebook;
+    private ImageView imgGoogle;
+    private TextView txtCreateAcount;
+    private TextView txtForgotPass;
+    private ProgressBar progressBar;
+    private ImageView imgBottom;
+
+    //---TRUNG-----
+    private FirebaseAuth mAuth;
+    private DatabaseService mData = DatabaseService.getInstance();;
+    private final String TAG = LoginActivity.class.getSimpleName();
+    //-------------
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login_trung_nam);
+
+        getControls();
+        setEvents();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mData.isSignIn()){
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Log.i(TAG, "Userid: " + mData.getUserID());
+            intent.putExtra(Constants.USER_ID, mData.getUserID());
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void getControls() {
+        imgBottom = (ImageView) findViewById(R.id.img_bottom);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        edtUsername = (EditText) findViewById(R.id.edt_username);
+        edtPassword = (EditText) findViewById(R.id.edt_password);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        imgFacebook = (ImageView) findViewById(R.id.img_facebook);
+        imgGoogle = (ImageView) findViewById(R.id.img_google);
+        txtCreateAcount = (TextView) findViewById(R.id.tv_create_an_account);
+        txtForgotPass = (TextView) findViewById(R.id.tv_forgot_password);
+
+        mAuth = mData.getFirebaseAuth();
+    }
+
+
+    private void setEvents() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username = edtUsername.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
+
+                if(!username.isEmpty() && !password.isEmpty()){
+                    hideKeyboard(view);
+                    progressBar.setVisibility(View.VISIBLE);
+                    imgBottom.setVisibility(View.GONE);
+                    requestSignIn(username, password);
+
+                }else{
+                    Toast.makeText(LoginActivity.this, "Please fill in username and password", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        imgFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        imgGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        txtCreateAcount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        txtForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+            }
+        });
+    }
+
+    private void requestSignIn(String email, String pass){
+        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "User_id:" + mData.getUserID());
+                    btnLogin.setEnabled(false);
+                    btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorDisable));
+
+                    Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra(Constants.USER_ID, task.getResult().getUser().getUid());
+
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
+                imgBottom.setVisibility(View.VISIBLE);
+                Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                btnLogin.setEnabled(true);
+                btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
+            }
+        });
+    }
+
+    private void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+}

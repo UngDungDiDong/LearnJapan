@@ -36,6 +36,8 @@
 
 
     <!--add-vocab Trung-->
+    <string name="login_success">Sign In Successfully</string>
+    <string name="login_failed">Sign In Attempt failed</string>
     <string name="marugoto_title">まるごと A2.1</string>
     <string name="sign_in">SIGN IN</string>
     <string name="email">Email</string>

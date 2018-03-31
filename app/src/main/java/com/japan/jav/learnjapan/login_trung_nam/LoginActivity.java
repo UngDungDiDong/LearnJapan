@@ -72,7 +72,7 @@ public class LoginActivity  extends AppCompatActivity{
             startActivity(intent);
             finish();
         }{
-            Log.e(TAG, "onStart: " + "null user");
+            Log.e(TAG, "onStart: " + "null usercom");
         }
     }
 

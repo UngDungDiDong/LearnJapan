@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -54,11 +57,17 @@ public class LoginActivity  extends AppCompatActivity{
     private LoginGoogle loginGoogle;
     //-------------
 
+    //---NAM----------
+    private LoginFacebook loginFacebook;
+    private LoginManager loginManager;
+    private CallbackManager callbackManager;
+    //----------------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login_trung_nam);
-
         getControls();
         setEvents();
     }
@@ -66,6 +75,7 @@ public class LoginActivity  extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+
         if(mData.isSignIn()){
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             Log.i(TAG, "Userid: " + mData.getUserID());
@@ -87,6 +97,12 @@ public class LoginActivity  extends AppCompatActivity{
         txtForgotPass = (TextView) findViewById(R.id.tv_forgot_password);
         loginGoogle = new LoginGoogle(getString(R.string.default_web_client_id),this);
         mAuth = mData.getFirebaseAuth();
+
+        //---NAM----------
+        loginManager = LoginManager.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+        loginFacebook = new LoginFacebook(loginManager, callbackManager, this);
+        //----------------
     }
 
     private void setEvents() {
@@ -111,7 +127,7 @@ public class LoginActivity  extends AppCompatActivity{
         imgFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                loginFacebook.loginFacebook();
             }
         });
 
@@ -171,6 +187,7 @@ public class LoginActivity  extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == LoginGoogle.RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);

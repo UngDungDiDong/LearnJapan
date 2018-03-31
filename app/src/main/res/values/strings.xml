@@ -31,9 +31,10 @@
     <string name="forgot_passowrd"><u>Forgot password?</u></string>
     <string name="login">SIGN IN</string>
 
-    <string name="facebook_app_id">929227390576555</string>
-    <string name="fb_login_protocol_scheme">fb929227390576555</string>
-
+    <!-- Login Nam -->
+    <string name="facebook_app_id">263187634220115</string>
+    <string name="fb_login_protocol_scheme">fb263187634220115</string>
+    <string name="login_cancel">Sign In Cancelled</string>
 
     <!--add-vocab Trung-->
     <string name="login_success">Sign In Successfully</string>

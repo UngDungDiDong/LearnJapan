@@ -15,6 +15,34 @@
       },
       "oauth_client": [
         {
+          "client_id": "1039713984153-fjlv3ko9tj6dd0u3duakmdkhkkq57rnn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.japan.jav.learnjapan",
+            "certificate_hash": "18a77aa678441f145116821445b9f0a7926ba87f"
+          }
+        },
+        {
+          "client_id": "1039713984153-3nout9ij3bg94his66ndkm487o5689sv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.japan.jav.learnjapan",
+            "certificate_hash": "6dd1b7882b8ca9526ce75b413eec3cadc3105e38"
+          }
+        },
+        {
+          "client_id": "1039713984153-pf4hir8d6ri8l2k8eeon02eksdfhpgbm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1039713984153-5ubvisrklpu23459nrok4ojl5fuqlgfv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.japan.jav.learnjapan",
+            "certificate_hash": "1e8aff189f8e46aae4837ff6ee817067bab67f2f"
+          }
+        },
+        {
           "client_id": "1039713984153-6ujcic9lqb5jr2jucefns3s3h1jpp2i1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -40,7 +68,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1039713984153-rtk574dh5k2ld86oifnn6t7uiuqfvind.apps.googleusercontent.com",
+              "client_id": "1039713984153-pf4hir8d6ri8l2k8eeon02eksdfhpgbm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

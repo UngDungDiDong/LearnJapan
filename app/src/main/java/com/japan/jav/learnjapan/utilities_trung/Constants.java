@@ -6,4 +6,5 @@ package com.japan.jav.learnjapan.utilities_trung;
 
 public class Constants {
     public static final String USER_ID = "userID";
+    public static final String USER_NODE = "User";
 }

@@ -60,6 +60,7 @@ public class DatabaseService {
         else
             return mUser.getUid().toString();
     }
+
     public static String getPhotoUrl(){
         if(!isSignIn())
             return "";

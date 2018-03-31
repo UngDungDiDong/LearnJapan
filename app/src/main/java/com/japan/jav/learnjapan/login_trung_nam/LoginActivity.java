@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -44,10 +47,10 @@ public class LoginActivity  extends AppCompatActivity{
     private ProgressBar progressBar;
     private ImageView imgBottom;
 
-    //---TRUNG-----
     private FirebaseAuth mAuth;
     private DatabaseService mData = DatabaseService.getInstance();;
     private final String TAG = LoginActivity.class.getSimpleName();
+    private LoginGoogle loginGoogle;
     //-------------
 
     @Override
@@ -81,10 +84,9 @@ public class LoginActivity  extends AppCompatActivity{
         imgGoogle = (ImageView) findViewById(R.id.img_google);
         txtCreateAcount = (TextView) findViewById(R.id.tv_create_an_account);
         txtForgotPass = (TextView) findViewById(R.id.tv_forgot_password);
-
+        loginGoogle = new LoginGoogle(getString(R.string.default_web_client_id),this);
         mAuth = mData.getFirebaseAuth();
     }
-
 
     private void setEvents() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +117,8 @@ public class LoginActivity  extends AppCompatActivity{
         imgGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent signInIntent = loginGoogle.getmGoogleSignInClient().getSignInIntent();
+                startActivityForResult(signInIntent, LoginGoogle.RC_SIGN_IN);
             }
         });
 
@@ -162,6 +165,28 @@ public class LoginActivity  extends AppCompatActivity{
                 btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == LoginGoogle.RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            LoginGoogle.firebaseAuthWithGoogle(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+        }
     }
 
     private void hideKeyboard(View view) {

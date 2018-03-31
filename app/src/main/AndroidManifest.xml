@@ -15,7 +15,7 @@
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
-        <activity android:name=".login_diem_nguyen.LoginActivity">
+        <activity android:name=".login_nam_trung.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
         <activity android:name=".add_vocab_trung.MojiExploresActivity"/>
         <activity android:name=".add_vocab_trung.TopicKanjiActivity"/>
         <activity android:name=".add_vocab_trung.KanjiExploresActivity"/>
-
+        <activity android:name=".home_navigation_nhi_tam.HomeActivity" />
 
     </application>
 

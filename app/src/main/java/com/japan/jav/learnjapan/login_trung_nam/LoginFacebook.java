@@ -20,10 +20,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.HomeActivity;
-
 import com.japan.jav.learnjapan.utilities_trung.Constants;
 import com.japan.jav.learnjapan.utilities_trung.DatabaseService;
 
@@ -77,6 +75,7 @@ public class LoginFacebook {
     private void handleFacebookAccessToken(AccessToken token) {
         showProgress();
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        Log.e("loginfacebook", "handleFacebookAccessToken: " + token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -103,7 +102,8 @@ public class LoginFacebook {
                     public void onFailure(@NonNull Exception e) {
                         hideProgress();
                         Log.d("UNSUCCESSFUL", "SignInError");
-                        Toast.makeText(mActivity, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", "onFailure: " + e.getMessage().toString());
                     }
         });
     }

@@ -10,8 +10,23 @@ public class User {
     private String username;
     private String email;
     private String linkPhoto;
+    private boolean gender;
+    private String phone;
+    private String dateOfBirth;
+    private String address;
 
     public User() {
+    }
+
+    public User(String id, String username, String email, String linkPhoto, boolean gender, String phone, String dateOfBirth, String address) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.linkPhoto = linkPhoto;
+        this.gender = gender;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
     }
 
     public User(String id, String username, String email, String linkPhoto) {
@@ -19,6 +34,38 @@ public class User {
         this.username = username;
         this.email = email;
         this.linkPhoto = linkPhoto;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getId() {

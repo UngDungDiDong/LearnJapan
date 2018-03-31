@@ -48,134 +48,181 @@
                     android:textSize="@dimen/text_size"
                     android:text="@string/contact_info"/>
 
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/swbUserInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:checked="true"
-                    android:paddingEnd="@dimen/padding"
-                    android:layout_weight="0"/>
-
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/groupUserInfo"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/padding">
+                android:id="@+id/groupUserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding">
 
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                     android:id="@+id/tfbName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:labelText="@string/name"
-                    app:primaryColor="@color/colorAccent"
-                    app:panelBackgroundColor="@color/color_white"
+                    android:layout_marginTop="@dimen/margin"
                     app:errorColor="@color/A400red"
-                    android:layout_marginTop="@dimen/margin">
+                    app:labelText="@string/name"
+                    app:panelBackgroundColor="@color/color_white"
+                    app:primaryColor="@color/colorAccent"
+                    app:secondaryColor="@color/colorPrimary">
+
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                        android:id="@+id/txtName"
+                        android:id="@+id/txtFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
+                        android:textSize="@dimen/text_size" />
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                        android:id="@+id/tfbDateOfBirth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_weight="0.8"
+                        app:errorColor="@color/A400red"
+                        app:labelText="@string/date_of_birth"
+                        app:panelBackgroundColor="@color/color_white"
+                        app:primaryColor="@color/colorAccent"
+                        app:secondaryColor="@color/colorPrimary">
+
+                        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                            android:id="@+id/txtDateOfBirth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size" />
+                    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                    <Button
+                        android:id="@+id/btnGetDate"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/ic_oclock"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/rgGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin"
+                    android:paddingTop="@dimen/padding"
+                    android:paddingBottom="@dimen/padding"
+                    android:background="@color/color_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:textSize="@dimen/text_size"
+                        android:textColor="@color/colorPrimary"/>
+                    <RadioButton
+                        android:id="@+id/rbMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male"
+                        android:layout_marginRight="@dimen/margin"
+                        android:checked="true"/>
+                    <RadioButton
+                        android:id="@+id/rbFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female"
+                        android:layout_marginLeft="@dimen/margin"/>
+                </RadioGroup>
 
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                     android:id="@+id/tfbPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:primaryColor="@color/colorAccent"
-                    app:panelBackgroundColor="@color/color_white"
+                    android:layout_marginTop="@dimen/margin"
+                    app:errorColor="@color/A400red"
                     app:labelText="@string/phone"
-                    android:layout_marginTop="@dimen/margin">
+                    app:panelBackgroundColor="@color/color_white"
+                    app:primaryColor="@color/colorAccent"
+                    app:secondaryColor="@color/colorPrimary">
+
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                         android:id="@+id/txtPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
+                        android:textSize="@dimen/text_size" />
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                     android:id="@+id/tfbEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:primaryColor="@color/colorAccent"
-                    app:panelBackgroundColor="@color/color_white"
+                    android:layout_marginTop="@dimen/margin"
+                    app:errorColor="@color/A400red"
                     app:labelText="@string/email"
-                    android:layout_marginTop="@dimen/margin">
+                    app:panelBackgroundColor="@color/color_white"
+                    app:primaryColor="@color/colorAccent"
+                    app:secondaryColor="@color/colorPrimary">
+
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                         android:id="@+id/txtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
+                        android:textSize="@dimen/text_size" />
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:paddingTop="@dimen/padding"
-                    android:paddingBottom="@dimen/padding"
-                    android:background="@color/color_white">
-
-                    <Spinner
-                        android:id="@+id/spProvince"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:paddingTop="@dimen/padding"
-                    android:paddingBottom="@dimen/padding"
-                    android:background="@color/color_white">
-
-                    <Spinner
-                        android:id="@+id/spDistrict"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:paddingTop="@dimen/padding"
-                    android:paddingBottom="@dimen/padding"
-                    android:background="@color/color_white">
-
-                    <Spinner
-                        android:id="@+id/spCommune"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
-
-                </LinearLayout>
 
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                     android:id="@+id/tfbAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:primaryColor="@color/colorAccent"
-                    app:panelBackgroundColor="@color/color_white"
+                    android:layout_marginTop="@dimen/margin"
+                    app:errorColor="@color/A400red"
                     app:labelText="@string/address"
+                    app:panelBackgroundColor="@color/color_white"
+                    app:primaryColor="@color/colorAccent"
+                    app:secondaryColor="@color/colorPrimary">
 
-                    android:layout_marginTop="@dimen/margin">
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                         android:id="@+id/txtAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size"/>
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:scrollbars="vertical"
+                        android:textSize="@dimen/text_size" />
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding">
+
+                <Button
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update" />
+
+                <Button
+                    android:id="@+id/btnCancle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancle" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

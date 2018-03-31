@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.HomeActivity;
 import com.japan.jav.learnjapan.model.User;
 import com.japan.jav.learnjapan.utilities_trung.Constants;
@@ -80,7 +81,7 @@ public class LoginGoogle {
                             User user = new User(idUser, userName, email,avatar);
                             createUserOnFireBase(user);
                             Toast.makeText(mActivity, R.string.login_success, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(mActivity, HomeActivity.class);
+                            Intent intent = new Intent(mActivity, CompleteProfileActivity.class);
                             intent.putExtra(Constants.USER_ID, idUser);
                             mActivity.startActivity(intent);
                             if(progressDialog.isShowing()){

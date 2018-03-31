@@ -71,6 +71,8 @@ public class LoginActivity  extends AppCompatActivity{
             intent.putExtra(Constants.USER_ID, mData.getUserID());
             startActivity(intent);
             finish();
+        }{
+            Log.e(TAG, "onStart: " + "null user");
         }
     }
 

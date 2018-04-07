@@ -23,4 +23,7 @@
 
     <!--Trung-->
     <color name="colorDisable">#E0E0E0</color>
+
+    <color name="colorLightPink">#ff79b0</color>
+
 </resources>

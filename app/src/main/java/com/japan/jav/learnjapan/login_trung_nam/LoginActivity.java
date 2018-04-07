@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -29,11 +28,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.create_account_dan.SignupActivity;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.HomeActivity;
+import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.reset_pass_hao.ResetPasswordActivity;
 import com.japan.jav.learnjapan.utilities_trung.Constants;
 import com.japan.jav.learnjapan.utilities_trung.DatabaseService;
@@ -81,7 +79,7 @@ public class LoginActivity  extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if(firebaseUser != null){
-            Intent intent = new Intent(LoginActivity.this, CompleteProfileActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             Log.i(TAG, "Userid: " + mData.getUserID());
             intent.putExtra(Constants.USER_ID, mData.getUserID());
             startActivity(intent);
@@ -171,7 +169,7 @@ public class LoginActivity  extends AppCompatActivity{
                     btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorDisable));
 
                     Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, CompleteProfileActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra(Constants.USER_ID, task.getResult().getUser().getUid());
 
                     startActivity(intent);

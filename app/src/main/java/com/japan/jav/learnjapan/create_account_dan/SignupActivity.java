@@ -2,9 +2,11 @@ package com.japan.jav.learnjapan.create_account_dan;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +20,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.login.Login;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
+import com.japan.jav.learnjapan.model.User;
+import com.japan.jav.learnjapan.utilities.DatabaseService;
+import com.japan.jav.learnjapan.utilities.Constants;
+
 import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
@@ -33,14 +49,19 @@ public class SignupActivity extends AppCompatActivity {
     TextView txtEmail;
     TextView txtConfirmPass;
     Button mBtnSignUp;
-    FirebaseAuth DatabaseService;
+    //FirebaseAuth DatabaseService1;
+    private  FirebaseAuth mAuth;
+    DatabaseService mDatabase ;
+    DatabaseReference mUserRef ;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_dan);
-
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = DatabaseService.getInstance();
+        mUserRef = mDatabase.createDatabase(Constants.USER_NODE);
 
         mUsername = (EditText) findViewById(R.id.edt_username);
         mEmail = (EditText) findViewById(R.id.edt_email);
@@ -51,6 +72,7 @@ public class SignupActivity extends AppCompatActivity {
         txtEmail = (TextView) findViewById(R.id.txtEmail);
         txtPass = (TextView) findViewById(R.id.txtPassword);
         txtConfirmPass = (TextView) findViewById(R.id.txtConfirmPass);
+
         // final DatabaseService mDatabase = DatabaseService.getInstance();
         textChangeListener();
         mBtnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -219,6 +241,47 @@ public class SignupActivity extends AppCompatActivity {
 
     private void registerAccount(final String email, final String password, final String username) {
 
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            User user = new User(task.getResult().getUser().getUid(), username, email);
+                            //setProgressBar();
+                            addNewUserOnFirebase(user);
+//                            Toast.makeText(SignupActivity.this, "Đăng kí thành công",
+//                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignupActivity.this, R.string.sign_up_failed, Toast.LENGTH_SHORT).show();
+                            mBtnSignUp.setEnabled(true);
+                            mBtnSignUp.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
+
+                        }
+                    }
+                });
+
+
+    }
+    private void addNewUserOnFirebase(final User user) {
+        final DatabaseReference mRef = mUserRef.child(user.getId());
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    mRef.setValue(user);
+                    Toast.makeText(SignupActivity.this, R.string.sign_up_successful, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SignupActivity.this, R.string.sign_up_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // ẩn bàn phím

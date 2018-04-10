@@ -23,7 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.HomeActivity;
 import com.japan.jav.learnjapan.model.User;
 import com.japan.jav.learnjapan.utilities_trung.Constants;
 import com.japan.jav.learnjapan.utilities_trung.DatabaseService;

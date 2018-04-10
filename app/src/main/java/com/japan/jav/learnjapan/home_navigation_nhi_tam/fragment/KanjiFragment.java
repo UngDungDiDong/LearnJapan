@@ -3,13 +3,13 @@ package com.japan.jav.learnjapan.home_navigation_nhi_tam.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
-import com.japan.jav.learnjapan.databinding.FragmentMojiTamBinding;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
@@ -44,7 +43,11 @@ import java.util.ArrayList;
 public class KanjiFragment extends Fragment{
     private DatabaseReference mDatabase;
     private ArrayList<Set> kanjiSetList;
-    private FragmentMojiTamBinding binding;
+
+    private FloatingActionButton fabKanji;
+    private FloatingActionButton fabCreate;
+    private FloatingActionButton fabAdd;
+
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -54,41 +57,47 @@ public class KanjiFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //View view = inflater.inflate(R.layout.fragment_moji_tam, container, false);
+        View view = inflater.inflate(R.layout.fragment_moji_tam, container, false);
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_moji_tam, container, false);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        setControll(view);
         loadMojiData();
-
-        initRecyclerView(binding.getRoot());
+        initRecyclerView(view);
         setEvents();
 
-        return binding.getRoot();
+        return view;
+    }
+
+    private void setControll(View view) {
+        fabKanji = (FloatingActionButton) view.findViewById(R.id.fabKanji);
+        fabCreate = (FloatingActionButton) view.findViewById(R.id.fabCreate);
+        fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void setEvents() {
-        binding.fabKanji.setOnClickListener(new View.OnClickListener() {
+        fabKanji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("TAG", "onClick: floatButton");
-                if(!binding .fabCreate.isShown()){
-                    binding.fabAdd.show();
-                    binding.fabCreate.show();  //required
-                    float deg = binding.fabKanji.getRotation() + 45F;
-                    binding.fabKanji.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                if(!fabCreate.isShown()){
+                    fabAdd.show();
+                    fabCreate.show();  //required
+                    float deg = fabKanji.getRotation() + 45F;
+                    fabKanji.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
                     isStable = false;
                 }
                 else{
-                    binding.fabAdd.hide();
-                    binding.fabCreate.hide();
-                    float deg = binding.fabKanji.getRotation() + 45F;
-                    binding.fabKanji.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                    fabAdd.hide();
+                    fabCreate.hide();
+                    float deg = fabKanji.getRotation() + 45F;
+                    fabKanji.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
                     isStable = true;
                 }
             }
         });
-        binding.fabCreate.setOnClickListener(new View.OnClickListener() {
+
+        fabCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
@@ -112,9 +121,9 @@ public class KanjiFragment extends Fragment{
                         }else{
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }
-                        binding.fabAdd.hide();
-                        binding.fabCreate.hide();
-                        binding.fabKanji.setRotation(binding.fabKanji.getRotation()+45F);
+                        fabAdd.hide();
+                        fabCreate.hide();
+                        fabKanji.setRotation(fabKanji.getRotation()+45F);
                         isStable = true;
 
                     }
@@ -128,7 +137,8 @@ public class KanjiFragment extends Fragment{
                 dialog.show();
             }
         });
-        binding.fabAdd.setOnClickListener(new View.OnClickListener() {
+
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isNetworkAvailable()){
@@ -224,9 +234,9 @@ public class KanjiFragment extends Fragment{
         builder.show();
     }
 
-    public void removeData(String id, int position) {
-        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(id).removeValue();
-        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(id).removeValue();
+    public void removeData(String setId, int position) {
+        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(setId).removeValue();
+        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(setId).removeValue();
         kanjiSetList.remove(position);
         adapter.notifyDataSetChanged();
 

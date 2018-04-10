@@ -2,18 +2,19 @@ package com.japan.jav.learnjapan.home_navigation_nhi_tam.view;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.japan.jav.learnjapan.R;
-import com.japan.jav.learnjapan.databinding.ActivityHomeTamNhiBinding;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.utilities.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.utilities.Constants;
@@ -24,7 +25,10 @@ import com.japan.jav.learnjapan.utilities.NetworkListener;
  */
 
 public class HomeActivity extends AppCompatActivity implements NetworkListener{
-    private ActivityHomeTamNhiBinding binding;
+    private Toolbar mToolBar;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
     private DatabaseReference mDatabase;
     private final String TAG = HomeActivity.class.getSimpleName();
     private static String mUserID = "";
@@ -33,11 +37,13 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home_tam_nhi);
+        setContentView(R.layout.activity_home_tam_nhi);
 
-        setSupportActionBar(binding.toolbar);
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
-        binding.viewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));
+        setControl();
+
+        setSupportActionBar(mToolBar);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -48,10 +54,16 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         //Toast.makeText(this, mUserID, Toast.LENGTH_SHORT).show();
     }
 
+    private void setControl() {
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+    }
 
 
     public static String getUserID() {
-        return mUserID;
+        //return mUserID;
+        return "XjeTdoRw0XYHIgDfFVKVyabyOcw2";
     }
 
     private void setUserID(){

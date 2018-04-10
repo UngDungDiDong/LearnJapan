@@ -56,7 +56,7 @@
 
 
         <TextView
-            android:id="@+id/txt_correct"
+            android:id="@+id/txtCorrect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CORRECT"
@@ -73,7 +73,7 @@
             android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_correct" />
+            app:layout_constraintTop_toBottomOf="@id/txtCorrect" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline_question"
@@ -193,7 +193,7 @@
             android:text="@string/main"
             android:layout_marginTop="20dp"
             android:textAllCaps="false"
-            android:layout_marginEnd="20dp"
+            android:layout_marginRight= "20dp"
             app:layout_constraintRight_toLeftOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/txtNotification"/>
 
@@ -205,7 +205,7 @@
             android:text="@string/retry"
             android:layout_marginTop="20dp"
             android:textAllCaps="false"
-            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             app:layout_constraintStart_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/txtNotification" />
 

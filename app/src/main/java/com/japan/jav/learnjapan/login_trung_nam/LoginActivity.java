@@ -84,7 +84,9 @@ public class LoginActivity  extends AppCompatActivity{
             intent.putExtra(Constants.USER_ID, mData.getUserID());
             startActivity(intent);
             finish();
-        }{
+        }
+        else
+        {
             Log.e(TAG, "onStart: " + "null usercom");
         }
     }

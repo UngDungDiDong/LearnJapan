@@ -7,4 +7,6 @@ package com.japan.jav.learnjapan.utilities;
 public class Constants {
     public static final String USER_ID = "userID";
     public static final String USER_NODE = "User";
+    public static final String SET_BY_USER = "SetByUser";
+
 }

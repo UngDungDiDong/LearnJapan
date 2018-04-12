@@ -1,5 +1,6 @@
 package com.japan.jav.learnjapan.home_navigation_nhi_tam.view;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
@@ -28,6 +29,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private DatabaseReference mDatabase;
     private final String TAG = HomeActivity.class.getSimpleName();
     private static String mUserID = "";
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,14 +43,19 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        registerReceiver(new ConnectivityChangeReceiver(this), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        receiver = new ConnectivityChangeReceiver(this);
+        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         setUserID();
 
         //Toast.makeText(this, mUserID, Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        unregisterReceiver(receiver);
+    }
 
     public static String getUserID() {
         return mUserID;

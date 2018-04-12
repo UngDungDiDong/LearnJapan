@@ -4,6 +4,7 @@ package com.japan.jav.learnjapan.home_navigation_nhi_tam.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +24,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,10 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.databinding.FragmentMojiTamBinding;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
+import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
+import com.japan.jav.learnjapan.model.Kanji;
+import com.japan.jav.learnjapan.model.Moji;
+import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
 import java.util.ArrayList;
 
@@ -52,6 +58,9 @@ public class MojiFragment extends Fragment {
 
     private boolean isStable = true;
 
+    private ArrayList<Moji> listMoji = new ArrayList<>();
+    public String FRAGMENT_TAG = "MOJI";
+    private FirebaseUser user;
     public MojiFragment() {
     }
 
@@ -83,7 +92,7 @@ public class MojiFragment extends Fragment {
 
         adapter = new RecyclerViewAdapter(mojiSetList);
         recyclerView.setAdapter(adapter);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         adapter.setOnBoomMenuItemClick(new RecyclerViewAdapter.OnBoomMenuItemClicked() {
             @Override
             public void OnMenuItemClicked(int classIndex, DataTypeEnum dataTypeEnum, Set set, int position) {
@@ -101,8 +110,8 @@ public class MojiFragment extends Fragment {
                         //chuyen qua test
                         Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
 
-//                        new CountItemTask(set).execute();
-//                        break;
+                        new LoadMojiTask(set).execute();
+                        break;
                     case 2:
                         Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
 
@@ -286,6 +295,55 @@ public class MojiFragment extends Fragment {
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    class LoadMojiTask extends AsyncTask<Void, Void, Void> {
+
+        Set mSet = new Set();
+
+        public LoadMojiTask(Set mSet) {
+            this.mSet = mSet;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            listMoji.clear();
+
+            mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(mSet.getId()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        listMoji.add(data.getValue(Moji.class));
+                        Log.d("kanji" , data.getValue(Kanji.class).toString());
+                    }
+                    publishProgress();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            if(listMoji.size() >= 5){
+                Intent intentTest = new Intent(getContext(), TestActivity.class);
+                intentTest.putExtra(Constants.SET_BY_USER, listMoji);
+                intentTest.putExtra(Constants.DATA_TYPE, FRAGMENT_TAG);
+                if (user != null) {
+                    intentTest.putExtra(Constants.USER_ID, user.getUid());
+                    intentTest.putExtra(Constants.KANJI_SET_NODE, mSet.getId());
+                }
+                startActivity(intentTest);
+            }
+            else{
+                Toast.makeText(getContext(), "Cannot create test.\nLess than 5 items in the set.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

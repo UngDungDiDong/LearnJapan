@@ -7,6 +7,7 @@ package com.japan.jav.learnjapan.model;
 public class User {
 
     private String id;
+    private String password; // dan cmt
     private String username;
     private String email;
     private String linkPhoto;
@@ -14,10 +15,13 @@ public class User {
     private String phone;
     private String dateOfBirth;
     private String address;
-
-    public User() {
+// dan cmt
+    public User(String email, String password, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
     }
-
+//
     public User(String id, String username, String email, String linkPhoto, boolean gender, String phone, String dateOfBirth, String address) {
         this.id = id;
         this.username = username;
@@ -35,6 +39,7 @@ public class User {
         this.email = email;
         this.linkPhoto = linkPhoto;
     }
+
 
     public String getPhone() {
         return phone;

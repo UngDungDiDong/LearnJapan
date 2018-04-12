@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/profile"
+            android:checked="false"
+            android:icon="@drawable/ic_account_circle_black_24px"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/about_us"
+            android:checked="false"
+            android:icon="@drawable/ic_help_outline_black_24px"
+            android:title="@string/about_us" />
+
+        <item
+            android:id="@+id/sent_mail"
+            android:checked="false"
+            android:icon="@drawable/ic_action_back"
+            android:title="@string/logout" />
+    </group>
+
+</menu>

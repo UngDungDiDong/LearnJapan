@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -76,6 +75,7 @@ public class KanjiFragment extends Fragment{
         return view;
     }
 
+    // ====== start. TamLV =====
     private void setControll(View view) {
         fabKanji = (FloatingActionButton) view.findViewById(R.id.fabKanji);
         fabCreate = (FloatingActionButton) view.findViewById(R.id.fabCreate);
@@ -122,11 +122,13 @@ public class KanjiFragment extends Fragment{
                         if(!setName.isEmpty()){
                             Toast.makeText(getContext(), setName, Toast.LENGTH_SHORT).show();
 
-//                            Intent intent = new Intent(getContext(), CreateVocabActivity.class);
-//                            intent.putExtra(Constants.CREATE, Constants.CREATE_KANJI);
-//                            intent.putExtra(Constants.NAME, setName);
-//                            intent.putExtra(Constants.USER_ID, mUserID);
-//                            startActivity(intent);
+                        /*
+                            Intent intent = new Intent(getContext(), CreateVocabActivity.class);
+                            intent.putExtra(Constants.CREATE, Constants.CREATE_KANJI);
+                            intent.putExtra(Constants.NAME, setName);
+                            intent.putExtra(Constants.USER_ID, mUserID);
+                            startActivity(intent);
+                        */
                         }else{
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }
@@ -151,9 +153,11 @@ public class KanjiFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if(isNetworkAvailable()){
+                /*
                     //chuyen add topic
-//                    Intent intent = new Intent(getContext(), TopicKanjiActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), TopicKanjiActivity.class);
+                    startActivity(intent);
+                */
                 }
                 else{
                     Toast.makeText(getContext(), R.string.not_connected, Toast.LENGTH_SHORT).show();
@@ -187,12 +191,14 @@ public class KanjiFragment extends Fragment{
                 switch (classIndex) {
                     case 0:
                         Toast.makeText(getContext(), "To learn activity", Toast.LENGTH_SHORT).show();
-                        //chuyen qua man hinh LEARN
-//                        Intent intent = new Intent(getContext(), LearnActivity.class);
-//                        intent.putExtra(Constants.SET_BY_USER, set);
-//                        intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
-//                        intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
-//                        startActivity(intent);
+                    /*
+                          // chuyen qua man hinh LEARN
+                          Intent intent = new Intent(getContext(), LearnActivity.class);
+                          intent.putExtra(Constants.SET_BY_USER, set);
+                          intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                          intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
+                          startActivity(intent);
+                    */
                         break;
                     case 1:
                         //chuyen qua test
@@ -203,19 +209,21 @@ public class KanjiFragment extends Fragment{
                         break;
                     case 2:
                         Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
-
-                        //chuyen qua chart
-//                        new LoadDataForChart(mData.getUserID(), set.getId()).execute();
-//                        break;
+                    /*
+                        // chuyen qua chart
+                        new LoadDataForChart(mData.getUserID(), set.getId()).execute();
+                    */
+                        break;
                     case 3:
-                        //chuyen qua edit tu vung
                         Toast.makeText(getContext(), "To edit activity", Toast.LENGTH_SHORT).show();
-
-//                        Intent editIntent = new Intent(getContext(), EditVocabActivity.class);
-//                        editIntent.putExtra(Constants.SET_BY_USER, set);
-//                        editIntent.putExtra(Constants.DATA_TYPE, FRAGMENT_TAG);
-//                        editIntent.putExtra(Constants.USER_ID, mUserID);
-//                        startActivity(editIntent);
+                    /*
+                        //chuyen qua edit tu vung
+                        Intent editIntent = new Intent(getContext(), EditVocabActivity.class);
+                        editIntent.putExtra(Constants.SET_BY_USER, set);
+                        editIntent.putExtra(Constants.DATA_TYPE, FRAGMENT_TAG);
+                        editIntent.putExtra(Constants.USER_ID, mUserID);
+                        startActivity(editIntent);
+                    */
                         break;
                     case 4:
                         //xoa item voi position
@@ -250,18 +258,20 @@ public class KanjiFragment extends Fragment{
         kanjiSetList.remove(position);
         adapter.notifyDataSetChanged();
 
+    /*
         //  data local
-        //        Map myMap = mLocalData.readAllData();
-        //        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-        //        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-        //        kanjiMap.remove(id);
-        //        setByUserMap.remove(id);
-        //        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-        //        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-        //        String str = new Gson().toJson(myMap);
-        //        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
-
+        Map myMap = mLocalData.readAllData();
+        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
+        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
+        kanjiMap.remove(id);
+        setByUserMap.remove(id);
+        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
+        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
+        String str = new Gson().toJson(myMap);
+        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
+    */
     }
+
 
 
     private void loadMojiData() {
@@ -269,30 +279,23 @@ public class KanjiFragment extends Fragment{
         new LoadKanjiDataTask().execute();
     }
 
-
-
     public class LoadKanjiDataTask  extends AsyncTask<Void, Void, Void> {
+
         @Override
         protected Void doInBackground(Void... voids) {
-            //"XjeTdoRw0XYHIgDfFVKVyabyOcw2"
-            //HomeActivity.getUserID()
             mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     kanjiSetList.clear();
-
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         kanjiSetList.add(ds.getValue(Set.class));
                         Log.d("TAMHome: ", ds.getKey()+"/"+String.valueOf(ds.getValue()));
                     }
-
                     publishProgress();
-
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
             return null;
@@ -304,6 +307,8 @@ public class KanjiFragment extends Fragment{
             adapter.notifyDataSetChanged();
         }
     }
+
+    //===== end. TamLV =====
 
     // Load list kanji to test
     class LoadKanjiTask extends AsyncTask<Void, Void, Void>{
@@ -317,7 +322,6 @@ public class KanjiFragment extends Fragment{
         @Override
         protected Void doInBackground(Void... voids) {
             listKanji.clear();
-
             mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(mSet.getId()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -327,10 +331,8 @@ public class KanjiFragment extends Fragment{
                     }
                     publishProgress();
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
             return null;

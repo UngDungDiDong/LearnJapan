@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -248,16 +247,18 @@ public class MojiFragment extends Fragment {
         mojiSetList.remove(position);
         adapter.notifyDataSetChanged();
 
-//data local
-//        Map myMap = mLocalData.readAllData();
-//        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-//        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-//        kanjiMap.remove(id);
-//        setByUserMap.remove(id);
-//        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-//        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-//        String str = new Gson().toJson(myMap);
-//        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
+    /*
+        // data local
+        Map myMap = mLocalData.readAllData();
+        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
+        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
+        kanjiMap.remove(id);
+        setByUserMap.remove(id);
+        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
+        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
+        String str = new Gson().toJson(myMap);
+        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
+    */
 
     }
 
@@ -269,10 +270,9 @@ public class MojiFragment extends Fragment {
 
     //Load moji set
     public class LoadMojiDataTask extends AsyncTask<Void, Void, Void> {
+
         @Override
         protected Void doInBackground(Void... voids) {
-            //"MaZd82q09vNtz7IGTdmrw8nbIuF2"
-            //HomeActivity.getUserID()
             mDatabase.child("MojiSet").child(HomeActivity.getUserID()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

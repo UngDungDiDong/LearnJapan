@@ -61,7 +61,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = TestActivity.class.getSimpleName();
 
     ViewGroup.MarginLayoutParams defaultMarginLayoutParams;
-    Float defaultRightCountTextSize;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -523,8 +522,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
         defaultMarginLayoutParams = new ViewGroup.MarginLayoutParams(marginLayoutParams);
         marginLayoutParams.setMargins(0, 250, 0, 0);
-
-        defaultRightCountTextSize = txtRightCount.getTextSize() + 0;
+        
         txtRightCount.setTextSize(100f);
 
         txtNotification.setVisibility(View.VISIBLE);

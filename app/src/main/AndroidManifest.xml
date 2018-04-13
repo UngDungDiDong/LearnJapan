@@ -21,7 +21,7 @@
         <activity android:name=".test_feature_khang_duc.view.TestActivity" />
         <activity android:name=".complete_profile_bang.CompleteProfileActivity" />
         <activity android:name=".profile_tung.ProfileActivity" />
-        <activity android:name=".chart_diem_nguyen.ChartActivity" />
+        <activity android:name=".chart_diem.ChartActivity" />
         <activity android:name=".add_vocab_thanh.download.DownloadTopicActivity" />
         <activity android:name=".add_vocab_thanh.add.AddVocabActivity" />
         <activity android:name=".create_account_dan.SignupActivity" />

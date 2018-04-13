@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
 import com.japan.jav.learnjapan.add_vocab_thanh.download.DownloadTopicActivity;
+import com.japan.jav.learnjapan.chart_diem.ChartActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
@@ -200,6 +201,13 @@ public class KanjiFragment extends Fragment {
                         break;
                     case 2:
                         Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
+
+                        // chuyen qua man hinh Chart
+                        Intent intent = new Intent(getContext(), ChartActivity.class);
+                        intent.putExtra(Constants.SET_BY_USER, set);
+                        intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
+                        startActivity(intent);
                     /*
                         // chuyen qua chart
                         new LoadDataForChart(mData.getUserID(), set.getId()).execute();

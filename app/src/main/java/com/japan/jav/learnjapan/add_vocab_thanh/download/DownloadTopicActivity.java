@@ -1,4 +1,4 @@
-package com.japan.jav.learnjapan.add_vocab_trung;
+package com.japan.jav.learnjapan.add_vocab_thanh.download;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,17 +8,17 @@ import android.support.v7.widget.Toolbar;
 import com.japan.jav.learnjapan.R;
 
 /**
- * Created by trungnguyeen on 3/17/18.
+ * Created by matas on 3/17/18.
  */
 
-public class MojiExploresActivity extends AppCompatActivity {
-
+public class DownloadTopicActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moji_explores_trung);
+        setContentView(R.layout.activity_topbar_recycleview_thanh);
+
         addControls();
     }
 

@@ -32,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
+import com.japan.jav.learnjapan.add_vocab_thanh.download.DownloadTopicActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
@@ -124,13 +126,8 @@ public class MojiFragment extends Fragment {
 //                        break;
                     case 3:
                         //chuyen qua edit tu vung
-                        Toast.makeText(getContext(), "To edit activity", Toast.LENGTH_SHORT).show();
-
-//                        Intent editIntent = new Intent(getContext(), EditVocabActivity.class);
-//                        editIntent.putExtra(Constants.SET_BY_USER, set);
-//                        editIntent.putExtra(Constants.DATA_TYPE, FRAGMENT_TAG);
-//                        editIntent.putExtra(Constants.USER_ID, mUserID);
-//                        startActivity(editIntent);
+                        Intent editIntent = new Intent(getContext(), AddVocabActivity.class);
+                        startActivity(editIntent);
                         break;
                     case 4:
                         //xoa item voi position
@@ -176,12 +173,8 @@ public class MojiFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String setName = edtSetName.getText().toString().trim();
                         if(!setName.isEmpty()){
-                            Toast.makeText(getContext(), setName, Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(getContext(), CreateVocabActivity.class);
-//                            intent.putExtra(Constants.CREATE, Constants.CREATE_KANJI);
-//                            intent.putExtra(Constants.NAME, setName);
-//                            intent.putExtra(Constants.USER_ID, mUserID);
-//                            startActivity(intent);
+                            Intent intent = new Intent(getContext(), AddVocabActivity.class);
+                            startActivity(intent);
                         }else{
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }
@@ -206,8 +199,8 @@ public class MojiFragment extends Fragment {
             public void onClick(View v) {
                 if(isNetworkAvailable()){
                     //chuyen add topic
-//                    Intent intent = new Intent(getContext(), TopicKanjiActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), DownloadTopicActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getContext(), R.string.not_connected, Toast.LENGTH_SHORT).show();

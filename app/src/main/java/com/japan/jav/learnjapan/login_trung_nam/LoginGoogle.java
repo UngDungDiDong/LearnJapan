@@ -24,8 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.model.User;
-import com.japan.jav.learnjapan.utilities_trung.Constants;
-import com.japan.jav.learnjapan.utilities_trung.DatabaseService;
+import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.DatabaseService;
 
 /**
  * Created by trungnguyeen on 3/31/18.

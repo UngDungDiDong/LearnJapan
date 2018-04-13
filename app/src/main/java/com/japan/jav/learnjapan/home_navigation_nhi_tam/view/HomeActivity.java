@@ -29,9 +29,9 @@ import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
-import com.japan.jav.learnjapan.utilities.ConnectivityChangeReceiver;
-import com.japan.jav.learnjapan.utilities.Constants;
-import com.japan.jav.learnjapan.utilities.NetworkListener;
+import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
+import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.NetworkListener;
 
 /**
  * Created by matas on 3/19/18.

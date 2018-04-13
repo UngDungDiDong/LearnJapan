@@ -1,4 +1,4 @@
-package com.japan.jav.learnjapan.utilities_trung;
+package com.japan.jav.learnjapan.service;
 
 /**
  * Created by lana on 18/01/2018.

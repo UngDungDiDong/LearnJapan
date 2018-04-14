@@ -1,4 +1,4 @@
-package com.japan.jav.learnjapan.chart_diem_nguyen;
+package com.japan.jav.learnjapan.chart_diem;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,6 @@ public class ChartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chart_diem_nguyen);
+        setContentView(R.layout.activity_chart_diem);
     }
 }

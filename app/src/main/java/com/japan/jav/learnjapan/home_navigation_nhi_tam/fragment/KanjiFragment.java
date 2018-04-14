@@ -32,7 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
-import com.japan.jav.learnjapan.add_vocab_thanh.download.DownloadTopicActivity;
+import com.japan.jav.learnjapan.download_nguyen.list.DownloadTopicActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;

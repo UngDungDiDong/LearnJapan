@@ -17,7 +17,7 @@
         app:titleTextColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/btn_done"
+        android:id="@+id/tv_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -55,10 +55,11 @@
         app:layout_constraintStart_toEndOf="@+id/tv_vocab"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvVocab"
+    <LinearLayout
+        android:id="@+id/ll_data"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/tv_vocab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

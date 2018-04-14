@@ -1,4 +1,4 @@
-package com.japan.jav.learnjapan.utilities;
+package com.japan.jav.learnjapan.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

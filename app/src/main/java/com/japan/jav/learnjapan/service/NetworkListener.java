@@ -1,4 +1,4 @@
-package com.japan.jav.learnjapan.utilities;
+package com.japan.jav.learnjapan.service;
 
 /**
  * Created by trungnguyeen on 1/27/18.

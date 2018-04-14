@@ -15,7 +15,11 @@ public class User {
     private String phone;
     private String dateOfBirth;
     private String address;
-// dan cmt
+
+    public User() {
+    }
+
+    // dan cmt
     public User(String email, String password, String username) {
         this.email = email;
         this.password = password;

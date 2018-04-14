@@ -32,6 +32,7 @@ import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
 import com.japan.jav.learnjapan.service.NetworkListener;
+import com.japan.jav.learnjapan.setting_khang.SettingActivity;
 
 /**
  * Created by matas on 3/19/18.
@@ -180,6 +181,11 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
                         firebaseUser = null;
                         Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(loginIntent);
+                        finish();
+                        return true;
+                    case R.id.menu:
+                        Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
+                        startActivity(settingIntent);
                         finish();
                         return true;
                     default:

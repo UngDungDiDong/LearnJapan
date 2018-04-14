@@ -2,7 +2,10 @@ package com.japan.jav.learnjapan.test_feature_khang_duc.view;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -21,6 +24,7 @@ import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
 import com.japan.jav.learnjapan.model.QuestionAnswer;
+import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.TestResult;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -522,13 +526,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
         defaultMarginLayoutParams = new ViewGroup.MarginLayoutParams(marginLayoutParams);
         marginLayoutParams.setMargins(0, 250, 0, 0);
-        
+
         txtRightCount.setTextSize(100f);
 
         txtNotification.setVisibility(View.VISIBLE);
         btnMain.setVisibility(View.VISIBLE);
         btnRetry.setVisibility(View.VISIBLE);
 
+//        Save Data To Sqlite
+        SqliteLoadTask task = new SqliteLoadTask();
+        task.execute(new TestResult(userID, number_of_right_answer, index_question - number_of_right_answer));
     }
 
     @Override
@@ -638,6 +645,39 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 txtNotification.setVisibility(View.GONE);
 
                 break;
+        }
+    }
+
+    private class SqliteLoadTask extends AsyncTask<TestResult, Void, Void> {
+        private SQLiteDatabase sqLiteDB;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            sqLiteDB = openOrCreateDatabase(getString(R.string.test_result_database), MODE_PRIVATE, null);
+        }
+
+        @Override
+        protected Void doInBackground(TestResult... testResult) {
+            try {
+                String sqlCreateTable = "CREATE TABLE IF NOT EXISTS `TestResult` (" +
+                        "`UserId` TEXT NOT NULL UNIQUE," +
+                        "`SoCauDung` INTEGER NOT NULL," +
+                        "`SoCauSai` INTEGER NOT NULL" +
+                        ")";
+                sqLiteDB.execSQL(sqlCreateTable);
+                String sql =
+                        "INSERT or replace INTO " + getString(R.string.test_result_table)
+                                + " (UserId, SoCauDung, SoCauSai) VALUES('"
+                                + testResult[0].getUserId() + "','"
+                                + testResult[0].getSoCauDung() + "','"
+                                + testResult[0].getSoCauSai() + "')" ;
+                sqLiteDB.execSQL(sql);
+            } catch (Exception e) {
+                Log.e("Sqlite", e.toString());
+            }
+            return null;
         }
     }
 }

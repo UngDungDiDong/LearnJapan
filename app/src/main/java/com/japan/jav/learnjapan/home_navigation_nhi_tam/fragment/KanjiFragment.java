@@ -249,10 +249,16 @@ public class KanjiFragment extends Fragment {
     }
 
     public void removeData(String setId, int position) {
-        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(setId).removeValue();
-        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(setId).removeValue();
+        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.KANJI_SET_NODE);
+        drMojiSet.child(user.getUid()).child(setId).removeValue();
+
+        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
+        drSetByUser.child(user.getUid()).child(setId).removeValue();
+
         kanjiSetList.remove(position);
         adapter.notifyDataSetChanged();
+
+
 
     /*
         //  data local

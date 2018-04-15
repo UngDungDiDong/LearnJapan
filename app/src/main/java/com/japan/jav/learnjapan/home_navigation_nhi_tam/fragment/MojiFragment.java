@@ -246,9 +246,13 @@ public class MojiFragment extends Fragment {
         builder.show();
     }
 
-    public void removeData(String id, int position) {
-        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(id).removeValue();
-        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(id).removeValue();
+    public void removeData(String setId, int position) {
+        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.MOJI_SET_NODE);
+        drMojiSet.child(user.getUid()).child(setId).removeValue();
+
+        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
+        drSetByUser.child(user.getUid()).child(setId).removeValue();
+
         mojiSetList.remove(position);
         adapter.notifyDataSetChanged();
 

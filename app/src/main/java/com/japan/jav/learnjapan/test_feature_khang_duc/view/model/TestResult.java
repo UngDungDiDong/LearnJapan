@@ -1,17 +1,30 @@
 package com.japan.jav.learnjapan.test_feature_khang_duc.view.model;
 
 public class TestResult {
+
+    String setId;
     String userId;
     int soCauDung;
-    int soCauSai;
+    int tongSocau;
+    int soLanTest;
 
     public TestResult() {
     }
 
-    public TestResult(String userId, int soCauDung, int soCauSai) {
+    public TestResult( String userId, String setId, int soLanTest, int tongSocau, int soCauDung) {
+        this.setId = setId;
         this.userId = userId;
         this.soCauDung = soCauDung;
-        this.soCauSai = soCauSai;
+        this.tongSocau = tongSocau;
+        this.soLanTest = soLanTest;
+    }
+
+    public String getSetId() {
+        return setId;
+    }
+
+    public void setSetId(String setId) {
+        this.setId = setId;
     }
 
     public String getUserId() {
@@ -30,11 +43,19 @@ public class TestResult {
         this.soCauDung = soCauDung;
     }
 
-    public int getSoCauSai() {
-        return soCauSai;
+    public int getTongSocau() {
+        return tongSocau;
     }
 
-    public void setSoCauSai(int soCauSai) {
-        this.soCauSai = soCauSai;
+    public void setTongSocau(int tongSocau) {
+        this.tongSocau = tongSocau;
+    }
+
+    public int getSoLanTest() {
+        return soLanTest;
+    }
+
+    public void setSoLanTest(int soLanTest) {
+        this.soLanTest = soLanTest;
     }
 }

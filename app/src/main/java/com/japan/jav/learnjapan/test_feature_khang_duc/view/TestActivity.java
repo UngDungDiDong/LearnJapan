@@ -162,8 +162,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 QAList.add(new QuestionAnswer(mojiList.get(i).getTuTiengNhat(),
                         mojiList.get(i).getCachDocHira()));
             }
-            NUMBER_OF_QUESTION = 5;
-//            NUMBER_OF_QUESTION = mojiList.size();
+//            NUMBER_OF_QUESTION = 5; // fortest
+            NUMBER_OF_QUESTION = mojiList.size();
             updateQuestionMoji(mojiList, answerList);
         }
         txtNumberQuestion.setText("QUESTION: " + String.valueOf(index_question+1) + "/"

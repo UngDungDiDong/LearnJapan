@@ -2,7 +2,6 @@ package com.japan.jav.learnjapan.test_feature_khang_duc.view;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -525,7 +524,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
         defaultMarginLayoutParams = new ViewGroup.MarginLayoutParams(marginLayoutParams);
-        marginLayoutParams.setMargins(0, 250, 0, 0);
+        marginLayoutParams.setMargins(0, 100, 0, 0);
 
         txtRightCount.setTextSize(100f);
 

@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvKanji"
+    android:id="@+id/cv_kanji"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     app:cardPreventCornerOverlap="false"
     app:contentPadding="5dp"
@@ -22,38 +21,38 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/txt_Kanji"
+            android:id="@+id/tv_kanji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/txt_amHan"
+            app:layout_constraintEnd_toStartOf="@id/tv_amhan"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Kanji"
-            android:textSize="30sp"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Kanji" />
 
         <TextView
-            android:id="@+id/txt_amHan"
+            android:id="@+id/tv_amhan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txt_Kanji"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Am Han"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/txt_tuVung" />
+            app:layout_constraintBottom_toTopOf="@id/tv_tuvung"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_kanji"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Am Han" />
 
         <TextView
-            android:id="@+id/txt_tuVung"
+            android:id="@+id/tv_tuvung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txt_Kanji"
-            tools:text="Tu Vung"
-            app:layout_constraintTop_toBottomOf="@id/txt_amHan" />
+            app:layout_constraintStart_toEndOf="@id/tv_kanji"
+            app:layout_constraintTop_toBottomOf="@id/tv_amhan"
+            tools:text="Tu Vung" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

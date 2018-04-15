@@ -29,9 +29,9 @@ import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
-import com.japan.jav.learnjapan.utilities.ConnectivityChangeReceiver;
-import com.japan.jav.learnjapan.utilities.Constants;
-import com.japan.jav.learnjapan.utilities.NetworkListener;
+import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
+import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.NetworkListener;
 
 /**
  * Created by matas on 3/19/18.
@@ -80,8 +80,36 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         setupDrawerLayout();
         addEvent();
 
-        //Toast.makeText(this, mUserID, Toast.LENGTH_SHORT).show();
+    }
 
+    // ===== start. TamLV ======
+    private void setControl() {
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+    }
+
+    public static String getUserID() {
+        //return "XjeTdoRw0XYHIgDfFVKVyabyOcw2";
+        return mUserID;
+    }
+
+    @Override
+    public void connected() {}
+
+    @Override
+    public void notConnected() {
+        Toast.makeText(this, getResources().getText(R.string.not_connected), Toast.LENGTH_SHORT).show();
+    }
+    // ===== end. TamLV =====
+
+
+    private void setUserID(){
+        Intent intent = getIntent();
+        if(intent.hasExtra(Constants.USER_ID)){
+            mUserID = intent.getStringExtra(Constants.USER_ID);
+            Log.i(TAG, "getUserID: " + mUserID);
+        }
     }
 
     private void setupToolbar() {
@@ -168,35 +196,5 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
     }
-    private void setControl() {
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-    }
 
-
-    public static String getUserID() {
-        //return mUserID;
-        //return "Cth8UD56A7VzeehZnDsPCfiCrBS2";
-        return "XjeTdoRw0XYHIgDfFVKVyabyOcw2";
-    }
-
-    private void setUserID(){
-        Intent intent = getIntent();
-        if(intent.hasExtra(Constants.USER_ID)){
-            mUserID = intent.getStringExtra(Constants.USER_ID);
-            Log.i(TAG, "getUserID: " + mUserID);
-        }
-    }
-
-    @Override
-    public void connected() {
-
-    }
-
-    @Override
-    public void notConnected() {
-        Toast.makeText(this, getResources().getText(R.string.not_connected), Toast.LENGTH_SHORT).show();
-
-    }
 }

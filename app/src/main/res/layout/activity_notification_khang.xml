@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.japan.jav.learnjapan.profile_tung.ProfileActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="10dp"
+        android:theme="@style/ToolBarTheme.ToolBarStyle"
+        app:navigationIcon="?attr/homeAsUpIndicator" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutProfileImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+    
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

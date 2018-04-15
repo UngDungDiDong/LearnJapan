@@ -22,8 +22,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
-import com.japan.jav.learnjapan.utilities_trung.Constants;
-import com.japan.jav.learnjapan.utilities_trung.DatabaseService;
+import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.DatabaseService;
 
 import java.util.Arrays;
 

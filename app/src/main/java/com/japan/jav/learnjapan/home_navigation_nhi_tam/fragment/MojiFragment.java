@@ -135,7 +135,9 @@ public class MojiFragment extends Fragment {
                     case 3:
                         //chuyen qua edit tu vung
                         Intent editIntent = new Intent(getContext(), AddVocabActivity.class);
-                        startActivity(editIntent);
+                        editIntent.putExtra(Constants.SET_BY_USER, set);
+                        editIntent.putExtra(Constants.CREATE, Constants.MOJI);
+                        startActivityForResult(editIntent, HomeActivity.REQUEST_ADD_VOCAB);
                         break;
                     case 4:
                         //xoa item voi position
@@ -182,7 +184,9 @@ public class MojiFragment extends Fragment {
                         String setName = edtSetName.getText().toString().trim();
                         if(!setName.isEmpty()){
                             Intent intent = new Intent(getContext(), AddVocabActivity.class);
-                            startActivity(intent);
+                            intent.putExtra(Constants.CREATE, Constants.MOJI);
+                            intent.putExtra(Constants.NAME, setName);
+                            startActivityForResult(intent, HomeActivity.REQUEST_ADD_VOCAB);
                         }else{
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }

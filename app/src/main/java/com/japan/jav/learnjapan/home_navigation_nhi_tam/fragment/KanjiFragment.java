@@ -56,7 +56,6 @@ public class KanjiFragment extends Fragment {
     private FloatingActionButton fabCreate;
     private FloatingActionButton fabAdd;
 
-
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
 
@@ -124,7 +123,9 @@ public class KanjiFragment extends Fragment {
                         String setName = edtSetName.getText().toString().trim();
                         if (!setName.isEmpty()) {
                             Intent intent = new Intent(getContext(), AddVocabActivity.class);
-                            startActivity(intent);
+                            intent.putExtra(Constants.CREATE, Constants.KANJI);
+                            intent.putExtra(Constants.NAME, setName);
+                            startActivityForResult(intent, HomeActivity.REQUEST_ADD_VOCAB);
                         } else {
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }
@@ -216,7 +217,9 @@ public class KanjiFragment extends Fragment {
                     case 3:
                         //chuyen qua edit tu vung
                         Intent editIntent = new Intent(getContext(), AddVocabActivity.class);
-                        startActivity(editIntent);
+                        editIntent.putExtra(Constants.SET_BY_USER, set);
+                        editIntent.putExtra(Constants.CREATE, Constants.KANJI);
+                        startActivityForResult(editIntent, HomeActivity.REQUEST_ADD_VOCAB);
                         break;
                     case 4:
                         //xoa item voi position

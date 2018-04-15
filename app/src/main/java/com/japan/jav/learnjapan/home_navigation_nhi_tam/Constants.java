@@ -11,4 +11,8 @@ public class Constants {
     public static final String KANJI_SET_NODE = "KanjiSet";
     public static final String MOJI_SET_NODE = "MojiSet";
 
+    public static final String NAME = "name";
+    public static final String CREATE = "create";
+    public static final String KANJI = "kanji";
+    public static final String MOJI = "moji";
 }

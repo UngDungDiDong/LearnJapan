@@ -18,6 +18,7 @@ public class Moji implements Serializable {
         this.NghiaTiengViet = nghiaTiengViet;
         this.TuTiengNhat = tuTiengNhat;
     }
+
     public Moji() {
 
     }
@@ -25,10 +26,11 @@ public class Moji implements Serializable {
     public String getAmHan() {
         return AmHan;
     }
-      
+
     public void setAmHan(String amHan) {
         this.AmHan = amHan;
     }
+
     public String getCachDocHira() {
         return CachDocHira;
     }
@@ -36,6 +38,7 @@ public class Moji implements Serializable {
     public void setCachDocHira(String cachDocHira) {
         this.CachDocHira = cachDocHira;
     }
+
     public String getNghiaTiengViet() {
         return NghiaTiengViet;
     }
@@ -43,12 +46,15 @@ public class Moji implements Serializable {
     public void setNghiaTiengViet(String nghiaTiengViet) {
         this.NghiaTiengViet = nghiaTiengViet;
     }
+
     public String getTuTiengNhat() {
         return TuTiengNhat;
     }
+
     public void setTuTiengNhat(String tuTiengNhat) {
         this.TuTiengNhat = tuTiengNhat;
     }
+
     @Override
     public String toString() {
         return "Moji{" +

@@ -38,6 +38,7 @@ import com.japan.jav.learnjapan.service.NetworkListener;
  */
 
 public class HomeActivity extends AppCompatActivity implements NetworkListener{
+    public static final int REQUEST_ADD_VOCAB = 1;
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -196,5 +197,4 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
     }
-
 }

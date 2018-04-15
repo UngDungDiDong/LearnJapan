@@ -22,7 +22,8 @@
         <activity android:name=".complete_profile_bang.CompleteProfileActivity" />
         <activity android:name=".profile_tung.ProfileActivity" />
         <activity android:name=".chart_diem.ChartActivity" />
-        <activity android:name=".add_vocab_thanh.download.DownloadTopicActivity" />
+        <activity android:name=".download_nguyen.list.DownloadTopicActivity" />
+        <activity android:name=".download_nguyen.detail.DetailTopicActivity"/>
         <activity android:name=".add_vocab_thanh.add.AddVocabActivity" />
         <activity android:name=".create_account_dan.SignupActivity" />
         <activity android:name=".reset_pass_hao.ResetPasswordActivity" />

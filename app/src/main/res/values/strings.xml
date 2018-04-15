@@ -77,4 +77,15 @@
     <string name="sign_up_failed">Sign Up Failed</string>
     <string name="sign_up_successful">Sign Up Successful</string>
 
+
+    <!--Thanh-->
+    <string name="kanji">Kanji (front)</string>
+    <string name="tu_vung_back">Từ vựng (back)</string>
+
+    <string name="tu_vung">Từ vựng (front)</string>
+    <string name="hiragana">Hiragana (back)</string>
+    <string name="am_han">Âm Hán (back)</string>
+    <string name="nghia">Nghĩa (back)</string>
+    <string name="warning_unsave_data">Do you want to save your vocabulary set?</string>
+    <string name="new_words">New words (%d)</string>
 </resources>

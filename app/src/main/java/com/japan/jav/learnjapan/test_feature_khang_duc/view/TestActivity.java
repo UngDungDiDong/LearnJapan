@@ -2,6 +2,7 @@ package com.japan.jav.learnjapan.test_feature_khang_duc.view;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -27,7 +28,6 @@ import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.TestResult;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -147,13 +147,13 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initData(boolean isKanji) {
         if (isKanji) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < kanjiList.size(); i++) {
                 oldKanjiList.add(kanjiList.get(i));
                 answerList.add(kanjiList.get(i).getAmhan());
                 QAList.add(new QuestionAnswer(kanjiList.get(i).getKanji(),
                         kanjiList.get(i).getAmhan()));
             }
-            NUMBER_OF_QUESTION = 10;
+            NUMBER_OF_QUESTION = kanjiList.size();
             updateQuestionKanji(kanjiList, answerList);
         } else {
             for (int i = 0; i < mojiList.size(); i++) {
@@ -163,6 +163,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         mojiList.get(i).getCachDocHira()));
             }
             NUMBER_OF_QUESTION = 5;
+//            NUMBER_OF_QUESTION = mojiList.size();
             updateQuestionMoji(mojiList, answerList);
         }
         txtNumberQuestion.setText("QUESTION: " + String.valueOf(index_question+1) + "/"
@@ -486,7 +487,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         if (isKanji) {
             if (index_question == NUMBER_OF_QUESTION) {
                 Log.d("KANJIlist_EMPTY", "KANJIlist_EMPTY");
-//                updateNumberOfRightAnswer();
+                updateNumberOfRightAnswer();
                 showResult();
             } else {
                 updateQuestionKanji(kanjiList, answerList);

@@ -12,6 +12,9 @@
     <string name="answer_d">Answer D</string>
     <string name="test_result_database">LearnJapan.s3db</string>
     <string name="test_result_table">TestResult</string>
+    <!--Setting Notification Khang-->
+    <string name="notification_channel_id"></string>
+    <string name="notification_channel_name"></string>
 
     <!-- Complete profile BANG-->
     <string name="name">Full name</string>

@@ -186,8 +186,12 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
                         return true;
                     case R.id.menu:
                         Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
+                        if (mUserID != "") {
+                            settingIntent.putExtra(Constants.USER_ID, mUserID);
+                        }
                         startActivity(settingIntent);
-                        finish();
+//                        finish();
+                        menuItem.setChecked(false);
                         return true;
                     default:
 

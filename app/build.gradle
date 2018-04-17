@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
 
+
     //setting notification
 
     implementation 'com.google.firebase:firebase-messaging:11.8.0'

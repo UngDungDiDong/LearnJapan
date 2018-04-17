@@ -148,8 +148,9 @@ public class LoginActivity  extends AppCompatActivity{
         txtCreateAcount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+                startActivity (new Intent(LoginActivity.this, SignupActivity.class));
+                //Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                //startActivity(intent);
             }
         });
 

@@ -29,12 +29,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.japan.jav.learnjapan.R;
-import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.create_account_dan.SignupActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.reset_pass_hao.ResetPasswordActivity;
-import com.japan.jav.learnjapan.utilities_trung.Constants;
-import com.japan.jav.learnjapan.utilities_trung.DatabaseService;
+import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.DatabaseService;
 
 /**
  * Created by matas on 3/17/18.

@@ -1,5 +1,6 @@
 package com.japan.jav.learnjapan.home_navigation_nhi_tam.view;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,22 +23,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
-import com.japan.jav.learnjapan.utilities.ConnectivityChangeReceiver;
-import com.japan.jav.learnjapan.utilities.Constants;
-import com.japan.jav.learnjapan.utilities.NetworkListener;
+import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
+import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.NetworkListener;
+import com.japan.jav.learnjapan.setting_khang.SettingActivity;
 
 /**
  * Created by matas on 3/19/18.
  */
 
 public class HomeActivity extends AppCompatActivity implements NetworkListener{
+    public static final int REQUEST_ADD_VOCAB = 1;
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private FirebaseUser firebaseUser;
     private final String TAG = HomeActivity.class.getSimpleName();
     private static String mUserID = "";
+    BroadcastReceiver receiver;
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -71,7 +72,8 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
         mDatabase = FirebaseDatabase.getInstance().getReference().getDatabase();
 
-        registerReceiver(new ConnectivityChangeReceiver(this), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        receiver = new ConnectivityChangeReceiver(this);
+        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         setUserID();
         setupToolbar();
@@ -80,8 +82,36 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         setupDrawerLayout();
         addEvent();
 
-        //Toast.makeText(this, mUserID, Toast.LENGTH_SHORT).show();
+    }
 
+    // ===== start. TamLV ======
+    private void setControl() {
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+    }
+
+    public static String getUserID() {
+        //return "XjeTdoRw0XYHIgDfFVKVyabyOcw2";
+        return mUserID;
+    }
+
+    @Override
+    public void connected() {}
+
+    @Override
+    public void notConnected() {
+        Toast.makeText(this, getResources().getText(R.string.not_connected), Toast.LENGTH_SHORT).show();
+    }
+    // ===== end. TamLV =====
+
+
+    private void setUserID(){
+        Intent intent = getIntent();
+        if(intent.hasExtra(Constants.USER_ID)){
+            mUserID = intent.getStringExtra(Constants.USER_ID);
+            Log.i(TAG, "getUserID: " + mUserID);
+        }
     }
 
     private void setupToolbar() {
@@ -120,7 +150,11 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        unregisterReceiver(receiver);
+    }
 
     private void addEvent() {
 
@@ -150,6 +184,15 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
                         startActivity(loginIntent);
                         finish();
                         return true;
+                    case R.id.menu:
+                        Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
+                        if (mUserID != "") {
+                            settingIntent.putExtra(Constants.USER_ID, mUserID);
+                        }
+                        startActivity(settingIntent);
+//                        finish();
+                        menuItem.setChecked(false);
+                        return true;
                     default:
 
                         return false;
@@ -163,36 +206,5 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private void addControls() {
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
-    }
-    private void setControl() {
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-    }
-
-
-    public static String getUserID() {
-        //return mUserID;
-        //return "Cth8UD56A7VzeehZnDsPCfiCrBS2";
-        return "XjeTdoRw0XYHIgDfFVKVyabyOcw2";
-    }
-
-    private void setUserID(){
-        Intent intent = getIntent();
-        if(intent.hasExtra(Constants.USER_ID)){
-            mUserID = intent.getStringExtra(Constants.USER_ID);
-            Log.i(TAG, "getUserID: " + mUserID);
-        }
-    }
-
-    @Override
-    public void connected() {
-
-    }
-
-    @Override
-    public void notConnected() {
-        Toast.makeText(this, getResources().getText(R.string.not_connected), Toast.LENGTH_SHORT).show();
-
     }
 }

@@ -46,8 +46,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
         viewHolder.txtName.setText(list.get(position).getName());
         viewHolder.txtDatetime.setText(list.get(position).getDatetime());
-
+        viewHolder.set = this.list.get(position);
         viewHolder.bmb.clearBuilders();
+
         int stringIndex = 0;
         for (int i = 0; i < viewHolder.bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             switch (i) {

@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,8 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.model.User;
-import com.japan.jav.learnjapan.utilities.DatabaseService;
-import com.japan.jav.learnjapan.utilities.Constants;
+import com.japan.jav.learnjapan.service.DatabaseService;
+import com.japan.jav.learnjapan.service.Constants;
 
 import java.util.regex.Pattern;
 

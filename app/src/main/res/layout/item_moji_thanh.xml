@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_boder_4dp"
+    app:cardCornerRadius="10dp">
+
+    <ImageView
+        android:id="@+id/imv_delete"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_tu_vung"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/tu_vung"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/imv_delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tu_vung"
+        app:layout_constraintStart_toStartOf="@+id/edt_tu_vung"
+        app:layout_constraintTop_toBottomOf="@+id/edt_tu_vung" />
+
+    <EditText
+        android:id="@+id/edt_hiragana"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/hiragana"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tu_vung"
+        app:layout_constraintStart_toStartOf="@+id/edt_tu_vung"
+        app:layout_constraintTop_toBottomOf="@+id/edt_tu_vung" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tu_vung"
+        app:layout_constraintStart_toStartOf="@+id/edt_tu_vung"
+        app:layout_constraintTop_toBottomOf="@+id/edt_hiragana" />
+
+    <EditText
+        android:id="@+id/edt_am_han"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/am_han"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tu_vung"
+        app:layout_constraintStart_toStartOf="@+id/edt_tu_vung"
+        app:layout_constraintTop_toBottomOf="@+id/edt_hiragana" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tu_vung"
+        app:layout_constraintStart_toStartOf="@+id/edt_tu_vung"
+        app:layout_constraintTop_toBottomOf="@+id/edt_am_han" />
+
+    <EditText
+        android:id="@+id/edt_nghia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/nghia"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tu_vung"
+        app:layout_constraintStart_toStartOf="@+id/edt_tu_vung"
+        app:layout_constraintTop_toBottomOf="@+id/edt_am_han" />
+</android.support.constraint.ConstraintLayout>

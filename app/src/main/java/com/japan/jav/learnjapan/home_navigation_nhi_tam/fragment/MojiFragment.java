@@ -4,6 +4,7 @@ package com.japan.jav.learnjapan.home_navigation_nhi_tam.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -23,17 +24,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
+import com.japan.jav.learnjapan.chart_diem.ChartActivity;
+import com.japan.jav.learnjapan.download_nguyen.topic.TopicMojiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
+import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
+import com.japan.jav.learnjapan.model.Kanji;
+import com.japan.jav.learnjapan.model.Moji;
+import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
 import java.util.ArrayList;
 
@@ -54,6 +63,9 @@ public class MojiFragment extends Fragment {
 
     private boolean isStable = true;
 
+    private ArrayList<Moji> listMoji = new ArrayList<>();
+    public String FRAGMENT_TAG = "MOJI";
+    private FirebaseUser user;
     public MojiFragment() {
     }
 
@@ -87,7 +99,7 @@ public class MojiFragment extends Fragment {
 
         adapter = new RecyclerViewAdapter(mojiSetList);
         recyclerView.setAdapter(adapter);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         adapter.setOnBoomMenuItemClick(new RecyclerViewAdapter.OnBoomMenuItemClicked() {
             @Override
             public void OnMenuItemClicked(int classIndex, DataTypeEnum dataTypeEnum, Set set, int position) {
@@ -105,23 +117,27 @@ public class MojiFragment extends Fragment {
                         //chuyen qua test
                         Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
 
-//                        new CountItemTask(set).execute();
-//                        break;
+                        new LoadMojiTask(set).execute();
+                        break;
                     case 2:
                         Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
 
+                        // chuyen qua man hinh Chart
+                        Intent intent = new Intent(getContext(), ChartActivity.class);
+                        intent.putExtra(Constants.SET_BY_USER, set);
+                        intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
+                        startActivity(intent);
+
                         //chuyen qua chart
 //                        new LoadDataForChart(mData.getUserID(), set.getId()).execute();
-//                        break;
+                        break;
                     case 3:
                         //chuyen qua edit tu vung
-                        Toast.makeText(getContext(), "To edit activity", Toast.LENGTH_SHORT).show();
-
-//                        Intent editIntent = new Intent(getContext(), EditVocabActivity.class);
-//                        editIntent.putExtra(Constants.SET_BY_USER, set);
-//                        editIntent.putExtra(Constants.DATA_TYPE, FRAGMENT_TAG);
-//                        editIntent.putExtra(Constants.USER_ID, mUserID);
-//                        startActivity(editIntent);
+                        Intent editIntent = new Intent(getContext(), AddVocabActivity.class);
+                        editIntent.putExtra(Constants.SET_BY_USER, set);
+                        editIntent.putExtra(Constants.CREATE, Constants.MOJI);
+                        startActivityForResult(editIntent, HomeActivity.REQUEST_ADD_VOCAB);
                         break;
                     case 4:
                         //xoa item voi position
@@ -167,12 +183,10 @@ public class MojiFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String setName = edtSetName.getText().toString().trim();
                         if(!setName.isEmpty()){
-                            Toast.makeText(getContext(), setName, Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(getContext(), CreateVocabActivity.class);
-//                            intent.putExtra(Constants.CREATE, Constants.CREATE_KANJI);
-//                            intent.putExtra(Constants.NAME, setName);
-//                            intent.putExtra(Constants.USER_ID, mUserID);
-//                            startActivity(intent);
+                            Intent intent = new Intent(getContext(), AddVocabActivity.class);
+                            intent.putExtra(Constants.CREATE, Constants.MOJI);
+                            intent.putExtra(Constants.NAME, setName);
+                            startActivityForResult(intent, HomeActivity.REQUEST_ADD_VOCAB);
                         }else{
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }
@@ -197,8 +211,8 @@ public class MojiFragment extends Fragment {
             public void onClick(View v) {
                 if(isNetworkAvailable()){
                     //chuyen add topic
-//                    Intent intent = new Intent(getContext(), TopicKanjiActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), TopicMojiActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getContext(), R.string.not_connected, Toast.LENGTH_SHORT).show();
@@ -232,22 +246,28 @@ public class MojiFragment extends Fragment {
         builder.show();
     }
 
-    public void removeData(String id, int position) {
-        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(id).removeValue();
-        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(id).removeValue();
+    public void removeData(String setId, int position) {
+        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.MOJI_SET_NODE);
+        drMojiSet.child(user.getUid()).child(setId).removeValue();
+
+        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
+        drSetByUser.child(user.getUid()).child(setId).removeValue();
+
         mojiSetList.remove(position);
         adapter.notifyDataSetChanged();
 
-//data local
-//        Map myMap = mLocalData.readAllData();
-//        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-//        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-//        kanjiMap.remove(id);
-//        setByUserMap.remove(id);
-//        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-//        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-//        String str = new Gson().toJson(myMap);
-//        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
+    /*
+        // data local
+        Map myMap = mLocalData.readAllData();
+        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
+        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
+        kanjiMap.remove(id);
+        setByUserMap.remove(id);
+        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
+        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
+        String str = new Gson().toJson(myMap);
+        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
+    */
 
     }
 
@@ -259,10 +279,9 @@ public class MojiFragment extends Fragment {
 
     //Load moji set
     public class LoadMojiDataTask extends AsyncTask<Void, Void, Void> {
+
         @Override
         protected Void doInBackground(Void... voids) {
-            //"MaZd82q09vNtz7IGTdmrw8nbIuF2"
-            //HomeActivity.getUserID()
             mDatabase.child("MojiSet").child(HomeActivity.getUserID()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -290,6 +309,55 @@ public class MojiFragment extends Fragment {
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    class LoadMojiTask extends AsyncTask<Void, Void, Void> {
+
+        Set mSet = new Set();
+
+        public LoadMojiTask(Set mSet) {
+            this.mSet = mSet;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            listMoji.clear();
+
+            mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(mSet.getId()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        listMoji.add(data.getValue(Moji.class));
+                        Log.d("kanji" , data.getValue(Kanji.class).toString());
+                    }
+                    publishProgress();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            if(listMoji.size() >= 5){
+                Intent intentTest = new Intent(getContext(), TestActivity.class);
+                intentTest.putExtra(Constants.SET_BY_USER, listMoji);
+                intentTest.putExtra(Constants.DATA_TYPE, FRAGMENT_TAG);
+                if (user != null) {
+                    intentTest.putExtra(Constants.USER_ID, user.getUid());
+                    intentTest.putExtra(Constants.KANJI_SET_NODE, mSet.getId());
+                }
+                startActivity(intentTest);
+            }
+            else{
+                Toast.makeText(getContext(), "Cannot create test.\nLess than 5 items in the set.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

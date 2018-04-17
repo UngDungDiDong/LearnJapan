@@ -21,14 +21,16 @@
         <activity android:name=".test_feature_khang_duc.view.TestActivity" />
         <activity android:name=".complete_profile_bang.CompleteProfileActivity" />
         <activity android:name=".profile_tung.ProfileActivity" />
-        <activity android:name=".chart_thanh.ChartActivity" />
-        <activity android:name=".add_vocab_trung.TopicMojiActivity" />
-        <activity android:name=".add_vocab_trung.MojiExploresActivity" />
-        <activity android:name=".add_vocab_trung.TopicKanjiActivity" />
-        <activity android:name=".add_vocab_trung.KanjiExploresActivity" />
+        <activity android:name=".chart_diem.ChartActivity" />
+        <activity android:name=".download_nguyen.topic.TopicMojiActivity" />
+        <activity android:name=".download_nguyen.topic.TopicKanjiActivity"/>
+        <activity android:name=".download_nguyen.topic.KanjiExploresActivity" />
+        <activity android:name=".download_nguyen.topic.MojiExploresActivity"/>
+        <activity android:name=".add_vocab_thanh.add.AddVocabActivity" />
         <activity android:name=".create_account_dan.SignupActivity" />
         <activity android:name=".reset_pass_hao.ResetPasswordActivity" />
         <activity android:name=".home_navigation_nhi_tam.view.HomeActivity" />
+        <activity android:name=".setting_khang.SettingActivity" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
@@ -40,6 +42,28 @@
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
         </activity>
+        <service
+            android:name=".setting_khang.service.MyFireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".setting_khang.service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_iid_service] -->
+        <service android:name=".setting_khang.service.MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@android:drawable/stat_notify_chat" />
     </application>
 
 </manifest>

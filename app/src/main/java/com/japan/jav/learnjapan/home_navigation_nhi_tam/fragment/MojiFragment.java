@@ -126,6 +126,7 @@ public class MojiFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ChartActivity.class);
                         intent.putExtra(Constants.SET_BY_USER, set);
                         intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.SET_ID, set.getId());
                         intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
                         startActivity(intent);
 

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -18,7 +19,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.japan.jav.learnjapan.R;
-import com.japan.jav.learnjapan.model.DataChart;
+import com.japan.jav.learnjapan.chart_diem.model.DataChart;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
 
@@ -44,6 +45,8 @@ public class ChartActivity extends AppCompatActivity {
 
     private int correctAnswer;
     private int allAnswer;
+    private int testTimes;
+    private int wrongAnswer;
 
 
 
@@ -52,20 +55,25 @@ public class ChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart_diem);
 
-//        Intent intent = getIntent();
-//        if (intent.hasExtra("SetByUser")) {
-//            String fragmentTag = intent.getStringExtra("DATA_TYPE");
-//            if (fragmentTag.equals("KANJI")) {
-//                isKanji = true;
-//                kanjiList = (ArrayList<Kanji>) intent.getSerializableExtra("SetByUser");
-//            } else {
-//                isKanji = false;
-//                mojiList = (ArrayList<Moji>) intent.getSerializableExtra("SetByUser");
-//            }
-//            userID = intent.getExtras().getString("userID");
-//            setID = intent.getExtras().getString("KanjiSet");
-//
-//        }
+        Intent intent = getIntent();
+        if (intent.hasExtra("SetByUser")) {
+            String fragmentTag = intent.getStringExtra("DATA_TYPE");
+            if (!TextUtils.isEmpty(fragmentTag)){
+                if (fragmentTag.equals("KANJI")) {
+                    isKanji = true;
+                    kanjiList = (ArrayList<Kanji>) intent.getSerializableExtra("SetByUser");
+
+                } else {
+                    isKanji = false;
+                    mojiList = (ArrayList<Moji>) intent.getSerializableExtra("SetByUser");
+
+
+                }
+            }
+            userID = intent.getExtras().getString("userID");
+            setID = intent.getExtras().getString("SetId");
+
+        }
 
         pieChart = findViewById(R.id.piechart);
 
@@ -80,9 +88,10 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.setTransparentCircleRadius(61f);
 
 
-        //initDataChart();
-        getChartDataSuccess();
+        initDataChart();
+        //getChartDataSuccess();
     }
+
 
     private void initDataChart() {
 
@@ -120,8 +129,37 @@ public class ChartActivity extends AppCompatActivity {
 
                 for (cursor.moveToFirst(); !(cursor.isAfterLast()); cursor
                         .moveToNext()) {
+                    testTimes = (cursor.getInt(2) + chartRes.getSoLanTest());
+                    allAnswer = testTimes * (cursor.getInt(3) + chartRes.getTongSocau());
                     correctAnswer = (cursor.getInt(4) + chartRes.getSoCauDung());
-                    allAnswer = (cursor.getInt(4) + chartRes.getTongSocau());
+                    wrongAnswer = allAnswer - correctAnswer;
+
+                    ArrayList<PieEntry> yValues = new ArrayList<>();
+
+
+                    yValues.add(new PieEntry( correctAnswer , correctAnswer+ " Số từ đã thuộc"));
+                    yValues.add(new PieEntry( wrongAnswer   , wrongAnswer+ " Số từ chưa thuộc"));
+
+
+                    pieChart.setCenterText("Số lần Test: " + testTimes +'\n' + "Tổng số từ: "+ allAnswer);
+                    pieChart.setCenterTextSize(24);
+                    pieChart.setEntryLabelTextSize(16);
+
+                    PieDataSet dataSet = new PieDataSet(yValues, "THỐNG KÊ");
+                    dataSet.setValueTextSize(30);
+                    dataSet.setSliceSpace(5f);
+                    dataSet.setSelectionShift(5f);
+                    dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+
+                    // ---------------- chart set data --------------
+                    PieData data = new PieData(dataSet);
+                    data.setValueTextSize(20f);
+                    data.setValueTextColor(Color.YELLOW);
+
+                    pieChart.setData(data);
+
+                    // refresh the chart
+                    pieChart.invalidate();
 
                 }
             } catch (Exception ex) {
@@ -137,7 +175,7 @@ public class ChartActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            //getChartDataSuccess();
+            getChartDataSuccess();
         }
     }
 
@@ -171,49 +209,49 @@ public class ChartActivity extends AppCompatActivity {
 
 
     private void getChartDataSuccess() {
-        ArrayList<PieEntry> yValues = new ArrayList<>();
-
-//        sqLiteDB = openOrCreateDatabase(getString(R.string.test_result_database), MODE_PRIVATE, null);
-//        String selectSql = "Select * from TestResult where ";
-//        selectSql += "UserId = '" + userID + "' and ";
-//        selectSql += "SetId = '" + setID + "'";
+//        ArrayList<PieEntry> yValues = new ArrayList<>();
+//
+////        sqLiteDB = openOrCreateDatabase(getString(R.string.test_result_database), MODE_PRIVATE, null);
+////        String selectSql = "Select * from TestResult where ";
+////        selectSql += "UserId = '" + userID + "' and ";
+////        selectSql += "SetId = '" + setID + "'";
+////
+////
+////        Cursor res = sqLiteDB.rawQuery(selectSql,null);
+////
+////        if (res.moveToFirst()){
+////            do {
+////                // Passing values
+////                String correctAnswer = res.getString(4);
+////                String allAnswer = res.getString(3);
+////                //String column3 = res.getString(2);
+////                // Do something Here with values
+////
+////
+////        for (DataChart item : mListDataChart){
+////            correctAnswer +=item.getSoCauDung();
+////             allAnswer +=item.getTongSocau();
+////
+////        }
+//
+//        yValues.add(new PieEntry( correctAnswer,"Số từ đã thuộc"));
+//        yValues.add(new PieEntry( allAnswer - correctAnswer  ,"Số từ chưa thuộc"));
 //
 //
-//        Cursor res = sqLiteDB.rawQuery(selectSql,null);
+//        pieChart.setCenterText("Trung bình số câu đúng qua các lần Test");
+//        pieChart.setCenterTextSize(24);
 //
-//        if (res.moveToFirst()){
-//            do {
-//                // Passing values
-//                String correctAnswer = res.getString(4);
-//                String allAnswer = res.getString(3);
-//                //String column3 = res.getString(2);
-//                // Do something Here with values
+//        PieDataSet dataSet = new PieDataSet(yValues, "THỐNG KÊ");
+//        dataSet.setSliceSpace(5f);
+//        dataSet.setSelectionShift(5f);
+//        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
 //
+//        PieData data = new PieData(dataSet);
+//        data.setValueTextSize(20f);
+//        data.setValueTextColor(Color.YELLOW);
 //
-//        for (DataChart item : mListDataChart){
-//            correctAnswer +=item.getSoCauDung();
-//             allAnswer +=item.getTongSocau();
-//
-//        }
-
-        yValues.add(new PieEntry( 40f,"Số từ đã thuộc"));
-        yValues.add(new PieEntry( 40f  ,"Số từ chưa thuộc"));
-
-
-        pieChart.setCenterText("Trung bình số câu đúng qua các lần Test");
-        pieChart.setCenterTextSize(24);
-
-        PieDataSet dataSet = new PieDataSet(yValues, "THỐNG KÊ");
-        dataSet.setSliceSpace(5f);
-        dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-        PieData data = new PieData(dataSet);
-        data.setValueTextSize(20f);
-        data.setValueTextColor(Color.YELLOW);
-
-        pieChart.setData(data);
-        //pieChart.invalidate();
+//        pieChart.setData(data);
+//        pieChart.invalidate();
     }
 
 }

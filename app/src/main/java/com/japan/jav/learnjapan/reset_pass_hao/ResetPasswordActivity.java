@@ -1,6 +1,7 @@
 package com.japan.jav.learnjapan.reset_pass_hao;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -53,6 +55,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    startActivity(new Intent(ResetPasswordActivity.this,LoginActivity.class));
                                 } else {
                                     Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                 }

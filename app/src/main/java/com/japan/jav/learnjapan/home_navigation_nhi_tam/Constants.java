@@ -15,7 +15,5 @@ public class Constants {
     public static final String CREATE = "create";
     public static final String KANJI = "kanji";
     public static final String MOJI = "moji";
-
-    public static final String LIST_KANJI = "list_kanji";
-    public static final String LIST_MOJI = "list_moji";
+    public static final String SET_ID = "SetId";
 }

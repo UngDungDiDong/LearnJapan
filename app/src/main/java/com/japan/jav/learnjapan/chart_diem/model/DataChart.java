@@ -1,6 +1,6 @@
-package com.japan.jav.learnjapan.test_feature_khang_duc.view.model;
+package com.japan.jav.learnjapan.chart_diem.model;
 
-public class TestResult {
+public class DataChart {
 
     String setId;
     String userId;
@@ -8,10 +8,11 @@ public class TestResult {
     int tongSocau;
     int soLanTest;
 
-    public TestResult() {
+    public DataChart() {
+
     }
 
-    public TestResult( String userId, String setId, int soLanTest, int tongSocau, int soCauDung) {
+    public DataChart(String userId, String setId, int soLanTest, int tongSocau, int soCauDung) {
         this.setId = setId;
         this.userId = userId;
         this.soCauDung = soCauDung;
@@ -59,3 +60,4 @@ public class TestResult {
         this.soLanTest = soLanTest;
     }
 }
+

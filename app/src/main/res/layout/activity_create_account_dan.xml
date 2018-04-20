@@ -8,143 +8,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textColor="@color/color_white"
-            android:textSize="30dp"
-            android:text="Sign Up"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/tvUsername"
+            android:hint="Username"
+            android:textSize="@dimen/large"
+            android:layout_marginTop="@dimen/large"/>
 
-    <LinearLayout
-        android:layout_marginBottom="35dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@color/color_white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/txtUsername"
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEmail"
+            android:hint="Email"
+            android:textSize="@dimen/large"
+            android:layout_marginTop="@dimen/large"/>
 
-            <EditText
-                android:id="@+id/edt_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:hint="@string/username"
-                android:textSize="25dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvpass"
+            android:inputType="textPassword"
+            android:hint="PassWord"
+            android:textSize="@dimen/large"
+            android:layout_marginTop="@dimen/large"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvconfirmPass"
+            android:inputType="textPassword"
+            android:hint="Confirm Password"
+            android:textSize="@dimen/large"
+            android:layout_marginTop="@dimen/large"/>
 
-            <TextView
-                android:id="@+id/txtUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_username"
-                android:layout_alignStart="@+id/edt_username"
-                android:layout_below="@+id/edt_username"
-                android:text="Check user name"
-                android:layout_marginLeft="20dp"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="20dp"
-                tools:ignore="DuplicateIds" />
-
-            <EditText
-                android:id="@+id/edt_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_below="@+id/txtUsername"
-                android:layout_marginTop="20dp"
-                android:hint="@string/email"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/txtEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_email"
-                android:layout_alignStart="@+id/edt_email"
-                android:layout_below="@+id/edt_email"
-                android:text="Check Email"
-                android:layout_marginLeft="20dp"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="20dp" />
-
-            <EditText
-                android:textSize="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_below="@+id/txtEmail"
-                android:layout_marginTop="20dp"
-                android:hint="@string/password"
-                android:id="@+id/passwordWrapper" />
-
-            <TextView
-                android:textSize="20dp"
-                android:textColor="@android:color/holo_red_dark"
-                android:id="@+id/txtPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/passwordWrapper"
-                android:layout_alignStart="@+id/passwordWrapper"
-                android:layout_below="@+id/passwordWrapper"
-                android:text="Check password"
-                android:layout_marginLeft="20dp"/>
-
-            <EditText
-                android:textSize="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_below="@+id/txtPassword"
-                android:layout_marginTop="20dp"
-                android:hint="Confirm Password"
-                android:id="@+id/edt_confirm_password" />
-
-            <TextView
-                android:id="@+id/txtConfirmPass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_confirm_password"
-                android:layout_alignStart="@+id/edt_confirm_password"
-                android:layout_below="@+id/edt_confirm_password"
-                android:text="Check Email"
-                android:layout_marginLeft="20dp"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="20dp"
-                />
-
-            <Button
-                android:id="@+id/btnSignup"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/colorPrimaryDark"
-                android:gravity="center"
-                android:text="Sign Up"
-                android:textColor="@android:color/white"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btSignUp"
+        android:layout_gravity="center"
+        android:text="Sign Up"/>
 
 
 </LinearLayout>

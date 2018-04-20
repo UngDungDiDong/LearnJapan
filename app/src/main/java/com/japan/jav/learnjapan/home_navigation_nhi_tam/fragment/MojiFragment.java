@@ -33,8 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
-import com.japan.jav.learnjapan.download_nguyen.list.DownloadTopicActivity;
 import com.japan.jav.learnjapan.chart_diem.ChartActivity;
+import com.japan.jav.learnjapan.download_nguyen.topic.TopicMojiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
@@ -126,6 +126,7 @@ public class MojiFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ChartActivity.class);
                         intent.putExtra(Constants.SET_BY_USER, set);
                         intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.SET_ID, set.getId());
                         intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
                         startActivity(intent);
 
@@ -211,7 +212,7 @@ public class MojiFragment extends Fragment {
             public void onClick(View v) {
                 if(isNetworkAvailable()){
                     //chuyen add topic
-                    Intent intent = new Intent(getContext(), DownloadTopicActivity.class);
+                    Intent intent = new Intent(getContext(), TopicMojiActivity.class);
                     startActivity(intent);
                 }
                 else{
@@ -246,9 +247,13 @@ public class MojiFragment extends Fragment {
         builder.show();
     }
 
-    public void removeData(String id, int position) {
-        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(id).removeValue();
-        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(id).removeValue();
+    public void removeData(String setId, int position) {
+        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.MOJI_SET_NODE);
+        drMojiSet.child(user.getUid()).child(setId).removeValue();
+
+        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
+        drSetByUser.child(user.getUid()).child(setId).removeValue();
+
         mojiSetList.remove(position);
         adapter.notifyDataSetChanged();
 

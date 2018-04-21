@@ -84,6 +84,13 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(receiver);
+
+    }
+
     // ===== start. TamLV ======
     private void setControl() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);

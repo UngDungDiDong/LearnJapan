@@ -195,13 +195,13 @@ public class KanjiFragment extends Fragment {
                         break;
                     case 1:
                         //chuyen qua test
-                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
 
                         new LoadKanjiTask(set).execute();
                         Log.d("KanjiList", listKanji.toString());
                         break;
                     case 2:
-                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
+    //                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
 
                         // chuyen qua man hinh Chart
                         Intent intent = new Intent(getContext(), ChartActivity.class);

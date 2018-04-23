@@ -32,8 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
-import com.japan.jav.learnjapan.download_nguyen.list.DownloadTopicActivity;
 import com.japan.jav.learnjapan.chart_diem.ChartActivity;
+import com.japan.jav.learnjapan.download_nguyen.topic.TopicKanjiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
@@ -55,7 +55,6 @@ public class KanjiFragment extends Fragment {
     private FloatingActionButton fabKanji;
     private FloatingActionButton fabCreate;
     private FloatingActionButton fabAdd;
-
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -124,7 +123,9 @@ public class KanjiFragment extends Fragment {
                         String setName = edtSetName.getText().toString().trim();
                         if (!setName.isEmpty()) {
                             Intent intent = new Intent(getContext(), AddVocabActivity.class);
-                            startActivity(intent);
+                            intent.putExtra(Constants.CREATE, Constants.KANJI);
+                            intent.putExtra(Constants.NAME, setName);
+                            startActivityForResult(intent, HomeActivity.REQUEST_ADD_VOCAB);
                         } else {
                             Toast.makeText(getContext(), "Cannot create a new set.\nSet name field is required", Toast.LENGTH_SHORT).show();
                         }
@@ -149,7 +150,7 @@ public class KanjiFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (isNetworkAvailable()) {
-                    Intent intent = new Intent(getContext(), DownloadTopicActivity.class);
+                    Intent intent = new Intent(getContext(), TopicKanjiActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), R.string.not_connected, Toast.LENGTH_SHORT).show();
@@ -194,18 +195,19 @@ public class KanjiFragment extends Fragment {
                         break;
                     case 1:
                         //chuyen qua test
-                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
 
                         new LoadKanjiTask(set).execute();
                         Log.d("KanjiList", listKanji.toString());
                         break;
                     case 2:
-                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
+    //                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
 
                         // chuyen qua man hinh Chart
                         Intent intent = new Intent(getContext(), ChartActivity.class);
                         intent.putExtra(Constants.SET_BY_USER, set);
                         intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.SET_ID, set.getId());
                         intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
                         startActivity(intent);
                     /*
@@ -216,7 +218,9 @@ public class KanjiFragment extends Fragment {
                     case 3:
                         //chuyen qua edit tu vung
                         Intent editIntent = new Intent(getContext(), AddVocabActivity.class);
-                        startActivity(editIntent);
+                        editIntent.putExtra(Constants.SET_BY_USER, set);
+                        editIntent.putExtra(Constants.CREATE, Constants.KANJI);
+                        startActivityForResult(editIntent, HomeActivity.REQUEST_ADD_VOCAB);
                         break;
                     case 4:
                         //xoa item voi position
@@ -246,23 +250,16 @@ public class KanjiFragment extends Fragment {
     }
 
     public void removeData(String setId, int position) {
-        mDatabase.child(Constants.KANJI_SET_NODE).child(HomeActivity.getUserID()).child(setId).removeValue();
-        mDatabase.child(Constants.SET_BY_USER).child(HomeActivity.getUserID()).child(setId).removeValue();
+        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.KANJI_SET_NODE);
+        drMojiSet.child(user.getUid()).child(setId).removeValue();
+
+        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
+        drSetByUser.child(user.getUid()).child(setId).removeValue();
+
         kanjiSetList.remove(position);
         adapter.notifyDataSetChanged();
 
-    /*
-        //  data local
-        Map myMap = mLocalData.readAllData();
-        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-        kanjiMap.remove(id);
-        setByUserMap.remove(id);
-        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-        String str = new Gson().toJson(myMap);
-        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
-    */
+
     }
 
 

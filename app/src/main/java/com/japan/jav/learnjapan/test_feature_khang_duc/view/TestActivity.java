@@ -26,7 +26,9 @@ import com.japan.jav.learnjapan.model.Moji;
 import com.japan.jav.learnjapan.model.QuestionAnswer;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.TestResult;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -77,11 +79,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             if (fragmentTag.equals("KANJI")) {
                 isKanji = true;
                 kanjiList = (ArrayList<Kanji>) intent.getSerializableExtra(Constants.SET_BY_USER);
-
-                //for testing
-                while (kanjiList.size() != 10) {
-                    kanjiList.remove(0);
-                }
             } else {
                 isKanji = false;
                 mojiList = (ArrayList<Moji>) intent.getSerializableExtra(Constants.SET_BY_USER);
@@ -150,13 +147,13 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initData(boolean isKanji) {
         if (isKanji) {
-            for (int i = 0; i < kanjiList.size() % 10 + 4; i++) {
+            for (int i = 0; i < kanjiList.size(); i++) {
                 oldKanjiList.add(kanjiList.get(i));
                 answerList.add(kanjiList.get(i).getAmhan());
                 QAList.add(new QuestionAnswer(kanjiList.get(i).getKanji(),
                         kanjiList.get(i).getAmhan()));
             }
-            NUMBER_OF_QUESTION = kanjiList.size() % 10 + 4;
+            NUMBER_OF_QUESTION = kanjiList.size();
             updateQuestionKanji(kanjiList, answerList);
         } else {
             for (int i = 0; i < mojiList.size(); i++) {
@@ -165,10 +162,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 QAList.add(new QuestionAnswer(mojiList.get(i).getTuTiengNhat(),
                         mojiList.get(i).getCachDocHira()));
             }
+//            NUMBER_OF_QUESTION = 5; // fortest
             NUMBER_OF_QUESTION = mojiList.size();
             updateQuestionMoji(mojiList, answerList);
         }
-        txtNumberQuestion.setText("QUESTION: " + String.valueOf(index_question) + "/"
+        txtNumberQuestion.setText("QUESTION: " + String.valueOf(index_question+1) + "/"
                 + String.valueOf(NUMBER_OF_QUESTION));
         txtRightCount.setText(String.valueOf(number_of_right_answer));
     }
@@ -482,14 +480,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         txtAnswerC.setEnabled(true);
         txtAnswerD.setEnabled(true);
         index_question++;
-        String numberQuestion = "Question: " + String.valueOf(index_question) + "/"
+        String numberQuestion = "Question: " + String.valueOf(index_question+1) + "/"
                 + String.valueOf(NUMBER_OF_QUESTION);
-        txtNumberQuestion.setText(numberQuestion);
+        if (index_question != NUMBER_OF_QUESTION) txtNumberQuestion.setText(numberQuestion);
         txtRightCount.setText(String.valueOf(number_of_right_answer));
         if (isKanji) {
             if (index_question == NUMBER_OF_QUESTION) {
                 Log.d("KANJIlist_EMPTY", "KANJIlist_EMPTY");
-//                updateNumberOfRightAnswer();
+                updateNumberOfRightAnswer();
                 showResult();
             } else {
                 updateQuestionKanji(kanjiList, answerList);
@@ -525,7 +523,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
         defaultMarginLayoutParams = new ViewGroup.MarginLayoutParams(marginLayoutParams);
-        marginLayoutParams.setMargins(0, 250, 0, 0);
+        marginLayoutParams.setMargins(0, 100, 0, 0);
 
         txtRightCount.setTextSize(100f);
 
@@ -534,8 +532,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         btnRetry.setVisibility(View.VISIBLE);
 
 //        Save Data To Sqlite
+        int tongSoCau = 0;
+        if (isKanji) tongSoCau = kanjiList.size();
+        else tongSoCau = mojiList.size();
+
+
         SqliteLoadTask task = new SqliteLoadTask();
-        task.execute(new TestResult(userID, number_of_right_answer, index_question - number_of_right_answer));
+        task.execute(new TestResult(userID, setID, 1
+                , tongSoCau, number_of_right_answer));
     }
 
     @Override
@@ -608,6 +612,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnMain:
+                finish();
                 break;
 
             case R.id.btnRetry:
@@ -659,23 +664,51 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
-        protected Void doInBackground(TestResult... testResult) {
+        protected Void doInBackground(TestResult... testResults) {
+            Cursor cursor = null;
             try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                String time = sdf.format(new Date());
                 String sqlCreateTable = "CREATE TABLE IF NOT EXISTS `TestResult` (" +
-                        "`UserId` TEXT NOT NULL UNIQUE," +
-                        "`SoCauDung` INTEGER NOT NULL," +
-                        "`SoCauSai` INTEGER NOT NULL" +
+                        "`UserId` TEXT NOT NULL," +
+                        "`SetId` TEXT NOT NULL," +
+                        "`SoLanTest` INTEGER NOT NULL," +
+                        "`TongSoCau` INTEGER NOT NULL," +
+                        "`SoCauDung` INTEGER NOT NULL" +
                         ")";
                 sqLiteDB.execSQL(sqlCreateTable);
+
+                // save to db
+                String selectSql = "Select * from TestResult where ";
+                selectSql += "UserId = '" + userID + "' and ";
+                selectSql += "SetId = '" + setID + "'";
+
+                TestResult testRes = testResults[0];
+                cursor = sqLiteDB.rawQuery(selectSql,null);
+
                 String sql =
                         "INSERT or replace INTO " + getString(R.string.test_result_table)
-                                + " (UserId, SoCauDung, SoCauSai) VALUES('"
-                                + testResult[0].getUserId() + "','"
-                                + testResult[0].getSoCauDung() + "','"
-                                + testResult[0].getSoCauSai() + "')" ;
+                                + " (UserId, SetId, SoLanTest, TongSoCau, SoCauDung) VALUES('"
+                                + testRes.getUserId() + "','"
+                                + testRes.getSetId() + "','"
+                                + testRes.getSoLanTest() + "','"
+                                + testRes.getTongSocau() + "','"
+                                + testRes.getSoCauDung() + "')" ;
+
+                if (cursor != null && cursor.moveToFirst()) {
+                    sql = "UPDATE " + getString(R.string.test_result_table)
+                        +  " SET "
+                        + "SoLanTest='"+ (cursor.getInt(2) + 1) + "'"
+                        + ", SoCauDung='" + (cursor.getInt(4) + testRes.getSoCauDung()) + "'"
+                        + " WHERE UserId='" + testRes.getUserId() + "'"
+                        + " and SetId='" + testRes.getSetId() + "'";
+                }
+
                 sqLiteDB.execSQL(sql);
             } catch (Exception e) {
                 Log.e("Sqlite", e.toString());
+            } finally {
+                cursor.close();
             }
             return null;
         }

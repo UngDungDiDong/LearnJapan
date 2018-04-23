@@ -32,12 +32,14 @@ import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
 import com.japan.jav.learnjapan.service.NetworkListener;
+import com.japan.jav.learnjapan.setting_khang.SettingActivity;
 
 /**
  * Created by matas on 3/19/18.
  */
 
 public class HomeActivity extends AppCompatActivity implements NetworkListener{
+    public static final int REQUEST_ADD_VOCAB = 1;
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -79,6 +81,13 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         addControls();
         setupDrawerLayout();
         addEvent();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
 
     }
 
@@ -179,9 +188,9 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
                         Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                         startActivity(intent);
                         return true;
-                    case R.id.about_us:
-                        Toast.makeText(getApplicationContext(), "About_us ai lam", Toast.LENGTH_SHORT).show();
-                        return true;
+//                    case R.id.about_us:
+//                        Toast.makeText(getApplicationContext(), "About_us ai lam", Toast.LENGTH_SHORT).show();
+//                        return true;
                     case R.id.sent_mail:
                         Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
                         mAuth.signOut();
@@ -189,6 +198,15 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
                         Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(loginIntent);
                         finish();
+                        return true;
+                    case R.id.menu:
+                        Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
+                        if (mUserID != "") {
+                            settingIntent.putExtra(Constants.USER_ID, mUserID);
+                        }
+                        startActivity(settingIntent);
+//                        finish();
+                        menuItem.setChecked(false);
                         return true;
                     default:
 
@@ -204,5 +222,4 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
     }
-
 }

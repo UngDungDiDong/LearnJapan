@@ -41,18 +41,8 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/user_default"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/imvRight1"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="50dp" />
-
-        <ImageView
-            android:id="@+id/imvRight1"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/imgAvatar"
+            app:layout_constraintHorizontal_bias="0.768"
+            app:layout_constraintStart_toEndOf="@+id/txtProfileImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -81,17 +71,6 @@
             android:text="@string/username"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imvRight2"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View

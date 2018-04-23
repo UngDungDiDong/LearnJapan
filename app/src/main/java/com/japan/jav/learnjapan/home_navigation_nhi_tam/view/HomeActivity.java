@@ -84,6 +84,13 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+
+    }
+
     // ===== start. TamLV ======
     private void setControl() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
@@ -174,7 +181,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
                         startActivity(intent);
                         return true;
                     case R.id.about_us:
-                        Toast.makeText(getApplicationContext(), "About_us ai lam", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "About_us ai lam", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.sent_mail:
                         Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();

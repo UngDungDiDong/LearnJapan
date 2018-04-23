@@ -1,6 +1,11 @@
 package com.japan.jav.learnjapan.profile_tung;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,16 +21,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.model.User;
+import com.japan.jav.learnjapan.reset_pass_hao.ResetPasswordActivity;
+import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
+import com.japan.jav.learnjapan.service.NetworkListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity implements NetworkListener {
 
     TextView txtEmail_profile;
     TextView txtUsername;
     CircleImageView imgAvatar;
     String avatarUrl;
+    ConstraintLayout layoutChangePass;
     private User user;
     private int total_set = 0;
     private int total_word = 0;
@@ -33,21 +42,33 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseDatabase database;
     private FirebaseUser user_current = null;
     private FirebaseAuth auth;
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_tung);
 
+        layoutChangePass = findViewById(R.id.layoutChangePass);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        receiver = new ConnectivityChangeReceiver(this);
+        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         user_current = auth.getCurrentUser();
         mapping();
         run();
+
+        layoutChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, ResetPasswordActivity.class));
+            }
+        });
     }
 
     @Override
@@ -55,6 +76,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         onBackPressed();
         return true;
     }
+
 
     @Override
     public void onBackPressed() {
@@ -151,16 +173,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imvRight4:
-                break;
-            case R.id.imvRight2:
-                break;
-            case R.id.imvRight1:
-                break;
-        }
+    public void connected() {
+
     }
 
+    @Override
+    public void notConnected() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 }

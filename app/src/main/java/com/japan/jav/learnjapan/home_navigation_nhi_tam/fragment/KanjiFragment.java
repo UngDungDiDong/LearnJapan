@@ -195,13 +195,13 @@ public class KanjiFragment extends Fragment {
                         break;
                     case 1:
                         //chuyen qua test
-                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
 
                         new LoadKanjiTask(set).execute();
                         Log.d("KanjiList", listKanji.toString());
                         break;
                     case 2:
-                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
+    //                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
 
                         // chuyen qua man hinh Chart
                         Intent intent = new Intent(getContext(), ChartActivity.class);
@@ -260,19 +260,6 @@ public class KanjiFragment extends Fragment {
         adapter.notifyDataSetChanged();
 
 
-
-    /*
-        //  data local
-        Map myMap = mLocalData.readAllData();
-        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-        kanjiMap.remove(id);
-        setByUserMap.remove(id);
-        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-        String str = new Gson().toJson(myMap);
-        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
-    */
     }
 
 

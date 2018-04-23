@@ -40,6 +40,7 @@ import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.model.Kanji;
+import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class KanjiFragment extends Fragment {
     private FloatingActionButton fabKanji;
     private FloatingActionButton fabCreate;
     private FloatingActionButton fabAdd;
+    private DatabaseService mData = DatabaseService.getInstance();
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -250,11 +252,9 @@ public class KanjiFragment extends Fragment {
     }
 
     public void removeData(String setId, int position) {
-        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.KANJI_SET_NODE);
-        drMojiSet.child(user.getUid()).child(setId).removeValue();
 
-        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
-        drSetByUser.child(user.getUid()).child(setId).removeValue();
+        mData.getDatabase().child(Constants.KANJI_SET_NODE).child(mData.getUserID()).child(setId).removeValue();
+        mData.getDatabase().child(Constants.SET_BY_USER).child(mData.getUserID()).child(setId).removeValue();
 
         kanjiSetList.remove(position);
         adapter.notifyDataSetChanged();

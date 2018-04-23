@@ -95,6 +95,14 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(receiver != null){
+            unregisterReceiver(receiver);
+        }
+    }
+
+    @Override
     public void connected() {}
 
     @Override

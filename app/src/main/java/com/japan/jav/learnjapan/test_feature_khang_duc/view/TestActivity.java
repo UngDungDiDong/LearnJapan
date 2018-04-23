@@ -612,6 +612,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnMain:
+                finish();
                 break;
 
             case R.id.btnRetry:

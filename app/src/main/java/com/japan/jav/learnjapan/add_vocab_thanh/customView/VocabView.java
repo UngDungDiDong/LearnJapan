@@ -106,11 +106,17 @@ public class VocabView extends LinearLayout implements View.OnClickListener {
         return moji;
     }
 
-    public void setData(Vocab vocab) {
-        edtTuVung.setText(vocab.getTuVung());
-        edtHiragana.setText(vocab.getHiragana());
-        edtAmHan.setText(vocab.getAmHan());
-        edtNghia.setText(vocab.getNghia());
+    public void setDataMoji(Moji moji) {
+        edtTuVung.setText(moji.getTuTiengNhat());
+        edtHiragana.setText(moji.getCachDocHira());
+        edtAmHan.setText(moji.getAmHan());
+        edtNghia.setText(moji.getNghiaTiengViet());
+    }
+
+    public void setDataKanji(Kanji kanji) {
+        edtTuVung.setText(kanji.getKanji());
+        edtAmHan.setText(kanji.getAmhan());
+        edtNghia.setText(kanji.getTuvung());
     }
 
     private OnDeleteListener listener;

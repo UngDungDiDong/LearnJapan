@@ -165,7 +165,8 @@ public class ChartActivity extends AppCompatActivity {
             } catch (Exception ex) {
                 Log.e("Sqlite", ex.toString());
             } finally {
-                cursor.close();
+                if (cursor != null)
+                    cursor.close();
                 if (sqLiteDB != null || sqLiteDB.isOpen()) {
                     sqLiteDB.close();
                 }

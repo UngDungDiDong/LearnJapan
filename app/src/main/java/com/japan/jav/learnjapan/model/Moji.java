@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * Created by lana on 16/01/2018.
  */
-@SuppressWarnings("serial")
 public class Moji implements Serializable {
     private String AmHan;
     private String CachDocHira;

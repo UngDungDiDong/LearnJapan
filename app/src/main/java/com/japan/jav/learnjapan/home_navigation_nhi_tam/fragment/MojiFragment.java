@@ -42,6 +42,7 @@ import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
+import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class MojiFragment extends Fragment {
     private FloatingActionButton fabCreate;
     private FloatingActionButton fabAdd;
 
+    private DatabaseService mData = DatabaseService.getInstance();
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
 
@@ -78,7 +80,6 @@ public class MojiFragment extends Fragment {
         loadMojiData();
         initRecyclerView(view);
         setEvents();
-
         return view;
     }
 
@@ -126,6 +127,7 @@ public class MojiFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ChartActivity.class);
                         intent.putExtra(Constants.SET_BY_USER, set);
                         intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.SET_ID, set.getId());
                         intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
                         startActivity(intent);
 
@@ -235,7 +237,9 @@ public class MojiFragment extends Fragment {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+//                Log.i("TAG", "onClick: Set " + set.getName() + " position" + position);
                 removeData(set.getId(), position);
+
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -247,28 +251,10 @@ public class MojiFragment extends Fragment {
     }
 
     public void removeData(String setId, int position) {
-        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.MOJI_SET_NODE);
-        drMojiSet.child(user.getUid()).child(setId).removeValue();
-
-        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
-        drSetByUser.child(user.getUid()).child(setId).removeValue();
-
+        mData.getDatabase().child(Constants.MOJI_SET_NODE).child(mData.getUserID()).child(setId).removeValue();
+        mData.getDatabase().child(Constants.SET_BY_USER).child(mData.getUserID()).child(setId).removeValue();
         mojiSetList.remove(position);
         adapter.notifyDataSetChanged();
-
-    /*
-        // data local
-        Map myMap = mLocalData.readAllData();
-        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-        kanjiMap.remove(id);
-        setByUserMap.remove(id);
-        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-        String str = new Gson().toJson(myMap);
-        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
-    */
-
     }
 
     private void loadMojiData() {

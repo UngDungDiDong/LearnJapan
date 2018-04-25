@@ -40,6 +40,7 @@ import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.model.Kanji;
+import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class KanjiFragment extends Fragment {
     private FloatingActionButton fabKanji;
     private FloatingActionButton fabCreate;
     private FloatingActionButton fabAdd;
+    private DatabaseService mData = DatabaseService.getInstance();
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -195,18 +197,19 @@ public class KanjiFragment extends Fragment {
                         break;
                     case 1:
                         //chuyen qua test
-                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "To test activity", Toast.LENGTH_SHORT).show();
 
                         new LoadKanjiTask(set).execute();
                         Log.d("KanjiList", listKanji.toString());
                         break;
                     case 2:
-                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
+    //                        Toast.makeText(getContext(), "To chart activity", Toast.LENGTH_SHORT).show();
 
                         // chuyen qua man hinh Chart
                         Intent intent = new Intent(getContext(), ChartActivity.class);
                         intent.putExtra(Constants.SET_BY_USER, set);
                         intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        intent.putExtra(Constants.SET_ID, set.getId());
                         intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
                         startActivity(intent);
                     /*
@@ -249,29 +252,14 @@ public class KanjiFragment extends Fragment {
     }
 
     public void removeData(String setId, int position) {
-        DatabaseReference drMojiSet = FirebaseDatabase.getInstance().getReference(Constants.KANJI_SET_NODE);
-        drMojiSet.child(user.getUid()).child(setId).removeValue();
 
-        DatabaseReference drSetByUser = FirebaseDatabase.getInstance().getReference(Constants.SET_BY_USER);
-        drSetByUser.child(user.getUid()).child(setId).removeValue();
+        mData.getDatabase().child(Constants.KANJI_SET_NODE).child(mData.getUserID()).child(setId).removeValue();
+        mData.getDatabase().child(Constants.SET_BY_USER).child(mData.getUserID()).child(setId).removeValue();
 
         kanjiSetList.remove(position);
         adapter.notifyDataSetChanged();
 
 
-
-    /*
-        //  data local
-        Map myMap = mLocalData.readAllData();
-        Map kanjiMap = mLocalData.readData(Constants.KANJI_SET_NODE);
-        Map setByUserMap = mLocalData.readData(Constants.SET_BY_USER_NODE);
-        kanjiMap.remove(id);
-        setByUserMap.remove(id);
-        myMap.put(Constants.KANJI_SET_NODE, kanjiMap);
-        myMap.put(Constants.SET_BY_USER_NODE, setByUserMap);
-        String str = new Gson().toJson(myMap);
-        mLocalData.writeToFile(Constants.DATA_FILE+mUserID, str, getContext());
-    */
     }
 
 

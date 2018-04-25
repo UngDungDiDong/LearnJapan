@@ -52,7 +52,7 @@ public class LoginActivity  extends AppCompatActivity{
     private ImageView imgBottom;
 
     private FirebaseAuth mAuth;
-    private DatabaseService mData = DatabaseService.getInstance();;
+    private DatabaseService mData = DatabaseService.getInstance();
     private final String TAG = LoginActivity.class.getSimpleName();
     private LoginGoogle loginGoogle;
     //-------------
@@ -147,8 +147,9 @@ public class LoginActivity  extends AppCompatActivity{
         txtCreateAcount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+                startActivity (new Intent(LoginActivity.this, SignupActivity.class));
+                //Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                //startActivity(intent);
             }
         });
 

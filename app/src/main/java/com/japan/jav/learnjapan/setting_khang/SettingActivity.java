@@ -94,6 +94,8 @@ public class SettingActivity extends AppCompatActivity {
                     String[] splitTime = obj.getTime().split(" ");
 
                     int hour = Integer.parseInt(splitTime[2]);
+                    hour = hour + 7 > 24 ? (hour+7-24) : hour+7;
+
                     int min = Integer.parseInt(splitTime[1]);
                     String _hour = hour > 10 ? (hour+"") : ( "0" + hour);
                     String _min = min > 10 ? (min+"") : ( "0" + min);
@@ -210,6 +212,7 @@ public class SettingActivity extends AppCompatActivity {
                 int hour,minute;
                 try {
                     hour = Integer.parseInt(time[0]);
+                    hour = hour - 7 < 0 ? (24 - 7 - hour) : hour-7;
                     minute = Integer.parseInt(time[1]);
                 } catch (Exception e) {
                     showSnackBar("Vui lòng chọn thời gian", android.R.color.holo_red_dark);

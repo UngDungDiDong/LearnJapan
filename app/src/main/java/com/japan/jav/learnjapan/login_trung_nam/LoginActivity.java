@@ -52,7 +52,7 @@ public class LoginActivity  extends AppCompatActivity{
     private ImageView imgBottom;
 
     private FirebaseAuth mAuth;
-    private DatabaseService mData = DatabaseService.getInstance();;
+    private DatabaseService mData = DatabaseService.getInstance();
     private final String TAG = LoginActivity.class.getSimpleName();
     private LoginGoogle loginGoogle;
     //-------------

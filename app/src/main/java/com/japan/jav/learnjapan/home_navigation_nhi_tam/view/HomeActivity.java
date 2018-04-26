@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
 import com.japan.jav.learnjapan.service.NetworkListener;
 import com.japan.jav.learnjapan.setting_khang.SettingActivity;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by matas on 3/19/18.
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
     private TextView tvName;
     private TextView tvGmail;
+    private ImageView imgAvatar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,13 +87,6 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
-
-    }
-
     // ===== start. TamLV ======
     private void setControl() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
@@ -101,6 +97,14 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     public static String getUserID() {
         //return "XjeTdoRw0XYHIgDfFVKVyabyOcw2";
         return mUserID;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(receiver != null){
+            unregisterReceiver(receiver);
+        }
     }
 
     @Override
@@ -134,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         View hView = navigationView.getHeaderView(0);
         tvName = hView.findViewById(R.id.txtTen);
         tvGmail = hView.findViewById(R.id.txtGmail);
+        imgAvatar = hView.findViewById(R.id.profile_image);
 
         mDatabase.getReference().child("User").child(mUserID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,7 +152,10 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
             }
         });
-
+        Picasso.with(HomeActivity.this)
+                .load(firebaseUser.getPhotoUrl())
+                .placeholder(R.drawable.placeholder)
+                .into(imgAvatar);
 //        tvName.setText(firebaseUser.getPhoneNumber());
         tvGmail.setText(firebaseUser.getEmail());
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar, R.string.open, R.string.close);

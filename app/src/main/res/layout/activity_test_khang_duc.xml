@@ -103,14 +103,14 @@
         <TextView
             android:id="@+id/txtAnswerA"
             android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:gravity="center"
+            android:layout_height="46dp"
             android:background="@drawable/border"
+            android:gravity="center"
             android:text="@string/answer_a"
             android:textColor="@color/text_color_test"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guildline_answer"/>
+            app:layout_constraintTop_toBottomOf="@id/guildline_answer" />
 
         <TextView
             android:id="@+id/txtAnswerB"
@@ -206,7 +206,17 @@
             app:layout_constraintStart_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/txtNotification" />
 
-
+        <Button
+            android:visibility="visible"
+            android:id="@+id/btnReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/review"
+            app:layout_constraintTop_toBottomOf="@id/btnMain"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 
 

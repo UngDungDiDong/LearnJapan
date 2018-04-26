@@ -24,6 +24,7 @@ import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
 import com.japan.jav.learnjapan.model.QuestionAnswer;
+import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.ReviewItem;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.TestResult;
 
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txtNotification;
     private Button btnMain;
     private Button btnRetry;
+    private Button btnReview;
 
     private ArrayList<Kanji> kanjiList = new ArrayList<>();
     private ArrayList<Moji> mojiList = new ArrayList<>();
@@ -54,6 +56,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Kanji> oldKanjiList = new ArrayList<>();
     private ArrayList<Moji> oldMojiList = new ArrayList<>();
 
+    private ArrayList<ReviewItem> listReviews = new ArrayList<>();
     private String userID;
     private String setID;
 
@@ -116,6 +119,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         btnMain.setOnClickListener(this);
         btnRetry.setOnClickListener(this);
+        btnReview.setOnClickListener(this);
     }
 
     private void addControls() {
@@ -130,6 +134,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         txtNumberQuestion = findViewById(R.id.txtNumberOfQuestion);
         btnMain = findViewById(R.id.btnMain);
         btnRetry = findViewById(R.id.btnRetry);
+        btnReview = findViewById(R.id.btnReview);
         txtNotification = findViewById(R.id.txtNotification);
 
         txtCorrect = findViewById(R.id.txtCorrect);
@@ -138,6 +143,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         btnMain.setVisibility(View.GONE);
         btnRetry.setVisibility(View.GONE);
+        btnReview.setVisibility(View.GONE);
         txtNotification.setVisibility(View.GONE);
 
         mToolbar = findViewById(R.id.toolbar);
@@ -530,7 +536,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         txtNotification.setVisibility(View.VISIBLE);
         btnMain.setVisibility(View.VISIBLE);
         btnRetry.setVisibility(View.VISIBLE);
-
+        btnReview.setVisibility(View.VISIBLE);
 //        Save Data To Sqlite
         int tongSoCau = 0;
         if (isKanji) tongSoCau = kanjiList.size();
@@ -545,17 +551,24 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         String question = txtQuestion.getText().toString();
+        ReviewItem itemReview = new ReviewItem();
+        itemReview.setQuestion(question);
+
         String answer = "";
 
         switch (view.getId()) {
             case R.id.txtAnswerA:
                 answer = txtAnswerA.getText().toString();
+                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
+                        itemReview.setAnswer(item.getAnswer());
+                        listReviews.add(itemReview);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
                         } else {
+
                             check = false;
                         }
                     }
@@ -567,8 +580,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.txtAnswerB:
 
                 answer = txtAnswerB.getText().toString();
+                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
+                        itemReview.setAnswer(item.getAnswer());
+                        listReviews.add(itemReview);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -582,8 +598,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.txtAnswerC:
                 answer = txtAnswerC.getText().toString();
+                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
+                        itemReview.setAnswer(item.getAnswer());
+                        listReviews.add(itemReview);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -597,8 +616,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.txtAnswerD:
                 answer = txtAnswerD.getText().toString();
+                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
+                        itemReview.setAnswer(item.getAnswer());
+                        listReviews.add(itemReview);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -609,6 +631,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //showDialog(check);
                 checkTrueOrFalseAnswer(check, txtAnswerD);
+
                 break;
 
             case R.id.btnMain:
@@ -619,6 +642,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                 answerList.clear();
                 QAList.clear();
+                listReviews.clear();
 
                 NUMBER_OF_QUESTION = 0;
 
@@ -649,6 +673,21 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 btnRetry.setVisibility(View.GONE);
                 txtNotification.setVisibility(View.GONE);
 
+                break;
+            case R.id.btnReview:
+                if (isKanji){
+                    if (listReviews.size() == oldKanjiList.size()){
+                        Intent intent = new Intent(TestActivity.this, TestReviewActivity.class);
+                        intent.putExtra(Constants.LIST_REVIEW, listReviews);
+                        startActivity(intent);
+                    }
+                }else{
+                    if (listReviews.size() == oldMojiList.size()){
+                        Intent intent = new Intent(TestActivity.this, TestReviewActivity.class);
+                        intent.putExtra(Constants.LIST_REVIEW, listReviews);
+                        startActivity(intent);
+                    }
+                }
                 break;
         }
     }

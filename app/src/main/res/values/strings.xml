@@ -5,6 +5,7 @@
     <!--TEST ____________KHANG ____ DUC______________________-->
     <string name="main">Main</string>
     <string name="retry">Retry</string>
+    <string name="review">Review the Result</string>
     <string name="notification">Do you want to retry?</string>
     <string name="answer_a">Answer A</string>
     <string name="answer_b">Answer B</string>

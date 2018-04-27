@@ -32,6 +32,7 @@ import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.service.NetworkListener;
 import com.japan.jav.learnjapan.setting_khang.SettingActivity;
 import com.squareup.picasso.Picasso;
@@ -45,10 +46,12 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    private DatabaseService databaseService = DatabaseService.getInstance();
 
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
+
     private final String TAG = HomeActivity.class.getSimpleName();
     private static String mUserID = "";
     BroadcastReceiver receiver;
@@ -144,6 +147,11 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("username").getValue().toString();
+                String urlPhoto = dataSnapshot.child("linkPhoto").getValue().toString();
+                Picasso.with(HomeActivity.this)
+                        .load(urlPhoto)
+                        .placeholder(R.drawable.placeholder)
+                        .into(imgAvatar);
                 tvName.setText(name);
             }
 
@@ -152,10 +160,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
             }
         });
-        Picasso.with(HomeActivity.this)
-                .load(firebaseUser.getPhotoUrl())
-                .placeholder(R.drawable.placeholder)
-                .into(imgAvatar);
+
 //        tvName.setText(firebaseUser.getPhoneNumber());
         tvGmail.setText(firebaseUser.getEmail());
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar, R.string.open, R.string.close);

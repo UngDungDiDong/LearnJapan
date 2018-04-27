@@ -66,6 +66,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private int number_of_right_answer = 0;
     private int index_question = 0;
     public boolean check;
+    private int tongSoCau = 0;
 
     private static final String TAG = TestActivity.class.getSimpleName();
 
@@ -82,9 +83,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             if (fragmentTag.equals("KANJI")) {
                 isKanji = true;
                 kanjiList = (ArrayList<Kanji>) intent.getSerializableExtra(Constants.SET_BY_USER);
+                tongSoCau = kanjiList.size();
             } else {
                 isKanji = false;
                 mojiList = (ArrayList<Moji>) intent.getSerializableExtra(Constants.SET_BY_USER);
+                tongSoCau = mojiList.size();
             }
             userID = intent.getExtras().getString(Constants.USER_ID);
             setID = intent.getExtras().getString(Constants.KANJI_SET_NODE);
@@ -540,10 +543,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         btnRetry.setVisibility(View.VISIBLE);
         btnReview.setVisibility(View.VISIBLE);
 //        Save Data To Sqlite
-        int tongSoCau = 0;
-        if (isKanji) tongSoCau = kanjiList.size();
-        else tongSoCau = mojiList.size();
-
 
         SqliteLoadTask task = new SqliteLoadTask();
         task.execute(new TestResult(userID, setID, 1

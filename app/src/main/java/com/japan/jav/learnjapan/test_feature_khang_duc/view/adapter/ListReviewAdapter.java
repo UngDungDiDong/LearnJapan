@@ -56,8 +56,8 @@ public class ListReviewAdapter extends RecyclerView.Adapter<ListReviewAdapter.Te
             super(itemView);
             ivCheck = itemView.findViewById(R.id.ivCheck);
             tvQuestion = itemView.findViewById(R.id.tvQuestion);
-            tvAnswer = itemView.findViewById(R.id.tvYourAnswer);
-            tvUserAnswer = itemView.findViewById(R.id.tvAnswer);
+            tvAnswer = itemView.findViewById(R.id.tvAnswer);
+            tvUserAnswer = itemView.findViewById(R.id.tvYourAnswer);
         }
 
         public void bindView (ReviewItem item){
@@ -67,8 +67,8 @@ public class ListReviewAdapter extends RecyclerView.Adapter<ListReviewAdapter.Te
                 ivCheck.setImageResource(R.drawable.wrong_review);
             }
             tvQuestion.setText(item.getQuestion());
-            tvUserAnswer.setText(item.getUserAnswer());
-            tvAnswer.setText(item.getAnswer());
+            tvUserAnswer.setText("Trả Lời: " + item.getUserAnswer());
+            tvAnswer.setText("Đáp Án: " + item.getAnswer());
         }
     }
 }

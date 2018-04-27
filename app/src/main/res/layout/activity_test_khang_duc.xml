@@ -103,7 +103,7 @@
         <TextView
             android:id="@+id/txtAnswerA"
             android:layout_width="160dp"
-            android:layout_height="46dp"
+            android:layout_height="50dp"
             android:background="@drawable/border"
             android:gravity="center"
             android:text="@string/answer_a"

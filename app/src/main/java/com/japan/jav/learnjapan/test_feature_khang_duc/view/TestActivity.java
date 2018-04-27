@@ -13,7 +13,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,6 +29,7 @@ import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.TestResult;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -290,6 +290,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("INDEX_THREE", String.valueOf(index_three));
                 break;
         }
+        listMoji.remove(listMoji.get(index_moji));
     }
 
     public void updateQuestionKanji(ArrayList<Kanji> listKanji, ArrayList<String> listAnswer) {
@@ -406,6 +407,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("INDEX_THREE", String.valueOf(index_three));
                 break;
         }
+        listKanji.remove(listKanji.get(index_kanji));
         ;
     }
 
@@ -551,19 +553,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         String question = txtQuestion.getText().toString();
-        ReviewItem itemReview = new ReviewItem();
-        itemReview.setQuestion(question);
 
         String answer = "";
 
         switch (view.getId()) {
             case R.id.txtAnswerA:
                 answer = txtAnswerA.getText().toString();
-                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
-                        itemReview.setAnswer(item.getAnswer());
-                        listReviews.add(itemReview);
+                        ReviewItem reviewItem = new ReviewItem(question, item.getAnswer(), answer);
+                        listReviews.add(reviewItem);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -573,18 +572,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }
-                //showDialog(check);
                 checkTrueOrFalseAnswer(check, txtAnswerA);
 
                 break;
             case R.id.txtAnswerB:
 
                 answer = txtAnswerB.getText().toString();
-                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
-                        itemReview.setAnswer(item.getAnswer());
-                        listReviews.add(itemReview);
+                        ReviewItem reviewItem = new ReviewItem(question, item.getAnswer(), answer);
+                        listReviews.add(reviewItem);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -593,16 +590,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }
-//                showDialog(check);
                 checkTrueOrFalseAnswer(check, txtAnswerB);
                 break;
             case R.id.txtAnswerC:
                 answer = txtAnswerC.getText().toString();
-                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
-                        itemReview.setAnswer(item.getAnswer());
-                        listReviews.add(itemReview);
+                        ReviewItem reviewItem = new ReviewItem(question, item.getAnswer(), answer);
+                        listReviews.add(reviewItem);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -611,16 +606,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }
-//                showDialog(check);
                 checkTrueOrFalseAnswer(check, txtAnswerC);
                 break;
             case R.id.txtAnswerD:
                 answer = txtAnswerD.getText().toString();
-                itemReview.setUserAnswer(answer);
                 for (QuestionAnswer item : QAList) {
                     if (item.getQuestion().equalsIgnoreCase(question)) {
-                        itemReview.setAnswer(item.getAnswer());
-                        listReviews.add(itemReview);
+                        ReviewItem reviewItem = new ReviewItem(question, item.getAnswer(), answer);
+                        listReviews.add(reviewItem);
                         if (item.getAnswer().equalsIgnoreCase(answer)) {
                             check = true;
                             number_of_right_answer++;
@@ -629,7 +622,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }
-                //showDialog(check);
                 checkTrueOrFalseAnswer(check, txtAnswerD);
 
                 break;
@@ -640,53 +632,74 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnRetry:
 
-                answerList.clear();
-                QAList.clear();
-                listReviews.clear();
+//                answerList.clear();
+//                QAList.clear();
+//                listReviews.clear();
+//
+//                NUMBER_OF_QUESTION = 0;
+//
+//                number_of_right_answer = 0;
+//                index_question = 0;
+//
+//                txtRightCount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+//                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
+//                marginLayoutParams.setMargins(defaultMarginLayoutParams.leftMargin,
+//                        defaultMarginLayoutParams.topMargin,
+//                        defaultMarginLayoutParams.rightMargin, defaultMarginLayoutParams.bottomMargin);
+//
+//                txtRightCount.setText(number_of_right_answer + "");
+//
+//
+//                initData(isKanji);
+//
+//                txtRightCount.setVisibility(View.VISIBLE);
+//                txtQuestion.setVisibility(View.VISIBLE);
+//                txtAnswerA.setVisibility(View.VISIBLE);
+//                txtAnswerB.setVisibility(View.VISIBLE);
+//                txtAnswerC.setVisibility(View.VISIBLE);
+//                txtAnswerD.setVisibility(View.VISIBLE);
+//                txtCorrect.setVisibility(View.VISIBLE);
+//                txtNumberQuestion.setVisibility(View.VISIBLE);
+//
+//                btnMain.setVisibility(View.GONE);
+//                btnRetry.setVisibility(View.GONE);
+//                txtNotification.setVisibility(View.GONE);
+//                btnReview.setVisibility(View.GONE);
+                Intent refresh = new Intent(this, TestActivity.class);
+                if (isKanji) {
+                    Log.d("test", String.valueOf(kanjiList.size()));
 
-                NUMBER_OF_QUESTION = 0;
+                    refresh.putExtra(Constants.SET_BY_USER, oldKanjiList);
+                    refresh.putExtra(Constants.DATA_TYPE, "KANJI");
 
-                number_of_right_answer = 0;
-                index_question = 0;
+                } else {
 
-                txtRightCount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
-                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
-                marginLayoutParams.setMargins(defaultMarginLayoutParams.leftMargin,
-                        defaultMarginLayoutParams.topMargin,
-                        defaultMarginLayoutParams.rightMargin, defaultMarginLayoutParams.bottomMargin);
-
-                txtRightCount.setText(number_of_right_answer + "");
-
-
-                initData(isKanji);
-
-                txtRightCount.setVisibility(View.VISIBLE);
-                txtQuestion.setVisibility(View.VISIBLE);
-                txtAnswerA.setVisibility(View.VISIBLE);
-                txtAnswerB.setVisibility(View.VISIBLE);
-                txtAnswerC.setVisibility(View.VISIBLE);
-                txtAnswerD.setVisibility(View.VISIBLE);
-                txtCorrect.setVisibility(View.VISIBLE);
-                txtNumberQuestion.setVisibility(View.VISIBLE);
-
-                btnMain.setVisibility(View.GONE);
-                btnRetry.setVisibility(View.GONE);
-                txtNotification.setVisibility(View.GONE);
-
+                    refresh.putExtra(Constants.SET_BY_USER, oldMojiList);
+                    refresh.putExtra(Constants.DATA_TYPE, "MOJI");
+                }
+                refresh.putExtra(Constants.USER_ID, userID);
+                refresh.putExtra(Constants.KANJI_SET_NODE, setID);
+                startActivity(refresh);
+                this.finish();
                 break;
             case R.id.btnReview:
-                if (isKanji){
-                    if (listReviews.size() == oldKanjiList.size()){
-                        Intent intent = new Intent(TestActivity.this, TestReviewActivity.class);
-                        intent.putExtra(Constants.LIST_REVIEW, listReviews);
-                        startActivity(intent);
-                    }
-                }else{
-                    if (listReviews.size() == oldMojiList.size()){
-                        Intent intent = new Intent(TestActivity.this, TestReviewActivity.class);
-                        intent.putExtra(Constants.LIST_REVIEW, listReviews);
-                        startActivity(intent);
-                    }
+
+                if (isKanji) {
+                    HashSet<ReviewItem> withoutDuplicate = new HashSet<>(listReviews);
+                    listReviews.clear();
+                    listReviews.addAll(withoutDuplicate);
+                    Log.e(TAG, "onC: " + listReviews.size());
+                    Intent intent = new Intent(TestActivity.this, TestReviewActivity.class);
+                    intent.putExtra(Constants.LIST_REVIEW, listReviews);
+                    startActivity(intent);
+                } else {
+                    HashSet<ReviewItem> withoutDuplicate = new HashSet<>(listReviews);
+                    listReviews.clear();
+                    listReviews.addAll(withoutDuplicate);
+                    Log.e(TAG, "onC: " + listReviews.size());
+                    Intent intent = new Intent(TestActivity.this, TestReviewActivity.class);
+                    intent.putExtra(Constants.LIST_REVIEW, listReviews);
+                    startActivity(intent);
                 }
                 break;
         }

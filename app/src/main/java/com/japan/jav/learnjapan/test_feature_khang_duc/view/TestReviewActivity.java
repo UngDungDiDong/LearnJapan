@@ -37,7 +37,7 @@ public class TestReviewActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbarReview);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -1,6 +1,8 @@
 package com.japan.jav.learnjapan.test_feature_khang_duc.view.model;
 
-public class ReviewItem {
+import java.io.Serializable;
+
+public class ReviewItem implements Serializable {
     private String question;
     private String answer;
     private String userAnswer;

@@ -135,7 +135,6 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         getSupportActionBar().setHomeButtonEnabled(true);
         mToolBar.setTitle(R.string.app_name);
     }
-
     private void setupDrawerLayout() {
         drawerLayout = findViewById(R.id.drawer_layout);
         View hView = navigationView.getHeaderView(0);

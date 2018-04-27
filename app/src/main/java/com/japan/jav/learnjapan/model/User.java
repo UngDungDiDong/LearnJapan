@@ -20,13 +20,19 @@ public class User {
     }
 
     // dan cmt
-    public User(String username,String email, String password ) {
+    public User(String username,String email) {
 
         this.email = email;
         this.password = password;
         this.username = username;
     }
-//
+    public User(String id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+
+    }
+
     public User(String id, String username, String email, String linkPhoto, boolean gender, String phone, String dateOfBirth, String address) {
         this.id = id;
         this.username = username;
@@ -44,6 +50,7 @@ public class User {
         this.email = email;
         this.linkPhoto = linkPhoto;
     }
+
 
 
     public String getPhone() {

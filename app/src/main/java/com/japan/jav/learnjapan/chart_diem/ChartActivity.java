@@ -129,7 +129,8 @@ public class ChartActivity extends AppCompatActivity {
 
                 for (cursor.moveToFirst(); !(cursor.isAfterLast()); cursor
                         .moveToNext()) {
-                    testTimes = (cursor.getInt(2) + chartRes.getSoLanTest());
+
+                    testTimes = (cursor.getInt(2));
                     allAnswer = testTimes * (cursor.getInt(3) + chartRes.getTongSocau());
                     correctAnswer = (cursor.getInt(4) + chartRes.getSoCauDung());
                     wrongAnswer = allAnswer - correctAnswer;
@@ -137,8 +138,8 @@ public class ChartActivity extends AppCompatActivity {
                     ArrayList<PieEntry> yValues = new ArrayList<>();
 
 
-                    yValues.add(new PieEntry( correctAnswer , correctAnswer+ " Số từ đã thuộc"));
-                    yValues.add(new PieEntry( wrongAnswer   , wrongAnswer+ " Số từ chưa thuộc"));
+                    yValues.add(new PieEntry( correctAnswer , correctAnswer+ " Từ đã thuộc"));
+                    yValues.add(new PieEntry( wrongAnswer   , wrongAnswer+ " Từ chưa thuộc"));
 
 
                     pieChart.setCenterText("Số lần Test: " + testTimes +'\n' + "Tổng số từ: "+ allAnswer);

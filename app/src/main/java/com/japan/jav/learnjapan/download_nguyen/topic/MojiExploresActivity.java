@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.download_nguyen.adapter.MojiAdater;
@@ -46,7 +47,6 @@ public class MojiExploresActivity extends AppCompatActivity {
     private String mSetName = "";
     final Context context = this;
     Date currentTime;
-    //String currentTime;
     ImageView ivAdd;
     String userID;
     String id;
@@ -55,14 +55,14 @@ public class MojiExploresActivity extends AppCompatActivity {
     private DatabaseService mData = DatabaseService.getInstance();
     private DatabaseReference mMojiSet = mData.createDatabase("MojiSet");
     private DatabaseReference mSetByUser = mData.createDatabase("SetByUser");
+
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moji_explores);
 
         currentTime = Calendar.getInstance().getTime();
-//        currentTime = new SimpleDateFormat("dd-MM-yyyy")
-//                .format(Calendar.getInstance().getTime());
         userID = mData.getUserID();
         isAdded = false;
 
@@ -81,7 +81,6 @@ public class MojiExploresActivity extends AppCompatActivity {
     private void addControl() {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMojiRecycler = findViewById(R.id.mojiRecyclerView);
         mojiAdater = new MojiAdater();
@@ -109,6 +108,11 @@ public class MojiExploresActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    private void setReference(String topic) {
+        mMojiRef = mData.getDatabase().child("moji").child(MOJI_SOUMATOME_KEY).child(topic);
+        Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
     }
 
     public class LoadDataTask extends AsyncTask<Void, Void, Void> {
@@ -147,22 +151,16 @@ public class MojiExploresActivity extends AppCompatActivity {
         mojiAdater.notifyDataSetChanged();
     }
 
-    private void setReference(String topic) {
-        mMojiRef = mData.getDatabase().child("moji").child(MOJI_SOUMATOME_KEY).child(topic);
-        Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
-    }
-
     private void checkStatus() {
         Log.d(TAG, "checkStatus: begin " + isAdded);
         mMojiSet.child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
                     Set mojiSet = new Set();
                     mojiSet.setName(ds.getValue(Set.class).getName());
-                    Log.d(TAG, "onDataChange: mojiSet: " + mojiSet.getName());
-                    if (mojiSet.getName()== mTopic) {
+
+                    if (mojiSet.getName().equals(mTopic)) {
                         isAdded = true;
                         changeButtonAdd();
                         break;
@@ -193,12 +191,11 @@ public class MojiExploresActivity extends AppCompatActivity {
         }
     }
 
-
     private void changeButtonAdd() {
         if (isAdded) {
             ivAdd.setBackgroundResource(R.drawable.ic_add_set);
         } else {
-            //ivAdd.setBackgroundResource(R.drawable.ic_remove_set);
+//            ivAdd.setBackgroundResource(R.drawable.ic_remove_set);
         }
     }
 

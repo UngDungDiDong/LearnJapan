@@ -47,7 +47,7 @@ public class TopicMojiActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRv_MojiTopic.setLayoutManager(linearLayoutManager);
         mRv_MojiTopic.setAdapter(topicAdapter);
-        mMojiTopicRef = mData.getDatabase().child("moji").child("Soumatome");
+        mMojiTopicRef = mData.getDatabase().child("Moji").child("Soumatome");
     }
     @Override
     public boolean onSupportNavigateUp() {

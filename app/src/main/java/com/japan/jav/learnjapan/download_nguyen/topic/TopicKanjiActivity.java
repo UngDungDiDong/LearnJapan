@@ -48,7 +48,7 @@ public class TopicKanjiActivity extends AppCompatActivity {
         topicAdapter = new TopicAdapter("KANJI");
         topicAdapter.setTopic(kanjiTopicList);
         mRv_KanjiTopic.setAdapter(topicAdapter);
-        mKanjiTopicRef = mData.getDatabase().child("data_kanji");
+        mKanjiTopicRef = mData.getDatabase().child("Kanji");
     }
 
     @Override

@@ -37,11 +37,12 @@ import com.japan.jav.learnjapan.chart_diem.ChartActivity;
 import com.japan.jav.learnjapan.download_nguyen.topic.TopicMojiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
+import com.japan.jav.learnjapan.learn_trung_nam.LearnActivity;
+import com.japan.jav.learnjapan.model.DataTypeEnum;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
@@ -87,7 +88,6 @@ public class MojiFragment extends Fragment {
         fabKanji = (FloatingActionButton) view.findViewById(R.id.fabKanji);
         fabCreate = (FloatingActionButton) view.findViewById(R.id.fabCreate);
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -98,7 +98,7 @@ public class MojiFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewTam);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerViewAdapter(mojiSetList);
+        adapter = new RecyclerViewAdapter(FRAGMENT_TAG, mojiSetList);
         recyclerView.setAdapter(adapter);
         user = FirebaseAuth.getInstance().getCurrentUser();
         adapter.setOnBoomMenuItemClick(new RecyclerViewAdapter.OnBoomMenuItemClicked() {
@@ -106,13 +106,13 @@ public class MojiFragment extends Fragment {
             public void OnMenuItemClicked(int classIndex, DataTypeEnum dataTypeEnum, Set set, int position) {
                 switch (classIndex) {
                     case 0:
-                        Toast.makeText(getContext(), "To learn activity", Toast.LENGTH_SHORT).show();
                         //chuyen qua man hinh LEARN
-//                        Intent intent = new Intent(getContext(), LearnActivity.class);
-//                        intent.putExtra(Constants.SET_BY_USER, set);
-//                        intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
-//                        intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
-//                        startActivity(intent);
+                        Intent learnIntent = new Intent(getContext(), LearnActivity.class);
+                        learnIntent.putExtra(Constants.SET_BY_USER, set);
+                        learnIntent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                        Toast.makeText(getContext(), "" + dataTypeEnum.toString(), Toast.LENGTH_SHORT).show();
+                        learnIntent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
+                        startActivity(learnIntent);
                         break;
                     case 1:
                         //chuyen qua test

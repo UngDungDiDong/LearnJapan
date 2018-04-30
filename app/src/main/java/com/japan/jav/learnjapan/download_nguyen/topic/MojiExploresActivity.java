@@ -20,11 +20,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.download_nguyen.adapter.MojiAdater;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.model.Moji;
 import com.japan.jav.learnjapan.service.DatabaseService;
 

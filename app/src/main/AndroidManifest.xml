@@ -64,6 +64,9 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
+
+        <activity android:name=".learn_trung_nam.LearnActivity"/>
+
     </application>
 
 </manifest>

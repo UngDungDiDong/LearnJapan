@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private void setControl() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager_learn);
     }
 
     public static String getUserID() {
@@ -160,7 +160,6 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
             }
         });
 
-//        tvName.setText(firebaseUser.getPhoneNumber());
         tvGmail.setText(firebaseUser.getEmail());
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(mToggle);

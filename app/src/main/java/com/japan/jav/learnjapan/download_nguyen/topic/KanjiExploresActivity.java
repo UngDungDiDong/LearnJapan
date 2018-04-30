@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.download_nguyen.adapter.KanjiAdapter;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.service.DatabaseService;
 

@@ -1,4 +1,4 @@
-package com.japan.jav.learnjapan.home_navigation_nhi_tam.model;
+package com.japan.jav.learnjapan.model;
 
 import java.io.Serializable;
 

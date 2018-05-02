@@ -175,7 +175,9 @@ public class KanjiExploresActivity extends AppCompatActivity {
             Set set = new Set(id, mSetName, String.valueOf(currentTime));
             //Set set = new Set(id, mSetName, currentTime);
             mKanjiSet.child(userID).child(id).setValue(set);
-            mSetByUser.child(userID).child(id).setValue(kanjiList);
+            for (int i = 0; i < kanjiList.size(); i++){
+
+            }
             isAdded = true;
             checkStatus();
             Toast.makeText(KanjiExploresActivity.this, "Added to your data", Toast.LENGTH_LONG).show();

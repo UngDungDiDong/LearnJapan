@@ -7,12 +7,14 @@ public class Kanji implements Serializable {
     private String amhan;
     private String kanji;
     private String tuvung;
+    private String photo;
 
-    public Kanji(String id, String amhan, String kanji, String tuvung) {
+    public Kanji(String id, String amhan, String kanji, String tuvung, String photo) {
         this.id = id;
         this.amhan = amhan;
         this.kanji = kanji;
         this.tuvung = tuvung;
+        this.photo = photo;
     }
     public Kanji(){}
 
@@ -46,5 +48,13 @@ public class Kanji implements Serializable {
 
     public void setTuvung(String tuvung) {
         this.tuvung = tuvung;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

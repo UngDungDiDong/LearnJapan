@@ -98,7 +98,7 @@ public class LearnActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mProgressBar = findViewById(R.id.progress_bar_learn);
         mViewPager = findViewById(R.id.viewPager_learn);
-        mPagerAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(), dataTypeEnum);
+        mPagerAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(), dataTypeEnum, this);
         if (type == "Kanji") {
             mPagerAdapter.setKanList(kanjiList);
         } else {
@@ -107,6 +107,7 @@ public class LearnActivity extends AppCompatActivity {
         if (cardNumber != 0) {
             mProgressBar.setProgress(100 / cardNumber);
         }
+        mPagerAdapter.setSet(this.set);
         mViewPager.setAdapter(mPagerAdapter);
     }
 

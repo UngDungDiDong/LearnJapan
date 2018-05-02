@@ -2,24 +2,25 @@ package com.japan.jav.learnjapan.model;
 
 import java.io.Serializable;
 
-/**
- * Created by lana on 16/01/2018.
- */
 public class Moji implements Serializable {
+
+    private String id;
     private String AmHan;
     private String CachDocHira;
     private String NghiaTiengViet;
     private String TuTiengNhat;
-
-    public Moji(String amHan, String cachDocHira, String nghiaTiengViet, String tuTiengNhat) {
-        this.AmHan = amHan;
-        this.CachDocHira = cachDocHira;
-        this.NghiaTiengViet = nghiaTiengViet;
-        this.TuTiengNhat = tuTiengNhat;
-    }
+    private String photo;
 
     public Moji() {
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAmHan() {
@@ -27,7 +28,7 @@ public class Moji implements Serializable {
     }
 
     public void setAmHan(String amHan) {
-        this.AmHan = amHan;
+        AmHan = amHan;
     }
 
     public String getCachDocHira() {
@@ -35,7 +36,7 @@ public class Moji implements Serializable {
     }
 
     public void setCachDocHira(String cachDocHira) {
-        this.CachDocHira = cachDocHira;
+        CachDocHira = cachDocHira;
     }
 
     public String getNghiaTiengViet() {
@@ -43,7 +44,7 @@ public class Moji implements Serializable {
     }
 
     public void setNghiaTiengViet(String nghiaTiengViet) {
-        this.NghiaTiengViet = nghiaTiengViet;
+        NghiaTiengViet = nghiaTiengViet;
     }
 
     public String getTuTiengNhat() {
@@ -51,7 +52,15 @@ public class Moji implements Serializable {
     }
 
     public void setTuTiengNhat(String tuTiengNhat) {
-        this.TuTiengNhat = tuTiengNhat;
+        TuTiengNhat = tuTiengNhat;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     @Override

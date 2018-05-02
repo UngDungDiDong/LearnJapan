@@ -167,9 +167,9 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             for (int i = 0; i < mojiList.size(); i++) {
                 oldMojiList.add(mojiList.get(i));
-                answerList.add(mojiList.get(i).getCachDocHira());
+                answerList.add(mojiList.get(i).getNghiaTiengViet());
                 QAList.add(new QuestionAnswer(mojiList.get(i).getTuTiengNhat(),
-                        mojiList.get(i).getCachDocHira()));
+                        mojiList.get(i).getNghiaTiengViet()));
             }
 //            NUMBER_OF_QUESTION = 5; // fortest
             NUMBER_OF_QUESTION = mojiList.size();
@@ -203,9 +203,9 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         switch (index_one_location) {
             case 0:
                 // set dap an vao cau A
-                txtAnswerA.setText(listMoji.get(index_moji).getCachDocHira());
+                txtAnswerA.setText(listMoji.get(index_moji).getNghiaTiengViet());
                 // đánh dấu câu trả lời đúng của câu hỏi
-                answer_mojiRemove = listMoji.get(index_moji).getCachDocHira();
+                answer_mojiRemove = listMoji.get(index_moji).getNghiaTiengViet();
                 // remove khỏi list answer
                 listCurrentAnswer.remove(answer_mojiRemove);
 
@@ -228,8 +228,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case 1:
-                txtAnswerB.setText(listMoji.get(index_moji).getCachDocHira());
-                answer_mojiRemove = listMoji.get(index_moji).getCachDocHira();
+                txtAnswerB.setText(listMoji.get(index_moji).getNghiaTiengViet());
+                answer_mojiRemove = listMoji.get(index_moji).getNghiaTiengViet();
                 listCurrentAnswer.remove(answer_mojiRemove);
 
                 index_one = new Random().nextInt(listCurrentAnswer.size());
@@ -250,8 +250,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("INDEX_THREE", String.valueOf(index_three));
                 break;
             case 2:
-                txtAnswerC.setText(listMoji.get(index_moji).getCachDocHira());
-                answer_mojiRemove = listMoji.get(index_moji).getCachDocHira();
+                txtAnswerC.setText(listMoji.get(index_moji).getNghiaTiengViet());
+                answer_mojiRemove = listMoji.get(index_moji).getNghiaTiengViet();
                 listCurrentAnswer.remove(answer_mojiRemove);
 
                 index_one = new Random().nextInt(listCurrentAnswer.size());
@@ -272,8 +272,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case 3:
-                txtAnswerD.setText(listMoji.get(index_moji).getCachDocHira());
-                answer_mojiRemove = listMoji.get(index_moji).getCachDocHira();
+                txtAnswerD.setText(listMoji.get(index_moji).getNghiaTiengViet());
+                answer_mojiRemove = listMoji.get(index_moji).getNghiaTiengViet();
                 listCurrentAnswer.remove(answer_mojiRemove);
 
                 index_one = new Random().nextInt(listCurrentAnswer.size());

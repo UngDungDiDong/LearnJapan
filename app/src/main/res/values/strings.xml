@@ -97,4 +97,5 @@
     <!-- learn - trung - nam -->
     <string name="forward">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
+    <string name="update">Update</string>
 </resources>

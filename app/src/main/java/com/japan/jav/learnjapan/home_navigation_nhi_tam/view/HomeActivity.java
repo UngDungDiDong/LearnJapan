@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
@@ -145,6 +146,13 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         mDatabase.getReference().child("User").child(mUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child("username").getValue() == null || dataSnapshot.child("username").getValue().toString().length() == 0 ||
+                        dataSnapshot.child("linkPhoto").getValue() == null || dataSnapshot.child("linkPhoto").getValue().toString().length() == 0){
+                    goToCompeleteProfileActivities();
+                    return;
+                }
+
                 String name = dataSnapshot.child("username").getValue().toString();
                 String urlPhoto = dataSnapshot.child("linkPhoto").getValue().toString();
                 Picasso.with(HomeActivity.this)
@@ -167,7 +175,10 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
     }
-
+    private void goToCompeleteProfileActivities() {
+        Intent intent = new Intent(HomeActivity.this, CompleteProfileActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onPause() {
         super.onPause();

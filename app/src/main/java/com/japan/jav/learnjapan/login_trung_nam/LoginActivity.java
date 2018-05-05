@@ -29,6 +29,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.create_account_dan.SignupActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.reset_pass_hao.ResetPasswordActivity;
@@ -171,7 +172,7 @@ public class LoginActivity  extends AppCompatActivity{
                     btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorDisable));
 
                     Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, CompleteProfileActivity.class);
                     intent.putExtra(Constants.USER_ID, task.getResult().getUser().getUid());
 
                     startActivity(intent);

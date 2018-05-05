@@ -36,10 +36,11 @@ import com.japan.jav.learnjapan.chart_diem.ChartActivity;
 import com.japan.jav.learnjapan.download_nguyen.topic.TopicKanjiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.RecyclerViewAdapter;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
+import com.japan.jav.learnjapan.learn_trung_nam.LearnActivity;
+import com.japan.jav.learnjapan.model.DataTypeEnum;
 import com.japan.jav.learnjapan.model.Kanji;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.TestActivity;
 
@@ -176,7 +177,7 @@ public class KanjiFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewTam);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerViewAdapter(kanjiSetList);
+        adapter = new RecyclerViewAdapter(FRAGMENT_TAG, kanjiSetList);
         recyclerView.setAdapter(adapter);
 
 
@@ -185,15 +186,12 @@ public class KanjiFragment extends Fragment {
             public void OnMenuItemClicked(int classIndex, DataTypeEnum dataTypeEnum, Set set, int position) {
                 switch (classIndex) {
                     case 0:
-                        Toast.makeText(getContext(), "To learn activity", Toast.LENGTH_SHORT).show();
-                    /*
                           // chuyen qua man hinh LEARN
-                          Intent intent = new Intent(getContext(), LearnActivity.class);
-                          intent.putExtra(Constants.SET_BY_USER, set);
-                          intent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
-                          intent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
-                          startActivity(intent);
-                    */
+                          Intent learnIntent = new Intent(getContext(), LearnActivity.class);
+                          learnIntent.putExtra(Constants.SET_BY_USER, set);
+                          learnIntent.putExtra(Constants.DATA_TYPE, dataTypeEnum);
+                          learnIntent.putExtra(Constants.USER_ID, HomeActivity.getUserID());
+                          startActivity(learnIntent);
                         break;
                     case 1:
                         //chuyen qua test

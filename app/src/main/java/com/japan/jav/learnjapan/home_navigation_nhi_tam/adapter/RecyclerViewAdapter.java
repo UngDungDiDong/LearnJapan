@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.BuilderManager;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.DataTypeEnum;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
+import com.japan.jav.learnjapan.model.DataTypeEnum;
+import com.japan.jav.learnjapan.model.Set;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -25,8 +25,10 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Set> list;
     private OnBoomMenuItemClicked mListener;
+    private String FRAGMENT_TAG;
 
-    public RecyclerViewAdapter(ArrayList<Set> list) {
+    public RecyclerViewAdapter(String FRAGMENT_TAG, ArrayList<Set> list) {
+        this.FRAGMENT_TAG = FRAGMENT_TAG;
         this.list = list;
     }
 
@@ -48,6 +50,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.txtDatetime.setText(list.get(position).getDatetime());
         viewHolder.set = this.list.get(position);
         viewHolder.bmb.clearBuilders();
+
+        if(this.FRAGMENT_TAG == "KANJI"){
+            viewHolder.dataType = DataTypeEnum.KANJI;
+        }else{
+            viewHolder.dataType = DataTypeEnum.MOJI;
+        }
 
         int stringIndex = 0;
         for (int i = 0; i < viewHolder.bmb.getPiecePlaceEnum().pieceNumber(); i++) {

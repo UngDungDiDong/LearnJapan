@@ -1,7 +1,6 @@
 package com.japan.jav.learnjapan.download_nguyen.topic;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,8 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.download_nguyen.adapter.MojiAdater;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
 import com.japan.jav.learnjapan.model.Moji;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.service.DatabaseService;
 
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ public class MojiExploresActivity extends AppCompatActivity {
     private String mSetName = "";
     final Context context = this;
     Date currentTime;
-    //String currentTime;
     ImageView ivAdd;
     String userID;
     String id;
@@ -55,14 +53,14 @@ public class MojiExploresActivity extends AppCompatActivity {
     private DatabaseService mData = DatabaseService.getInstance();
     private DatabaseReference mMojiSet = mData.createDatabase("MojiSet");
     private DatabaseReference mSetByUser = mData.createDatabase("SetByUser");
+
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moji_explores);
 
         currentTime = Calendar.getInstance().getTime();
-//        currentTime = new SimpleDateFormat("dd-MM-yyyy")
-//                .format(Calendar.getInstance().getTime());
         userID = mData.getUserID();
         isAdded = false;
 
@@ -81,7 +79,6 @@ public class MojiExploresActivity extends AppCompatActivity {
     private void addControl() {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMojiRecycler = findViewById(R.id.mojiRecyclerView);
         mojiAdater = new MojiAdater();
@@ -111,6 +108,11 @@ public class MojiExploresActivity extends AppCompatActivity {
         finish();
     }
 
+    private void setReference(String topic) {
+        mMojiRef = mData.getDatabase().child("moji").child(MOJI_SOUMATOME_KEY).child(topic);
+        Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
+    }
+
     public class LoadDataTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -137,19 +139,12 @@ public class MojiExploresActivity extends AppCompatActivity {
 
     private void showData(DataSnapshot dataSnapshot) {
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            Log.d(TAG, "showData: ds: " + ds);
             Moji moji = ds.getValue(Moji.class);
-//            moji.setCachDocHira(ds.getValue(Moji.class).getCachDocHira());
-//            moji.setAmHan(ds.getValue(Moji.class).getAmHan());
+            moji.setId(ds.getKey());
+            Log.e(TAG, "showData: " + ds.getKey());
             mojiList.add(moji);
-            Log.d(TAG, "showData: mojiList: " + mojiList);
         }
         mojiAdater.notifyDataSetChanged();
-    }
-
-    private void setReference(String topic) {
-        mMojiRef = mData.getDatabase().child("moji").child(MOJI_SOUMATOME_KEY).child(topic);
-        Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
     }
 
     private void checkStatus() {
@@ -158,11 +153,10 @@ public class MojiExploresActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
                     Set mojiSet = new Set();
                     mojiSet.setName(ds.getValue(Set.class).getName());
-                    Log.d(TAG, "onDataChange: mojiSet: " + mojiSet.getName());
-                    if (mojiSet.getName()== mTopic) {
+
+                    if (mojiSet.getName().equals(mTopic)) {
                         isAdded = true;
                         changeButtonAdd();
                         break;
@@ -176,15 +170,15 @@ public class MojiExploresActivity extends AppCompatActivity {
             }
         });
     }
-
-    @SuppressLint("ResourceAsColor")
     private void controlAddButton() {
         if (isAdded == false) {
             id = mMojiSet.push().getKey();
             Set set = new Set(id, mSetName, String.valueOf(currentTime));
             //Set set = new Set(id, mSetName, currentTime);
             mMojiSet.child(userID).child(id).setValue(set);
-            mSetByUser.child(userID).child(id).setValue(mojiList);
+            for (int i = 0; i < mojiList.size(); i++){
+                mSetByUser.child(userID).child(id).child(mojiList.get(i).getId()).setValue(mojiList.get(i));
+            }
             isAdded = true;
             changeButtonAdd();
             Toast.makeText(MojiExploresActivity.this, "Added to your data", Toast.LENGTH_LONG).show();
@@ -193,12 +187,11 @@ public class MojiExploresActivity extends AppCompatActivity {
         }
     }
 
-
     private void changeButtonAdd() {
         if (isAdded) {
             ivAdd.setBackgroundResource(R.drawable.ic_add_set);
         } else {
-            //ivAdd.setBackgroundResource(R.drawable.ic_remove_set);
+//            ivAdd.setBackgroundResource(R.drawable.ic_remove_set);
         }
     }
 
@@ -228,7 +221,6 @@ public class MojiExploresActivity extends AppCompatActivity {
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String name = ds.getValue(Set.class).getName();
-
                         if (name.equals(mTopic)) {
                             id = ds.getKey();
                             Log.d(TAG, "onDataChange: key: " + id);

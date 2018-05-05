@@ -27,11 +27,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
+import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.service.NetworkListener;
 import com.japan.jav.learnjapan.setting_khang.SettingActivity;
 import com.squareup.picasso.Picasso;
@@ -45,10 +47,12 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    private DatabaseService databaseService = DatabaseService.getInstance();
 
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
+
     private final String TAG = HomeActivity.class.getSimpleName();
     private static String mUserID = "";
     BroadcastReceiver receiver;
@@ -91,7 +95,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
     private void setControl() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager_learn);
     }
 
     public static String getUserID() {
@@ -132,7 +136,6 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         getSupportActionBar().setHomeButtonEnabled(true);
         mToolBar.setTitle(R.string.app_name);
     }
-
     private void setupDrawerLayout() {
         drawerLayout = findViewById(R.id.drawer_layout);
         View hView = navigationView.getHeaderView(0);
@@ -143,7 +146,19 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         mDatabase.getReference().child("User").child(mUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child("username").getValue() == null || dataSnapshot.child("username").getValue().toString().length() == 0 ||
+                        dataSnapshot.child("linkPhoto").getValue() == null || dataSnapshot.child("linkPhoto").getValue().toString().length() == 0){
+                    goToCompeleteProfileActivities();
+                    return;
+                }
+
                 String name = dataSnapshot.child("username").getValue().toString();
+                String urlPhoto = dataSnapshot.child("linkPhoto").getValue().toString();
+                Picasso.with(HomeActivity.this)
+                        .load(urlPhoto)
+                        .placeholder(R.drawable.placeholder)
+                        .into(imgAvatar);
                 tvName.setText(name);
             }
 
@@ -152,11 +167,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
             }
         });
-        Picasso.with(HomeActivity.this)
-                .load(firebaseUser.getPhotoUrl())
-                .placeholder(R.drawable.placeholder)
-                .into(imgAvatar);
-//        tvName.setText(firebaseUser.getPhoneNumber());
+
         tvGmail.setText(firebaseUser.getEmail());
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(mToggle);
@@ -164,7 +175,10 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
     }
-
+    private void goToCompeleteProfileActivities() {
+        Intent intent = new Intent(HomeActivity.this, CompleteProfileActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onPause() {
         super.onPause();

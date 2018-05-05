@@ -2,14 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.japan.jav.learnjapan">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -17,6 +23,16 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
         <activity android:name=".test_feature_khang_duc.view.TestActivity" />
         <activity android:name=".complete_profile_bang.CompleteProfileActivity" />
@@ -31,7 +47,7 @@
         <activity android:name=".reset_pass_hao.ResetPasswordActivity" />
         <activity android:name=".home_navigation_nhi_tam.view.HomeActivity" />
         <activity android:name=".setting_khang.SettingActivity" />
-
+        <activity android:name=".test_feature_khang_duc.view.TestReviewActivity"/>
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -42,6 +58,9 @@
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/app_icon" />
         <service
             android:name=".setting_khang.service.MyFireBaseMessagingService">
             <intent-filter>
@@ -61,9 +80,8 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@android:drawable/stat_notify_chat" />
-    </application>
 
+        <activity android:name=".learn_trung_nam.LearnActivity"/>
+
+    </application>
 </manifest>

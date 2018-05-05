@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.download_nguyen.adapter.KanjiAdapter;
-import com.japan.jav.learnjapan.home_navigation_nhi_tam.model.Set;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.service.DatabaseService;
 
@@ -44,7 +44,6 @@ public class KanjiExploresActivity extends AppCompatActivity {
     private String mSetName = "";
     final Context context = this;
     Date currentTime;
-    //String currentTime;
     ImageView ivAdd;
     String userID;
     String id;
@@ -58,15 +57,12 @@ public class KanjiExploresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kanji_explores);
 
         currentTime = Calendar.getInstance().getTime();
-//        currentTime = new SimpleDateFormat("dd-MM-yyyy")
-//                .format(Calendar.getInstance().getTime());
         userID = mData.getUserID();
         isAdded = false;
 
         //Declare database references
         Intent intent = getIntent();
         Topic = intent.getStringExtra("Kanji_Key");
-        Log.d("aaa", Topic);
         mSetName = Topic;
         setReference(Topic);
         changeButtonAdd();
@@ -81,7 +77,7 @@ public class KanjiExploresActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mKanjiRecycler = (RecyclerView) findViewById(R.id.kanjiRecyclerView);
+        mKanjiRecycler = findViewById(R.id.kanjiRecyclerView);
         kanjiAdapter = new KanjiAdapter();
         kanjiAdapter.setmKanjiList(kanjiList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -179,7 +175,9 @@ public class KanjiExploresActivity extends AppCompatActivity {
             Set set = new Set(id, mSetName, String.valueOf(currentTime));
             //Set set = new Set(id, mSetName, currentTime);
             mKanjiSet.child(userID).child(id).setValue(set);
-            mSetByUser.child(userID).child(id).setValue(kanjiList);
+            for (int i = 0; i < kanjiList.size(); i++){
+
+            }
             isAdded = true;
             checkStatus();
             Toast.makeText(KanjiExploresActivity.this, "Added to your data", Toast.LENGTH_LONG).show();

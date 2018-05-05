@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     EditText tv_username , tv_email, tv_pass, tv_confirmpass;
     Button bt_Signup;
     String username = "",email = "", pass = "", confirmPass = "";
+    ProgressBar progressbar;
 
     private FirebaseAuth mAuth;
 
@@ -43,6 +45,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         tv_confirmpass = findViewById(R.id.tvconfirmPass);
         bt_Signup = findViewById(R.id.btSignUp);
         bt_Signup.setOnClickListener(this);
+        progressbar = findViewById(R.id.progressBar);
 
     }
 
@@ -57,19 +60,26 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(SignupActivity.this, "Please fill all username, email, pass and confirmPass", Toast.LENGTH_SHORT).show();
             }
             else{
-                mAuth.createUserWithEmailAndPassword(email, pass)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    sendEmailVercation();
-                                }
-                                else {
+                if(!pass.equals(confirmPass)){
+                    Toast.makeText(SignupActivity.this, "Enter confirmPass failed", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    progressbar.setVisibility(View.VISIBLE);
 
-                                    Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    mAuth.createUserWithEmailAndPassword(email, pass)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        sendEmailVercation();
+                                    } else {
+
+                                        Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    }
+                                    progressbar.setVisibility(View.GONE);
                                 }
-                            }
-                        });
+                            });
+                }
             }
         }
     }

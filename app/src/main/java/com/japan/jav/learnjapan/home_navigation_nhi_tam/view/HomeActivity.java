@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity implements NetworkListener{
 
     }
     private void goToCompeleteProfileActivities() {
-        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+        Intent intent = new Intent(HomeActivity.this, CompleteProfileActivity.class);
         startActivity(intent);
     }
     @Override

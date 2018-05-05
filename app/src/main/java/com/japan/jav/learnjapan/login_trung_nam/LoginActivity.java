@@ -172,7 +172,7 @@ public class LoginActivity  extends AppCompatActivity{
                     btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorDisable));
 
                     Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, CompleteProfileActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra(Constants.USER_ID, task.getResult().getUser().getUid());
 
                     startActivity(intent);

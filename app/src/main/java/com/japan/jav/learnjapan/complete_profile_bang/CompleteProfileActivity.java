@@ -290,7 +290,7 @@ public class CompleteProfileActivity extends BaseActivity {
             showMessage("Please enter your address");
             return;
         }
-
+        showDialog();
         upLoadAvatar();
 
         user = new User(getUserId(), fullName, email, avatarUrl, gender, phone, dateOfBirth, address);
@@ -344,12 +344,15 @@ public class CompleteProfileActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 showMessage("Added");
+                dismissDialog();
                 backToHomeActivity();
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 showMessage("Failed");
+                dismissDialog();
             }
         });
     }

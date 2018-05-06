@@ -26,7 +26,8 @@ import com.japan.jav.learnjapan.model.User;
 
 
 public class SignupActivity extends BaseActivity implements View.OnClickListener {
-    EditText tv_username , tv_email, tv_pass, tv_confirmpass;
+    //EditText tv_username ;
+    EditText tv_email, tv_pass, tv_confirmpass;
     Button bt_Signup;
     String username = "",email = "", pass = "", confirmPass = "";
     ProgressBar progressbar;
@@ -40,7 +41,7 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
 
         mAuth = FirebaseAuth.getInstance();
 
-        tv_username = findViewById(R.id.tvUsername);
+        //tv_username = findViewById(R.id.tvUsername);
         tv_email = findViewById(R.id.tvEmail);
         tv_pass = findViewById(R.id.tvpass);
         tv_confirmpass = findViewById(R.id.tvconfirmPass);
@@ -53,12 +54,13 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if(view == bt_Signup){
-                    username = tv_username.getText().toString();
+                    //username = tv_username.getText().toString();
                     email = tv_email.getText().toString();
                     pass = tv_pass.getText().toString();
                     confirmPass = tv_confirmpass.getText().toString();
-            if(username.isEmpty() || email.isEmpty()|| pass.isEmpty() || confirmPass.isEmpty()){
-                Toast.makeText(SignupActivity.this, "Please fill all username, email, pass and confirmPass", Toast.LENGTH_SHORT).show();
+                // if(username.isEmpty() || email.isEmpty()|| pass.isEmpty() || confirmPass.isEmpty())
+            if(email.isEmpty()|| pass.isEmpty() || confirmPass.isEmpty()){
+                Toast.makeText(SignupActivity.this, "Please fill all email, pass and confirmPass", Toast.LENGTH_SHORT).show();
             }
             else{
                 if(!pass.equals(confirmPass)){

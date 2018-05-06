@@ -4,20 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:baselineAligned="true"
-    android:background="@drawable/gradient_background_shap"
+    android:background="@color/color_white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <EditText
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textSize="30dp"
+            android:background="@color/colorPrimaryDark"/>
+        <!--<EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvUsername"
             android:hint="Username"
             android:textSize="@dimen/large"
-            android:layout_marginTop="@dimen/large"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"/> -->
 
         <EditText
             android:layout_width="match_parent"
@@ -25,7 +33,9 @@
             android:id="@+id/tvEmail"
             android:hint="Email"
             android:textSize="@dimen/large"
-            android:layout_marginTop="@dimen/large"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
         <!--<EditText-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
@@ -42,7 +52,9 @@
             android:inputType="textPassword"
             android:hint="PassWord"
             android:textSize="@dimen/large"
-            android:layout_marginTop="@dimen/large"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +62,9 @@
             android:inputType="textPassword"
             android:hint="Confirm Password"
             android:textSize="@dimen/large"
-            android:layout_marginTop="@dimen/large"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
 
     </LinearLayout>
@@ -60,13 +74,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/btSignUp"
         android:layout_gravity="center"
-        android:text="Sign Up"/>
+        android:text="Sign Up"
+        android:layout_marginTop="20dp"/>
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:visibility="gone"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"/>
 
 </LinearLayout>

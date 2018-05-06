@@ -1,18 +1,15 @@
 package com.japan.jav.learnjapan.add_vocab_thanh.add;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.customView.VocabView;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
@@ -41,7 +39,7 @@ import butterknife.ButterKnife;
  * Created by matas on 3/17/18.
  */
 
-public class AddVocabActivity extends AppCompatActivity implements View.OnClickListener, VocabView.OnDeleteListener {
+public class AddVocabActivity extends BaseActivity implements View.OnClickListener, VocabView.OnDeleteListener {
     public static final int MODE_CREATE = 0;
     public static final int MODE_EDIT = 1;
     int curMode = MODE_CREATE;
@@ -64,6 +62,9 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
 
     @BindView(R.id.tv_count_vocab)
     TextView tvCountVocab;
+
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
 
     private VocabView vocabView;
     private Set setByUser;
@@ -127,6 +128,7 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
             });
             llData.addView(vocabView);
         } else {
+            showDialog();
             if (curTYPE == KANJI) {
                 mDatabase.child(Constants.SET_BY_USER).child(userId).child(setByUser.getId()).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -143,10 +145,12 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
                             llData.addView(vocabView);
                         }
                         tvCountVocab.setText(getString(R.string.new_words, llData.getChildCount()));
+                        dismissDialog();
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        dismissDialog();
                     }
                 });
             } else {
@@ -165,11 +169,12 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
                             llData.addView(vocabView);
                         }
                         tvCountVocab.setText(getString(R.string.new_words, llData.getChildCount()));
+                        dismissDialog();
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        dismissDialog();
                     }
                 });
             }
@@ -209,6 +214,12 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
                 vocabView = new VocabView(AddVocabActivity.this, curTYPE, this);
                 llData.addView(vocabView);
                 tvCountVocab.setText(getString(R.string.new_words, llData.getChildCount()));
+                scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                    }
+                },100);
                 break;
             case R.id.tv_done:
                 getDataAndSave();
@@ -217,29 +228,14 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getDataAndSave() {
+        showDialog();
         String id = "";
-//        if (isNetworkAvailable()) {
         if (curTYPE == MOJI) {
             id = mMojiSet.push().getKey();
         } else {
             id = mKanjiSet.push().getKey();
         }
         saveDatabase(id);
-//        } else {
-//            if (curTYPE == MOJI) {
-//                id = mMojiSet.push().getKey();
-//            } else {
-//                id = mKanjiSet.push().getKey();
-//            }
-//            saveLocalDatabase(id);
-//        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     //save to Firebase
@@ -260,8 +256,10 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
                 for (int i = 0; i < vocabCount; i++) {
                     VocabView vocabView = (VocabView) llData.getChildAt(i);
                     check = vocabView.checkData();
-                    if (!check)
+                    if (!check) {
+                        dismissDialog();
                         return;
+                    }
 
                     Moji moji = vocabView.getDataMoji();
                     mListMoji.add(moji);
@@ -277,8 +275,10 @@ public class AddVocabActivity extends AppCompatActivity implements View.OnClickL
                 for (int i = 0; i < vocabCount; i++) {
                     VocabView vocabView = (VocabView) llData.getChildAt(i);
                     check = vocabView.checkData();
-                    if (!check)
+                    if (!check) {
+                        dismissDialog();
                         return;
+                    }
 
                     Kanji kanji = vocabView.getDataKanji();
                     mListKanji.add(kanji);

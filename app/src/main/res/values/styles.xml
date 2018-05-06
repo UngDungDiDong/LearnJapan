@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -17,11 +17,11 @@
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorAccent">@color/colorLightPurple</item>
-        <item name="colorPrimaryDark">@color/colorLightPurple</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/grey_divider</item>
-        <item name="colorControlActivated">@color/colorLightPurple</item>
-        <item name="colorControlHighlight">@color/colorLightPurple</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
     </style>
 
     <style name="TextAppearence.TextInputLayout.Color" parent="@android:style/TextAppearance">
@@ -34,5 +34,27 @@
 
     <style name="NavigationViewTheme" parent="AppTheme">
         <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
+    <style name="FullscreenDialogAnimation">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+    </style>
+
+    <style name="FullscreenDialog" parent="android:Theme.Dialog">
+        <item name="android:colorAccent" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimaryDark" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="android:colorControlNormal" tools:ignore="NewApi">@color/grey_divider</item>
+        <item name="android:colorControlActivated" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="android:colorControlHighlight" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:colorForeground">@color/md_grey_600</item>
+        <item name="android:windowAnimationStyle">@style/FullscreenDialogAnimation</item>
     </style>
 </resources>

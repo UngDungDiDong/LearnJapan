@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.learn_trung_nam.adapter.CardFragmentPagerAdapter;
 import com.japan.jav.learnjapan.model.DataTypeEnum;
@@ -27,7 +28,7 @@ import com.japan.jav.learnjapan.service.DatabaseService;
 
 import java.util.ArrayList;
 
-public class LearnActivity extends AppCompatActivity {
+public class LearnActivity extends BaseActivity {
 
     private final static String TAG = LearnActivity.class.getSimpleName();
     private ViewPager mViewPager;

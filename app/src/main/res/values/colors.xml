@@ -26,4 +26,8 @@
     <color name="progressBarBackground">#CE93D8</color>
     <color name="colorLightPink">#ff79b0</color>
 
+    <!--thanh-->
+    <color name="transparent">#00000000</color>
+    <color name="md_grey_600">#757575</color>
+
 </resources>

@@ -40,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
 import com.japan.jav.learnjapan.model.User;
 import com.squareup.picasso.Picasso;
@@ -54,7 +55,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class CompleteProfileActivity extends AppCompatActivity {
+public class CompleteProfileActivity extends BaseActivity {
     // constants
 
 

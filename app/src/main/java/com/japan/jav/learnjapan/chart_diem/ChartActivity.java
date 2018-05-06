@@ -19,6 +19,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.chart_diem.model.DataChart;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
@@ -27,7 +28,7 @@ import com.japan.jav.learnjapan.model.Moji;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartActivity extends AppCompatActivity {
+public class ChartActivity extends BaseActivity {
 
     PieChart pieChart;
     private SQLiteDatabase sqLiteDB;

@@ -12,12 +12,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.download_nguyen.adapter.TopicAdapter;
 import com.japan.jav.learnjapan.service.DatabaseService;
 
 import java.util.ArrayList;
 
-public class TopicMojiActivity extends AppCompatActivity {
+public class TopicMojiActivity extends BaseActivity {
 
     public static final String TAG = TopicKanjiActivity.class.getSimpleName();
 

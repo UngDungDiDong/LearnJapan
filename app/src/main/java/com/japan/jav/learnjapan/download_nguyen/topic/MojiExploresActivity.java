@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.download_nguyen.adapter.MojiAdater;
 import com.japan.jav.learnjapan.model.Moji;
 import com.japan.jav.learnjapan.model.Set;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MojiExploresActivity extends AppCompatActivity {
+public class MojiExploresActivity extends BaseActivity {
 
     public static final String TAG = MojiExploresActivity.class.getSimpleName();
 

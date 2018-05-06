@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.model.Kanji;
 import com.japan.jav.learnjapan.model.Moji;
@@ -36,7 +37,7 @@ import java.util.Random;
  * Created by huuduc on 15/03/2018.
  */
 
-public class TestActivity extends AppCompatActivity implements View.OnClickListener {
+public class TestActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private TextView txtRightCount, txtQuestion, txtAnswerA, txtAnswerB, txtAnswerC, txtAnswerD;
@@ -175,7 +176,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             NUMBER_OF_QUESTION = mojiList.size();
             updateQuestionMoji(mojiList, answerList);
         }
-        txtNumberQuestion.setText("QUESTION: " + String.valueOf(index_question+1) + "/"
+        txtNumberQuestion.setText("QUESTION: " + String.valueOf(index_question + 1) + "/"
                 + String.valueOf(NUMBER_OF_QUESTION));
         txtRightCount.setText(String.valueOf(number_of_right_answer));
     }
@@ -491,7 +492,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         txtAnswerC.setEnabled(true);
         txtAnswerD.setEnabled(true);
         index_question++;
-        String numberQuestion = "Question: " + String.valueOf(index_question+1) + "/"
+        String numberQuestion = "Question: " + String.valueOf(index_question + 1) + "/"
                 + String.valueOf(NUMBER_OF_QUESTION);
         if (index_question != NUMBER_OF_QUESTION) txtNumberQuestion.setText(numberQuestion);
         txtRightCount.setText(String.valueOf(number_of_right_answer));
@@ -735,7 +736,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 selectSql += "SetId = '" + setID + "'";
 
                 TestResult testRes = testResults[0];
-                cursor = sqLiteDB.rawQuery(selectSql,null);
+                cursor = sqLiteDB.rawQuery(selectSql, null);
 
                 String sql =
                         "INSERT or replace INTO " + getString(R.string.test_result_table)
@@ -744,15 +745,15 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                                 + testRes.getSetId() + "','"
                                 + testRes.getSoLanTest() + "','"
                                 + testRes.getTongSocau() + "','"
-                                + testRes.getSoCauDung() + "')" ;
+                                + testRes.getSoCauDung() + "')";
 
                 if (cursor != null && cursor.moveToFirst()) {
                     sql = "UPDATE " + getString(R.string.test_result_table)
-                        +  " SET "
-                        + "SoLanTest='"+ (cursor.getInt(2) + 1) + "'"
-                        + ", SoCauDung='" + (cursor.getInt(4) + testRes.getSoCauDung()) + "'"
-                        + " WHERE UserId='" + testRes.getUserId() + "'"
-                        + " and SetId='" + testRes.getSetId() + "'";
+                            + " SET "
+                            + "SoLanTest='" + (cursor.getInt(2) + 1) + "'"
+                            + ", SoCauDung='" + (cursor.getInt(4) + testRes.getSoCauDung()) + "'"
+                            + " WHERE UserId='" + testRes.getUserId() + "'"
+                            + " and SetId='" + testRes.getSetId() + "'";
                 }
 
                 sqLiteDB.execSQL(sql);

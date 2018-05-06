@@ -29,6 +29,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.create_account_dan.SignupActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
@@ -40,7 +41,7 @@ import com.japan.jav.learnjapan.service.DatabaseService;
  * Created by matas on 3/17/18.
  */
 
-public class LoginActivity  extends AppCompatActivity{
+public class LoginActivity extends BaseActivity {
 
     private EditText edtUsername;
     private EditText edtPassword;
@@ -78,15 +79,13 @@ public class LoginActivity  extends AppCompatActivity{
         super.onStart();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        if(firebaseUser != null){
+        if (firebaseUser != null) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             Log.i(TAG, "Userid: " + mData.getUserID());
             intent.putExtra(Constants.USER_ID, mData.getUserID());
             startActivity(intent);
             finish();
-        }
-        else
-        {
+        } else {
             Log.e(TAG, "onStart: " + "null usercom");
         }
     }
@@ -101,7 +100,7 @@ public class LoginActivity  extends AppCompatActivity{
         imgGoogle = (ImageView) findViewById(R.id.img_google);
         txtCreateAcount = (TextView) findViewById(R.id.tv_create_an_account);
         txtForgotPass = (TextView) findViewById(R.id.tv_forgot_password);
-        loginGoogle = new LoginGoogle(getString(R.string.default_web_client_id),this);
+        loginGoogle = new LoginGoogle(getString(R.string.default_web_client_id), this);
         mAuth = mData.getFirebaseAuth();
 
         //---NAM----------
@@ -118,13 +117,13 @@ public class LoginActivity  extends AppCompatActivity{
                 String username = edtUsername.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
 
-                if(!username.isEmpty() && !password.isEmpty()){
+                if (!username.isEmpty() && !password.isEmpty()) {
                     hideKeyboard(view);
                     progressBar.setVisibility(View.VISIBLE);
                     imgBottom.setVisibility(View.GONE);
                     requestSignIn(username, password);
 
-                }else{
+                } else {
                     Toast.makeText(LoginActivity.this, "Please fill in username and password", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -148,7 +147,7 @@ public class LoginActivity  extends AppCompatActivity{
         txtCreateAcount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity (new Intent(LoginActivity.this, SignupActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
                 //Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 //startActivity(intent);
             }
@@ -162,11 +161,11 @@ public class LoginActivity  extends AppCompatActivity{
         });
     }
 
-    private void requestSignIn(String email, String pass){
+    private void requestSignIn(String email, String pass) {
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d(TAG, "User_id:" + mData.getUserID());
                     btnLogin.setEnabled(false);
                     btnLogin.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorDisable));
@@ -215,7 +214,7 @@ public class LoginActivity  extends AppCompatActivity{
     }
 
     private void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

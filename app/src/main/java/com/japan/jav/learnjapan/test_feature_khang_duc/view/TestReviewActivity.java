@@ -9,13 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.adapter.ListReviewAdapter;
 import com.japan.jav.learnjapan.test_feature_khang_duc.view.model.ReviewItem;
 
 import java.util.ArrayList;
 
-public class TestReviewActivity extends AppCompatActivity {
+public class TestReviewActivity extends BaseActivity {
 
     private ListReviewAdapter adapter;
     private RecyclerView rvListReview;

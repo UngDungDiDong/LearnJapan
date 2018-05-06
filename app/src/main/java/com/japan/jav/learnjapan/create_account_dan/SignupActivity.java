@@ -20,11 +20,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
 import com.japan.jav.learnjapan.model.User;
 
 
-public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignupActivity extends BaseActivity implements View.OnClickListener {
     EditText tv_username , tv_email, tv_pass, tv_confirmpass;
     Button bt_Signup;
     String username = "",email = "", pass = "", confirmPass = "";

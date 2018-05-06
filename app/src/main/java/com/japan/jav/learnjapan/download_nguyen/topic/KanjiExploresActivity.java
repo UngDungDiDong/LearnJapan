@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.download_nguyen.adapter.KanjiAdapter;
 import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.model.Kanji;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class KanjiExploresActivity extends AppCompatActivity {
+public class KanjiExploresActivity extends BaseActivity {
 
     public static final String TAG = KanjiExploresActivity.class.getSimpleName();
 

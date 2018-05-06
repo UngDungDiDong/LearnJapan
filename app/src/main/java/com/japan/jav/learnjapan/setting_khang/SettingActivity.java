@@ -33,13 +33,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.service.Constants;
 import com.japan.jav.learnjapan.service.DatabaseService;
 import com.japan.jav.learnjapan.setting_khang.model.SettingNotification;
 
 import java.util.Calendar;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private TextView txtSelectTime;

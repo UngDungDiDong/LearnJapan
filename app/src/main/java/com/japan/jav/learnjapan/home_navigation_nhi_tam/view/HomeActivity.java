@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
+import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
@@ -42,7 +43,7 @@ import com.squareup.picasso.Picasso;
  * Created by matas on 3/19/18.
  */
 
-public class HomeActivity extends AppCompatActivity implements NetworkListener{
+public class HomeActivity extends BaseActivity implements NetworkListener{
     public static final int REQUEST_ADD_VOCAB = 1;
     private Toolbar mToolBar;
     private TabLayout mTabLayout;

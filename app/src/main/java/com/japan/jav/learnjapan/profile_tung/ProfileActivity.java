@@ -1,5 +1,6 @@
 package com.japan.jav.learnjapan.profile_tung;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.base.BaseActivity;
+import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.model.User;
 import com.japan.jav.learnjapan.reset_pass_hao.ResetPasswordActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
@@ -87,8 +92,6 @@ public class ProfileActivity extends BaseActivity implements NetworkListener {
     private void run() {
         if (user_current != null) {
             final String uid = user_current.getUid();
-
-            Log.d("user", uid);
 
             database.getReference()
                     .child("User")
@@ -170,6 +173,22 @@ public class ProfileActivity extends BaseActivity implements NetworkListener {
         } catch (Exception e) {
             Log.e("SET", e.getMessage());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_update:
+                startActivity(new Intent(ProfileActivity.this, CompleteProfileActivity.class));
+                return true;
+        }
+        return false;
     }
 
 

@@ -712,6 +712,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            showDialog();
             sqLiteDB = openOrCreateDatabase(getString(R.string.test_result_database), MODE_PRIVATE, null);
         }
 
@@ -760,6 +761,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
             } catch (Exception e) {
                 Log.e("Sqlite", e.toString());
             } finally {
+                dismissDialog();
                 cursor.close();
             }
             return null;

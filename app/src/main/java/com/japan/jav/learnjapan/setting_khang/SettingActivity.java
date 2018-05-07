@@ -83,6 +83,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void loadDataFromFireBase() {
+        showDialog();
         // load obj
         obj = new SettingNotification();
         snRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -111,15 +112,15 @@ public class SettingActivity extends BaseActivity {
                     if (repeatWeekly.contains("5")) cb6.setChecked(true);
                     if (repeatWeekly.contains("6")) cb7.setChecked(true);
                     if (repeatWeekly.contains("7")) cbCN.setChecked(true);
+                    dismissDialog();
                 } catch (Exception e) {
-
-
+                    dismissDialog();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                dismissDialog();
             }
 
         });
@@ -193,6 +194,7 @@ public class SettingActivity extends BaseActivity {
         btnSettingSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDialog();
                 View v = SettingActivity.this.getCurrentFocus();
                 if (v != null) {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -208,6 +210,7 @@ public class SettingActivity extends BaseActivity {
                             txtMessage.getBackground().clearColorFilter();
                         }
                     }, 1500);
+                    dismissDialog();
                     return;
                 }
                 int hour,minute;
@@ -216,6 +219,7 @@ public class SettingActivity extends BaseActivity {
                     hour = hour - 7 < 0 ? (24 - 7 - hour) : hour-7;
                     minute = Integer.parseInt(time[1]);
                 } catch (Exception e) {
+                    dismissDialog();
                     showSnackBar("Vui lòng chọn thời gian", android.R.color.holo_red_dark);
                     return;
                 }
@@ -230,6 +234,7 @@ public class SettingActivity extends BaseActivity {
 
                 if (dayOfWeek == "") {
                     showSnackBar("Vui lòng chọn ngày", android.R.color.holo_red_dark);
+                    dismissDialog();
                     return;
                 }
                 dayOfWeek = dayOfWeek.substring(0, dayOfWeek.length()-1);
@@ -238,6 +243,7 @@ public class SettingActivity extends BaseActivity {
                 obj = new SettingNotification(token, _time, txtMessage.getText().toString().trim());
                 snRef.child(mUserID).setValue(obj);
                 showSnackBar("Lưu thành công", android.R.color.holo_green_dark);
+                dismissDialog();
             }
         });
     }

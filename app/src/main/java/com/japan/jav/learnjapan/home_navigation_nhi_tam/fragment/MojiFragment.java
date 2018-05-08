@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
+import com.japan.jav.learnjapan.add_vocab_thanh.dialog.DialogProgress;
 import com.japan.jav.learnjapan.chart_diem.ChartActivity;
 import com.japan.jav.learnjapan.download_nguyen.topic.TopicMojiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
@@ -259,8 +260,31 @@ public class MojiFragment extends Fragment {
 
     private void loadMojiData() {
         mojiSetList = new ArrayList<>();
+        showDialog();
         new LoadMojiDataTask().execute();
     }
+
+    // progress dialog
+    private DialogProgress mProgressDialog;
+
+    protected void showDialog() {
+        dismissDialog();
+        mProgressDialog = showProgressDialog(getContext());
+    }
+
+    protected void dismissDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+    public DialogProgress showProgressDialog(Context context) {
+        DialogProgress progressDialog = new DialogProgress(context);
+        progressDialog.show();
+        return progressDialog;
+    }
+    // end progress dialog
 
 
     //Load moji set
@@ -275,7 +299,7 @@ public class MojiFragment extends Fragment {
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         mojiSetList.add(ds.getValue(Set.class));
-
+                        dismissDialog();
                         Log.d("TAMHome: ", ds.getKey()+"/"+String.valueOf(ds.getValue()));
                     }
 
@@ -285,7 +309,7 @@ public class MojiFragment extends Fragment {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    dismissDialog();
                 }
             });
             return null;
@@ -346,4 +370,6 @@ public class MojiFragment extends Fragment {
             }
         }
     }
+
+
 }

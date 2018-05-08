@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.add_vocab_thanh.add.AddVocabActivity;
+import com.japan.jav.learnjapan.add_vocab_thanh.dialog.DialogProgress;
 import com.japan.jav.learnjapan.chart_diem.ChartActivity;
 import com.japan.jav.learnjapan.download_nguyen.topic.TopicKanjiActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.Constants;
@@ -263,8 +264,31 @@ public class KanjiFragment extends Fragment {
 
     private void loadMojiData() {
         kanjiSetList = new ArrayList<>();
+        showDialog();
         new LoadKanjiDataTask().execute();
     }
+
+    // progress dialog
+    private DialogProgress mProgressDialog;
+
+    protected void showDialog() {
+        dismissDialog();
+        mProgressDialog = showProgressDialog(getContext());
+    }
+
+    protected void dismissDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+    public DialogProgress showProgressDialog(Context context) {
+        DialogProgress progressDialog = new DialogProgress(context);
+        progressDialog.show();
+        return progressDialog;
+    }
+    // end progress dialog
 
     public class LoadKanjiDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -276,6 +300,7 @@ public class KanjiFragment extends Fragment {
                     kanjiSetList.clear();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         kanjiSetList.add(ds.getValue(Set.class));
+                        dismissDialog();
                         Log.d("TAMHome: ", ds.getKey() + "/" + String.valueOf(ds.getValue()));
                     }
                     publishProgress();
@@ -283,6 +308,7 @@ public class KanjiFragment extends Fragment {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    dismissDialog();
                 }
             });
             return null;

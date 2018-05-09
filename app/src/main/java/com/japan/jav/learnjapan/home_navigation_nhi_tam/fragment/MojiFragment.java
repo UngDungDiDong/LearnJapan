@@ -296,15 +296,11 @@ public class MojiFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     mojiSetList.clear();
-
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         mojiSetList.add(ds.getValue(Set.class));
-                        dismissDialog();
                         Log.d("TAMHome: ", ds.getKey()+"/"+String.valueOf(ds.getValue()));
                     }
-
                     publishProgress();
-
                 }
 
                 @Override
@@ -318,6 +314,7 @@ public class MojiFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+            dismissDialog();
             adapter.notifyDataSetChanged();
         }
     }

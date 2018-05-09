@@ -300,7 +300,6 @@ public class KanjiFragment extends Fragment {
                     kanjiSetList.clear();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         kanjiSetList.add(ds.getValue(Set.class));
-                        dismissDialog();
                         Log.d("TAMHome: ", ds.getKey() + "/" + String.valueOf(ds.getValue()));
                     }
                     publishProgress();
@@ -317,6 +316,7 @@ public class KanjiFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+            dismissDialog();
             adapter.notifyDataSetChanged();
         }
     }

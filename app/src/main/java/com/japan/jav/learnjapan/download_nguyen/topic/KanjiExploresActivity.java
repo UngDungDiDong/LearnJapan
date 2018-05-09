@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,8 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.download_nguyen.adapter.KanjiAdapter;
-import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.model.Kanji;
+import com.japan.jav.learnjapan.model.Set;
 import com.japan.jav.learnjapan.service.DatabaseService;
 
 import java.util.ArrayList;
@@ -177,7 +176,7 @@ public class KanjiExploresActivity extends BaseActivity {
             //Set set = new Set(id, mSetName, currentTime);
             mKanjiSet.child(userID).child(id).setValue(set);
             for (int i = 0; i < kanjiList.size(); i++){
-
+                mSetByUser.child(userID).child(id).child(kanjiList.get(i).getId()).setValue(kanjiList.get(i));
             }
             isAdded = true;
             checkStatus();

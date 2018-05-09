@@ -20,8 +20,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.japan.jav.learnjapan.R;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.view.HomeActivity;
+import com.japan.jav.learnjapan.model.User;
 import com.japan.jav.learnjapan.service.Constants;
 import com.japan.jav.learnjapan.service.DatabaseService;
 
@@ -39,7 +44,10 @@ public class LoginFacebook {
 
     private DatabaseService mData = DatabaseService.getInstance();
     private ProgressDialog progressDialog;
-    private String idUser;
+    private static String email = "";
+    private static String userName = "";
+    private static String avatar = "";
+    private static String idUser;
 
     public LoginFacebook(LoginManager loginManager, CallbackManager callbackManager, Activity mActivity) {
         this.loginManager = loginManager;
@@ -82,7 +90,12 @@ public class LoginFacebook {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(mActivity, R.string.login_success, Toast.LENGTH_SHORT).show();
+                            email = task.getResult().getUser().getEmail();
+                            userName = task.getResult().getUser().getDisplayName();
+                            avatar = task.getResult().getUser().getPhotoUrl().toString();
                             idUser = task.getResult().getUser().getUid();
+                            User user = new User(idUser, userName, email,avatar);
+                            createUserOnFireBase(user);
                             Intent intent = new Intent(mActivity, HomeActivity.class);
                             intent.putExtra(Constants.USER_ID, idUser);
                             mActivity.startActivity(intent);
@@ -105,6 +118,30 @@ public class LoginFacebook {
                         Toast.makeText(mActivity, R.string.login_failed, Toast.LENGTH_SHORT).show();
                         Log.e("TAG", "onFailure: " + e.getMessage().toString());
                     }
+        });
+    }
+
+    private void createUserOnFireBase(final User user){
+        final DatabaseReference userNode = mData.createDatabase(Constants.USER_NODE).child(user.getId());
+        userNode.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null){
+                    userNode.setValue(user);
+                    Toast.makeText(mActivity, mActivity.getResources().getString(R.string.login_success),
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    hideProgress();
+                    Toast.makeText(mActivity, mActivity.getResources().getString(R.string.login_success),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
     }
 

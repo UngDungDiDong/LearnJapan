@@ -326,7 +326,7 @@ public class CompleteProfileActivity extends BaseActivity {
                                    .child("linkPhoto")
                                    .setValue(avatarUrl);
                            dismissDialog();
-                           backToHomeActivity();
+                           finish();
                        }
                    });
        }
@@ -353,12 +353,6 @@ public class CompleteProfileActivity extends BaseActivity {
                 showMessage("Failed");
             }
         });
-    }
-
-    private void backToHomeActivity() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        finish();
-        startActivity(intent);
     }
 
     @Override

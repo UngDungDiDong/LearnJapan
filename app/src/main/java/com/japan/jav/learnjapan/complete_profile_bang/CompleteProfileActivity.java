@@ -290,9 +290,7 @@ public class CompleteProfileActivity extends BaseActivity {
             showMessage("Please enter your address");
             return;
         }
-        showDialog();
         upLoadAvatar();
-
         user = new User(getUserId(), fullName, email, avatarUrl, gender, phone, dateOfBirth, address);
         storeUser(user);
     }
@@ -309,10 +307,12 @@ public class CompleteProfileActivity extends BaseActivity {
 
            UploadTask uploadTask = mStorageReference.putBytes(data);
 
+           showDialog();
            uploadTask
                    .addOnFailureListener(new OnFailureListener() {
                        @Override
                        public void onFailure(@NonNull Exception exception) {
+                           dismissDialog();
                            showMessage("Upload failed");
                        }
                    })
@@ -325,6 +325,8 @@ public class CompleteProfileActivity extends BaseActivity {
                                    .child(user.getId())
                                    .child("linkPhoto")
                                    .setValue(avatarUrl);
+                           dismissDialog();
+                           backToHomeActivity();
                        }
                    });
        }
@@ -344,22 +346,17 @@ public class CompleteProfileActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 showMessage("Added");
-                dismissDialog();
-                backToHomeActivity();
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 showMessage("Failed");
-                dismissDialog();
             }
         });
     }
 
     private void backToHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(intent);
     }

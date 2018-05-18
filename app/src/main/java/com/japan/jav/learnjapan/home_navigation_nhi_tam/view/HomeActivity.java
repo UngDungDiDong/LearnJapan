@@ -31,6 +31,7 @@ import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
+import com.japan.jav.learnjapan.model.User;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
@@ -123,11 +124,7 @@ public class HomeActivity extends BaseActivity implements NetworkListener{
 
 
     private void setUserID(){
-        Intent intent = getIntent();
-        if(intent.hasExtra(Constants.USER_ID)){
-            mUserID = intent.getStringExtra(Constants.USER_ID);
-            Log.i(TAG, "getUserID: " + mUserID);
-        }
+        mUserID = firebaseUser.getUid();
     }
 
     private void setupToolbar() {
@@ -148,8 +145,9 @@ public class HomeActivity extends BaseActivity implements NetworkListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.child("username").getValue() == null || dataSnapshot.child("username").getValue().toString().length() == 0 ||
-                        dataSnapshot.child("linkPhoto").getValue() == null || dataSnapshot.child("linkPhoto").getValue().toString().length() == 0){
+                User user = dataSnapshot.getValue(User.class);
+
+                if(user.getUsername().length() == 0 || user.getLinkPhoto().length() == 0){
                     goToCompeleteProfileActivities();
                     return;
                 }

@@ -107,7 +107,7 @@ public class KanjiExploresActivity extends BaseActivity {
 
 
     private void setReference(String Topic) {
-        mKanjiRef = mData.getDatabase().child("data_kanji").child(Topic);
+        mKanjiRef = mData.getDatabase().child("Kanji").child(Topic);
     }
 
     public class LoadDataTask extends AsyncTask<Void, Void, Void> {

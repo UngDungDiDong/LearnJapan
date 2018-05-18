@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -110,8 +109,8 @@ public class MojiExploresActivity extends BaseActivity {
     }
 
     private void setReference(String topic) {
-        mMojiRef = mData.getDatabase().child("moji").child(MOJI_SOUMATOME_KEY).child(topic);
-        Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
+        mMojiRef = mData.getDatabase().child("Moji").child(MOJI_SOUMATOME_KEY).child(topic);
+      Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
     }
 
     public class LoadDataTask extends AsyncTask<Void, Void, Void> {

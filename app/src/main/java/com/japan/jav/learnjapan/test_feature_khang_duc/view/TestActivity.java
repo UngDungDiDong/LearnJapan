@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -290,7 +291,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 Log.d("INDEX_THREE", String.valueOf(index_three));
                 break;
         }
-        listMoji.remove(listMoji.get(index_moji));
+//        listMoji.remove(listMoji.get(index_moji));
     }
 
     public void updateQuestionKanji(ArrayList<Kanji> listKanji, ArrayList<String> listAnswer) {
@@ -407,8 +408,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 Log.d("INDEX_THREE", String.valueOf(index_three));
                 break;
         }
-        listKanji.remove(listKanji.get(index_kanji));
-        ;
+//        listKanji.remove(listKanji.get(index_kanji));
     }
 
     public void updateNumberOfRightAnswer() {
@@ -627,23 +627,54 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case R.id.btnRetry:
-                Intent refresh = new Intent(this, TestActivity.class);
-                if (isKanji) {
-                    Log.d("test", String.valueOf(kanjiList.size()));
+                answerList.clear();
+                QAList.clear();
 
-                    refresh.putExtra(Constants.SET_BY_USER, oldKanjiList);
-                    refresh.putExtra(Constants.DATA_TYPE, "KANJI");
+                NUMBER_OF_QUESTION = 0;
 
-                } else {
+                number_of_right_answer = 0;
+                index_question = 0;
 
-                    refresh.putExtra(Constants.SET_BY_USER, oldMojiList);
-                    refresh.putExtra(Constants.DATA_TYPE, "MOJI");
-                }
-                refresh.putExtra(Constants.USER_ID, userID);
-                refresh.putExtra(Constants.KANJI_SET_NODE, setID);
-                startActivity(refresh);
-                this.finish();
+                txtRightCount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) txtNumberQuestion.getLayoutParams();
+                marginLayoutParams.setMargins(defaultMarginLayoutParams.leftMargin,
+                        defaultMarginLayoutParams.topMargin,
+                        defaultMarginLayoutParams.rightMargin, defaultMarginLayoutParams.bottomMargin);
+
+                txtRightCount.setText(number_of_right_answer + "");
+
+
+                initData(isKanji);
+
+                txtRightCount.setVisibility(View.VISIBLE);
+                txtQuestion.setVisibility(View.VISIBLE);
+                txtAnswerA.setVisibility(View.VISIBLE);
+                txtAnswerB.setVisibility(View.VISIBLE);
+                txtAnswerC.setVisibility(View.VISIBLE);
+                txtAnswerD.setVisibility(View.VISIBLE);
+                txtNumberQuestion.setVisibility(View.VISIBLE);
+
+                btnMain.setVisibility(View.GONE);
+                btnRetry.setVisibility(View.GONE);
+                txtNotification.setVisibility(View.GONE);
+                btnReview.setVisibility(View.GONE);
                 break;
+//                Intent refresh = new Intent(this, TestActivity.class);
+//                if (isKanji) {
+//                    Log.d("test", String.valueOf(kanjiList.size()));
+//
+//                    refresh.putExtra(Constants.SET_BY_USER, oldKanjiList);
+//                    refresh.putExtra(Constants.DATA_TYPE, "KANJI");
+//
+//                } else {
+//
+//                    refresh.putExtra(Constants.SET_BY_USER, oldMojiList);
+//                    refresh.putExtra(Constants.DATA_TYPE, "MOJI");
+//                }
+//                refresh.putExtra(Constants.USER_ID, userID);
+//                refresh.putExtra(Constants.KANJI_SET_NODE, setID);
+//                startActivity(refresh);
+//                this.finish();
             case R.id.btnReview:
 
                 if (isKanji) {

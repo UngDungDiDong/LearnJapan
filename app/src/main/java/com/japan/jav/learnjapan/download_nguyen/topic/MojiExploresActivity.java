@@ -55,13 +55,14 @@ public class MojiExploresActivity extends BaseActivity {
     private DatabaseReference mSetByUser = mData.createDatabase("SetByUser");
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moji_explores);
 
         currentTime = Calendar.getInstance().getTime();
-        userID = mData.getUserID();
+        userID = mAuth.getCurrentUser().getUid();
         isAdded = false;
 
         //Declare database reference
@@ -75,7 +76,13 @@ public class MojiExploresActivity extends BaseActivity {
 
         new LoadDataTask().execute();
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        
+}
     private void addControl() {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

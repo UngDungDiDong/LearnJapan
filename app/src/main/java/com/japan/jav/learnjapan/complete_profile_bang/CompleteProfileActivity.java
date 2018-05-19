@@ -346,6 +346,9 @@ public class CompleteProfileActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 showMessage("Added");
+                if(avatarUrl.length() > 0){
+                    finish();
+                }
             }
 
             @Override

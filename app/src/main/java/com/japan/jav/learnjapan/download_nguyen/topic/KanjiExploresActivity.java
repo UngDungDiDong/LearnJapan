@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,13 +52,15 @@ public class KanjiExploresActivity extends BaseActivity {
     private DatabaseService mData = DatabaseService.getInstance();
     private DatabaseReference mKanjiSet = mData.createDatabase("KanjiSet");
     private DatabaseReference mSetByUser = mData.createDatabase("SetByUser");
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kanji_explores);
 
         currentTime = Calendar.getInstance().getTime();
-        userID = mData.getUserID();
+        mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
         isAdded = false;
 
         //Declare database references

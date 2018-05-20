@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1026911550743",
+    "firebase_url": "https://customlistview-43c7a.firebaseio.com",
+    "project_id": "customlistview-43c7a",
+    "storage_bucket": "customlistview-43c7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026911550743:android:92dfe0f498a9d50e",
+        "android_client_info": {
+          "package_name": "edu.ptit.kalis.customlistviewusesqlitefirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026911550743-o5b580ii8us8gm2eadio5r0mn1kjdd43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAifvipbfsWg3PzrGxFk4rsW-dyYChgCI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

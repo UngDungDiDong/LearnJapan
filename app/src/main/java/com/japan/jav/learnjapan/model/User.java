@@ -17,6 +17,8 @@ public class User {
     private String address;
 
     public User() {
+        email = "";
+        linkPhoto = "";
     }
 
     // dan cmt

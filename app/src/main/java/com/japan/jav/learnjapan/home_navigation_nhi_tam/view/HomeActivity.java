@@ -31,6 +31,7 @@ import com.japan.jav.learnjapan.base.BaseActivity;
 import com.japan.jav.learnjapan.complete_profile_bang.CompleteProfileActivity;
 import com.japan.jav.learnjapan.home_navigation_nhi_tam.adapter.HomeFragmentPagerAdapter;
 import com.japan.jav.learnjapan.login_trung_nam.LoginActivity;
+import com.japan.jav.learnjapan.model.User;
 import com.japan.jav.learnjapan.profile_tung.ProfileActivity;
 import com.japan.jav.learnjapan.service.ConnectivityChangeReceiver;
 import com.japan.jav.learnjapan.service.Constants;
@@ -44,6 +45,7 @@ import com.squareup.picasso.Picasso;
  */
 
 public class HomeActivity extends BaseActivity implements NetworkListener{
+    private String DEFAULT_AVARTAR = "https://firebasestorage.googleapis.com/v0/b/learnjapan-4b5b5.appspot.com/o/avatar%2F1526662184499.png?alt=media&token=7001501e-145d-4a5e-b4f1-786af340c6f8";
     public static final int REQUEST_ADD_VOCAB = 1;
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
@@ -123,11 +125,7 @@ public class HomeActivity extends BaseActivity implements NetworkListener{
 
 
     private void setUserID(){
-        Intent intent = getIntent();
-        if(intent.hasExtra(Constants.USER_ID)){
-            mUserID = intent.getStringExtra(Constants.USER_ID);
-            Log.i(TAG, "getUserID: " + mUserID);
-        }
+        mUserID = firebaseUser.getUid();
     }
 
     private void setupToolbar() {
@@ -148,14 +146,17 @@ public class HomeActivity extends BaseActivity implements NetworkListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.child("username").getValue() == null || dataSnapshot.child("username").getValue().toString().length() == 0 ||
-                        dataSnapshot.child("linkPhoto").getValue() == null || dataSnapshot.child("linkPhoto").getValue().toString().length() == 0){
-                    goToCompeleteProfileActivities();
-                    return;
+                String name = firebaseUser.getEmail();
+                if(dataSnapshot.child("username").getValue() != null
+                        && dataSnapshot.child("username").getValue().toString().length() > 0){
+                    name = dataSnapshot.child("username").getValue().toString();
                 }
 
-                String name = dataSnapshot.child("username").getValue().toString();
-                String urlPhoto = dataSnapshot.child("linkPhoto").getValue().toString();
+                String urlPhoto =  DEFAULT_AVARTAR;
+                if(dataSnapshot.child("linkPhoto").getValue() != null
+                        && dataSnapshot.child("linkPhoto").getValue().toString().length() > 0){
+                    urlPhoto = dataSnapshot.child("linkPhoto").getValue().toString();
+                }
                 Picasso.with(HomeActivity.this)
                         .load(urlPhoto)
                         .placeholder(R.drawable.placeholder)

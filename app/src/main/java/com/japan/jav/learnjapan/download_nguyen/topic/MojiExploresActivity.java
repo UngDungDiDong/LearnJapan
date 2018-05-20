@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,13 +57,14 @@ public class MojiExploresActivity extends BaseActivity {
     private DatabaseReference mSetByUser = mData.createDatabase("SetByUser");
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moji_explores);
-
+        mAuth = FirebaseAuth.getInstance();
         currentTime = Calendar.getInstance().getTime();
-        userID = mData.getUserID();
+        userID = mAuth.getCurrentUser().getUid();
         isAdded = false;
 
         //Declare database reference
@@ -76,7 +78,13 @@ public class MojiExploresActivity extends BaseActivity {
 
         new LoadDataTask().execute();
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        
+}
     private void addControl() {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -110,8 +118,8 @@ public class MojiExploresActivity extends BaseActivity {
     }
 
     private void setReference(String topic) {
-        mMojiRef = mData.getDatabase().child("moji").child(MOJI_SOUMATOME_KEY).child(topic);
-        Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
+        mMojiRef = mData.getDatabase().child("Moji").child(MOJI_SOUMATOME_KEY).child(topic);
+      Log.d(TAG, "setReference: Mojiref: " + mMojiRef);
     }
 
     public class LoadDataTask extends AsyncTask<Void, Void, Void> {

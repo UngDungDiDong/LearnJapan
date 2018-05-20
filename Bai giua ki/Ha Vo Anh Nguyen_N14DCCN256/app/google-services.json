@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "100936215500",
+    "firebase_url": "https://listviewandroid.firebaseio.com",
+    "project_id": "listviewandroid",
+    "storage_bucket": "listviewandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100936215500:android:9972e6caa0794e6a",
+        "android_client_info": {
+          "package_name": "com.example.anhnguyen.thigiuaky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100936215500-69qmslcdo88sj8arognr66cd7g941o7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCkgGJQ5ngQ7y6qAMp7vXmlveK-I_noOg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

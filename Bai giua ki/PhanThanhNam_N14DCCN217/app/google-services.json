@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "886016140987",
+    "firebase_url": "https://quanlysinhviendemo.firebaseio.com",
+    "project_id": "quanlysinhviendemo",
+    "storage_bucket": "quanlysinhviendemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886016140987:android:5a1493725dcbcf3d",
+        "android_client_info": {
+          "package_name": "com.example.fstha.quanlysinhviendemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886016140987-1alhas4u957a55qikj6rjcns6m021gqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFOFofGbkr9KzdXvDkM61YStqo1l8sqms"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

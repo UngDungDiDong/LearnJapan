@@ -1,0 +1,43 @@
+
+{
+  "project_info": {
+    "project_number": "564690035988",
+    "firebase_url": "https://android-fire-41f03.firebaseio.com",
+    "project_id": "android-fire-41f03",
+    "storage_bucket": "android-fire-41f03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564690035988:android:1768b728aaf7b38c",
+        "android_client_info": {
+          "package_name": "com.example.huuduc.firebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564690035988-r2p3t2n95a958gqpglq4n7k53p47uus2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNPItL7VeqtF9ierqfVZPutfKnC3Pm6G0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "754309747837",
+    "firebase_url": "https://demofirebase-4e5f4.firebaseio.com",
+    "project_id": "demofirebase-4e5f4",
+    "storage_bucket": "demofirebase-4e5f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754309747837:android:309cb64ccde376be",
+        "android_client_info": {
+          "package_name": "com.thudiem.ntt2.newfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754309747837-en8tpkm4lcvu63peirlva9macl2i9agp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEDU8mMBGpIynt-t_0dqajbcpyRW20RwY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

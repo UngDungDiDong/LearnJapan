@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "286466081211",
+    "firebase_url": "https://demofirebase-ffdba.firebaseio.com",
+    "project_id": "demofirebase-ffdba",
+    "storage_bucket": "demofirebase-ffdba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286466081211:android:5f452104dca5ff37",
+        "android_client_info": {
+          "package_name": "com.n14dccn309.thanhle.demofirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286466081211-8l2j9mt9b14952ie6nrdq6l8jij12noj.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "286466081211-8l2j9mt9b14952ie6nrdq6l8jij12noj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWRdzqGL5sQGKTqHKpzRzpSIYhXvaeTgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

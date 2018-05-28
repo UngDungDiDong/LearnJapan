@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "355538235844",
+    "firebase_url": "https://demouser-437b2.firebaseio.com",
+    "project_id": "demouser-437b2",
+    "storage_bucket": "demouser-437b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355538235844:android:1cab11f59f16a03e",
+        "android_client_info": {
+          "package_name": "com.tanhi.demouser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355538235844-pjuf5vtel6v82d58le8clcj97g5c81hv.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "355538235844-pjuf5vtel6v82d58le8clcj97g5c81hv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-VwWx99rSKn4e04o5lyB31U58R1PRNVk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
